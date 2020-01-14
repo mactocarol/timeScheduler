@@ -3,3 +3,6 @@
 
 # Ignore file named `config.php`
 /application/config/config.php
+
+# Ignore index.php file
+index.php
