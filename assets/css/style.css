@@ -1,0 +1,1014 @@
+/*=== Comman css ===*/
+body{
+    font-size: 14px;
+}
+.site_button {
+    display: inline-block;
+    padding: 0 15px;
+    text-align: center;
+    background-color: #159dc7;
+    color: #ffffff;
+    height: 38px;
+    line-height: 38px;
+    text-transform: capitalize;
+    border-radius: 5px;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all ease-in 0.3s;
+    -webkit-transition: all ease-in 0.3s;
+    -moz-transition: all ease-in 0.3s;
+}
+.site_button:hover {
+    text-decoration: none;
+    background-color: #07617d;
+    color: #ffffff;
+}
+input:focus, button:focus, select:focus, textarea:focus{
+    outline: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+.my_common_form .form-group > label {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+.my_common_form .form-group {
+    margin-bottom: 10px;
+}
+.my_common_form .form-group .form-control{
+    font-size:14px;
+}
+.express_modal .modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.modal-footer {
+    padding: 10px 15px;
+}
+/*=== Comman css ===*/
+/*=== Timepicker css ===*/
+.ui-timepicker-div dl dt {
+    float: left;
+    clear: left;
+    padding: 0 0 0 5px;
+    font-size: 15px;
+    font-weight: normal;
+}
+.ui-timepicker-div .ui-state-default {
+    border-radius: 50%;
+    background: #159dc7;
+    border-color: #159dc7;
+}
+.ui-timepicker-div .ui-state-default:focus{
+	outline:none;
+}
+.ui-datepicker .ui-datepicker-buttonpane button {
+    padding: 7px 13px;
+    font-size: 14px;
+    line-height: normal;
+}
+/*=== Timepicker css ===*/
+/*=== Datepicker css ===*/
+.ui-datepicker .ui-datepicker-header, 
+.ui-timepicker-div .ui-widget-header {
+    background: #159dc7;
+    border-color: #159dc7;
+    border-radius: 0;
+}
+.ui-datepicker .ui-datepicker-title {
+    font-weight: normal;
+    font-size: 16px;
+}
+.ui-datepicker-calendar tr th {
+    font-size: 14px;
+}
+.ui-datepicker-calendar tr td {
+    font-size: 14px;
+    text-align: center;
+}
+.ui-datepicker-calendar tr td .ui-state-default {
+    text-align: center;
+    color: #666;
+    font-weight: 400;
+    border: 1px solid transparent;
+}
+.ui-datepicker-calendar tr td .ui-state-default.ui-state-hover {
+    border-color: #333232;
+    background: #333232;
+    color: #fff;
+}
+.ui-datepicker-calendar tr td .ui-state-highlight{
+    border-color: #07617d;
+    background: #07617d;
+    color: #fff; 
+}
+.ui-datepicker-calendar tr td .ui-state-default.ui-state-active {
+    border-color: #159dc7;
+    background: #159dc7;
+    color: #fff;
+}
+
+/*=== Datepicker css ===*/
+
+
+.heading_select{
+	padding: 15px 0px; 
+}
+.heading_select h1 {
+    font-size: 18px;
+    color: #363636;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.create_bus {
+    cursor: pointer;
+    position: relative;
+    box-shadow: 4px 4px 6px -3px #d0d0d0;
+    border-left: .25rem solid #07617d!important;
+}
+.box_sad{
+    box-shadow: 4px 4px 6px -3px #d0d0d0;
+}
+.bus_block a.open_btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #07617D;
+    padding: 7px 13px;
+    border-radius: 4px;
+    margin-top: 30PX;
+    color: #fff;
+}
+.bus_block {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    background-color: #fff;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+.create_bus:hover .bus_block {
+    opacity: 1;
+}
+.border-left-success{
+	cursor: pointer;
+}
+h4.modal-title {
+    font-size: 20px;
+    color: #363636;
+}
+span.info_menu_icon {
+    display: inline-block;
+    right: 16px;
+    position: absolute;
+    top: 10px;
+}
+.info_nav {
+    position: absolute;
+    right: 0;
+    width: 150px;
+    padding: 12px;
+    background-color: #e6ecfb;
+    top: 35px;
+    text-align: left;
+    display: none;
+    border-radius: 4px;
+    box-shadow: 3px 3px 7px -1px #ccc;
+}
+.info_nav ul{
+	padding: 0;
+	margin: 0; 
+}
+.info_nav ul li{
+	display: inline-block;
+	list-style: none;
+	width: 100%;
+}
+.info_nav ul li a{
+	text-decoration: none;
+	color: #363636;
+	font-size: 14px;
+}
+.info_nav ul li + li {
+    padding-top: 10px;
+}
+.create_bus .modal-body .form-group label {
+    text-align: left;
+    display: block;
+}
+.custom_modal {
+    padding: 12px;
+    background-color: #159dc7;
+}
+.custom_modal h4 {
+    font-size: 16px;
+    color: #fff;
+}
+.custom_modal button.close {
+    color: #fff;
+    opacity: 1;
+}
+.create_frm label{
+    color: #363636;
+    font-weight: 600;
+}
+.adshi_modal label span {
+    display: inline-block;
+    padding-left: 0px;
+    font-size: 13px;
+    color: #363636;
+}
+.adshi_modal p, .adshi_modal label{
+    color: #363636;
+    font-weight: 600;
+}
+a.preview_btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #4369d7;
+    padding: 6px 12px;
+    color: #fff;
+    border-radius: 4px;
+}
+
+/*===============inner page tab menu==================*/
+
+.tab_content{
+    display: none;
+    float: left;
+    width: 100%;
+}
+.tab_content.active{
+    display: block;
+}
+ul.tab_menu {
+    padding: 15px 0px;
+    margin: 0;
+}
+ul.tab_menu li + li{
+    margin-left: 30px;
+}
+ul.tab_menu li {
+    list-style: none;
+    display: inline-block;
+    color: #363636;
+    cursor: pointer;
+}
+ul.tab_menu li.active.tab_link {
+    color: #07617d;
+    font-weight: 700;
+    border-bottom: 2px solid #07617d;
+}
+.left_side {
+    margin-top: 22px;
+}
+.left_side h2 {
+    font-size: 18px;
+    color: #363636;
+    display: inline-block;
+}
+label.saving_schedule {
+    font-size: 13px;
+    margin-left: 12px;
+    border-bottom: 1px dotted #888;
+}
+.left_side span a {
+    font-size: 14px;
+    margin-left: 12px;
+    color: #4469d7;
+}
+
+.right_side{
+    margin-top: 22px;
+    float: right;
+}
+button.add_time_btn {
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: 1px solid #159dc7;
+    padding: 4px 10px;
+    color: #159dc7;
+}
+button.crate_shift_btn {
+    border-radius: 4px;
+    background-color: #159dc7;
+    border: 1px solid #159dc7;
+    padding: 4px 10px;
+    color: #fff;
+}
+.time_off_tbl h2 {
+    font-size: 16px;
+    text-align: center;
+    padding: 30px 0px;
+}
+.time_off_tbl table thead tr th, 
+.schedule_tables table thead tr th {
+    font-weight: 500;
+    font-size: 12px;
+    color: #000000;
+    padding: 10px;
+}
+.tbl_btn {
+    text-align: center;
+}
+.software_btn h2 {
+    font-size: 18px;
+    color: #363636;
+    display: inline-block;
+    font-weight: 600;
+}
+.software_btn button{
+    float: right;
+}
+.software_btn {
+    background-color: #e2e2e2;
+    padding: 11px 13px;
+    display: inline-block;
+    width: 100%;
+}
+.software_btn h2 {
+    font-size: 18px;
+    color: #363636;
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+/*===============inner page tab menu==================*/
+
+/*==================new update cs===================*/
+.inner_page_header {
+    background-color: #e6ecfb;
+    padding: 4px 15px;
+    border-radius: 4px;
+}
+.heading_select {
+    padding: 20px 15px;
+    background-color: #e6ecfb;
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+.search_bar input{
+    border: 1px solid #e6ecfb !important;
+    padding: 18px 19px;
+}
+.side_bar_header{
+    background-color: #07617D;
+}
+.change{
+    background-color: #07617D;
+    border-color: #07617D;
+}
+.change:hover{
+    background-color: #07617D;
+    border-color: #07617D;
+}
+.create_bus .text-primary {
+    color: #07617d!important;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #07617d !important;
+    border-color: #07617d !important;
+}
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #07617d !important;
+    border-color: #07617d !important;
+}
+.custom_modal span {
+    display: inline-block;
+    padding-left: 58px;
+}
+.custom_modal span a {
+    font-size: 12px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/*========checkbox========*/
+.my_common_form .form-group > label.custom_check {
+    margin-bottom: 10px;
+}
+.custom_check {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.custom_check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  border-radius: 24px;
+  background-color: #eee;
+}
+.custom_check:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+.custom_check input:checked ~ .checkmark {
+    background-color: #159dc7;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.custom_check .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.custom_check input:checked ~ .checkmark:after {
+  display: block;
+}
+.create_frm input:focus {
+    box-shadow: none;
+    border-color: #d1d3e2;
+}
+.modal-body input:focus {
+    box-shadow: none;
+    border-color: #d1d3e2;
+}
+.adshi_modal input:focus, .adshi_modal select:focus, .adshi_modal textarea:focus {
+    box-shadow: none !important;
+    border-color: #d1d3e2 !important;
+}
+/*========checkbox========*/
+
+/*======login css========*/
+
+.login_img img {
+    width: 100%;
+}
+.login_back{
+  background-color: #07617D;
+}
+.login_sec {
+    width: 100%;
+    padding: 40px 20px;
+    background-image: url(../img/login1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.overlay_login {
+    width: 100%;
+    background-color: #000;
+    position: absolute;
+    opacity: 0.5;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.login_sec h1 {
+    color: #fff !important;
+    text-transform: uppercase;
+}
+form.user input {
+    background-color: transparent;
+}
+form.user input:focus{
+  background-color: transparent;
+  box-shadow: none;
+}
+form.user .custom-checkbox.small label {
+    color: #fff;
+}
+.for-pass {
+    color: #fff;
+}
+.for-pass:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+.login_sec .user input.form-control{
+  color: #fff;  
+  font-weight: normal;
+}
+.login_sec form.user input::placeholder { 
+  color: #fff;
+  opacity: 1;
+}
+.login_sec form.user input:-ms-input-placeholder {
+  color: #fff;
+}
+.login_sec form.user input::-ms-input-placeholder {
+  color: #fff;
+}
+
+/*======login css========*/
+
+/*=============user css============*/
+.user_page_header {
+    width: 100%;
+    float: left;
+    padding: 20px 15px;
+    border-radius: 4px;
+    background-color: #e6ecfb;
+}
+.user_header{
+    width: 50%;
+    float: left;
+}
+.user_header h2 {
+    font-size: 18px;
+    color: #363636;
+    margin-bottom: 0;
+}
+span.print_btn {
+    width: 50%;
+    text-align: right;
+    display: inline-block;
+}
+span.print_btn a {
+    color: #fff;
+    padding: 5px 22px;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: #159dc7;
+}
+.user_content {
+   
+    width: 100%;
+    float: left;
+    
+}
+.name h3 {
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #fff;
+}
+.name span {
+    display: inline-block;
+    font-size: 13px;
+    color: #fff;
+}
+td.pad.backcolor {
+    background-color: #159dc7;
+}
+.name {
+    padding: 18px 6px;
+}
+.Vacation {
+    background-color: #159dc7;
+}
+.Vacation p {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    padding: 3px 1px;
+    color: #fff;
+    margin-bottom: 0;
+}
+.Vacation p span {
+    display: block;
+    font-size: 12px;
+}
+p.time_break {
+    background-color: #e6ecfb;
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #363636;
+    font-weight: 700;
+    padding: 7px; 
+    text-align: center;
+}
+td.pad{
+  position: relative;
+}
+.comment{
+  background-color: #e6e6e6;
+  position: relative;
+  cursor: pointer;
+  padding: 7px;
+  text-align: center;
+}
+.comment p {
+    font-size: 13px;
+    color: #363636;
+    margin-bottom: 0;
+}
+.comment .tooltiptext {
+    visibility: hidden;
+    width: 134px;
+    background-color: #ffffff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.45098039215686275);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.45098039215686275);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.45098039215686275);
+    color: #000;
+    font-weight: normal;
+    text-align: center;
+    font-size: 13px;
+    top: 100%;
+    border-radius: 4px;
+    padding: 5px 0px;
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    line-height: 18px;
+}
+.comment .tooltiptext:before {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    content: "";
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+.comment:hover .tooltiptext {
+    visibility: visible;
+}
+
+/*=========================*/
+.custom-checkbox.small {
+    display: inline-block;
+}
+.user_employ_login {
+    width: 100%;
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.user_employ_login label {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+}
+.user_employ_login .custom-checkbox.small {
+    margin-right: 20px;
+}
+.login_part {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.wekk_menu {
+    width: 100%;
+    float: left;
+    margin-top: 14px;
+}
+.wekk_menu .nav-tabs{
+    border-bottom: 0px;
+}
+.wekk_menu .nav-tabs .nav-link{
+    border:none;
+}
+.verticle_menu {
+    padding: 0;
+    background-color: #07617d;
+    min-width: 120px;
+    display: none;
+    position: absolute;
+    top: 19px;
+    left: 60%;
+    z-index: 11;
+}
+.verticle_menu ul{
+    margin:0;
+    padding: 0;
+}
+.verticle_menu ul li {
+    list-style: none;
+    position: relative;
+    padding: 5px 10px;
+    line-height: 15px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+}
+.verticle_menu ul li a{
+    text-decoration: none;
+    font-size: 14px;
+    color: #fff;
+}
+.verticle_menu ul li:hover {
+    background-color: #159dc7;
+    color: #fff;
+}
+.verticle_menu ul li:hover > a {
+    color: #fff;
+}
+.submenu {
+    left: 100%;
+    position: absolute;
+    width: 100px;
+    background-color: #e6ecfb;
+    padding: 8px 0;
+    top: 0;
+    display: none;
+}
+.submenu ul{
+    margin:0;
+    padding: 0;
+}
+.submenu ul li{
+    list-style: none;
+    color: #000;
+}
+.submenu ul li a{
+    color: #363636;
+}
+.verticle_menu > ul > li:hover >.submenu {
+    display: block;
+}
+.user_content .table-responsive {
+    overflow-x: initial;
+}
+/*================week day tab css===========*/
+.wekk_menu ul {
+    float: right;
+}
+.wekk_menu ul li a.nav-link {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #c1cce8;
+    padding: 5px 20px;
+    color: #363636;
+    border-radius: 4px;
+}
+.wekk_menu ul li a.nav-link.active {
+    background-color: #07617d;
+    padding: 5px 20px;
+    color: #fff;
+}
+.wekk_menu ul li + li {
+    margin-left: 15px;
+}
+.tab-content{
+    width: 100%;
+    float: left;
+    margin-top: 40px;
+}
+.day_td{
+    width: 150px;
+}
+/*=== Schedule table topbar css ====*/
+.controler_bar{
+    display: inline-block;
+    width: 100%;
+}
+.controler_bar .text_link {
+    display: inline-block;
+    color: #159dc7;
+    cursor: pointer;
+    padding: 0 3px;
+    font-size: 13px;
+    text-transform: capitalize;
+}
+.controler_bar .ctrl_item{
+    display: inline-block;
+    font-size: 13px;
+}
+.controler_left{
+    float: left;
+}
+.ctrl_date input {
+    font-size: 13px;
+    height: 28px;
+    padding: 0 8px;
+    max-width: 130px;
+}
+.ctrl_date span {
+    color: #111;
+}
+.controler_bar .week_links .text_link {
+    padding: 0 5px;
+}
+.controler_right{
+    float: right;
+}
+.schedules_tabs {
+    float: right;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    padding-left: 6px;
+}
+.schedules_tabs > li {
+    float: left;
+    font-size: 14px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    height: 30px;
+    line-height: 28px;
+    margin: 0 1px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+.schedules_tabs > li.active_lnk{
+    border-color: #159dc7;
+    color: #fff;
+    background-color: #159dc7;
+}
+/*=== Schedule table topbar css ====*/
+/*=== Schedule table css ====*/
+.schedule_tables table tr td {
+    padding: 15px;
+}
+.schedule_tables table tr td.s_td_name {
+    width: 131px;
+}
+.week_schedule_tbl tr td{
+ width: 12.5%;
+}
+.append_td_data .form_group {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 3px;
+    font-size: 12px;
+    width: 100%;
+    border: none;
+    padding: 0 5px;
+    background: #efefef;
+    height: 30px;
+    color: #000;
+}
+.append_td_data .form_group input {
+    font-size: 12px;
+    width: 100%;
+    border: none;
+    padding: 0;
+    background: transparent;
+    height: 30px;
+}
+.remove_btn {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0;
+    border: none;
+    font-size: 15px;
+    background: #159dc7;
+    color: #fff;
+    line-height: 17px;
+    height: 19px;
+    width: 19px;
+    text-align: center;
+}
+.append_td_data .form_group .remove_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    display: none;
+}
+.append_td_data .form_group:hover .remove_btn {
+   display: block;
+}
+.schedule_box .add_icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    background: #159dc7;
+    font-size: 13px;
+    width: 20px;
+    height: 22px;
+    cursor: pointer;
+    display: none;
+    text-align: center;
+    line-height: 22px;
+}
+.schedule_box:hover .add_icon {
+ display: block;
+}
+
+.schdule_hour_row .s_hour {
+    font-size: 13px;
+    text-transform: capitalize;
+    color: #666;
+}
+.schdule_hour_row .emp {
+    font-size: 13px;
+    text-transform: capitalize;
+    color: #000;
+}
+.schdule_hour_row .staff_lnk {
+    text-transform: capitalize;
+    font-size: 14px;
+    text-decoration: none;
+    color: #159dc7;
+}
+/*=== Schedule table css ====*/
+
+/*=== Schedule break css ====*/
+.append_td_data .break_group .break_text {
+    height: 30px;
+    display: inline-block;
+    width: 100%;
+    line-height: 30px;
+}
+/*=== Schedule break css ====*/
+/*=== Schedule tab content css ====*/
+.s_tab_content{
+    float: left;
+    width: 100%;
+    display: none;
+}
+.s_tab_content.active{
+    display: inline-block;
+}
+/*=== Schedule tab content css ====*/
+/*=== multiple staff css ====*/
+#multiple_staff_modal .modal-dialog {
+    max-width: 850px;
+}
+.append_staff_row {
+    display: inline-block;
+    width: 100%;
+}
+.staffs_row {
+    float: left;
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 5px 5px 0;
+    margin-bottom: 5px;
+    position: relative;
+}
+.staffs_row .form-group{
+    float: left;
+    width: 25%;
+    padding: 0 4px;
+}
+.staffs_row_new .remove_btn {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+.form_footer {
+    margin-top: 10px;
+}
+/*=== multiple staff css ====*/
+/*=== time off table css start ====*/
+.time_off_tbl table tr td {
+    font-size: 13px;
+}
+.time_off_tbl table tr td a{
+    color: #159dc7;
+    text-decoration: none;
+}
+.action_td .icons {
+    display: inline-block;
+    margin: 0;
+    color: #ffffff;
+    background: #159dc7;
+    font-size: 12px;
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+    border-radius: 50%;
+}
+.staff_edit_modal .modal-footer {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+/*=== time off table css End ====*/
+/*=== alert css End ====*/
+	.alert {
+		padding: 11px;
+	}
+	.alert-success {
+		color: #fff;
+		background-color: #159dc7;
+		border-color: #07617d;
+	}
+	.alert .close{
+		padding: 11px 8px 10px 0;
+		color: #fff;
+		opacity: 1;
+		text-shadow: none;
+	}
+	.alert .close:hover {
+		color: #fff;
+		opacity: 1;
+		text-shadow: none;
+	}
+/*=== alert css End ====*/
