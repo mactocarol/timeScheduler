@@ -5,4 +5,5 @@
 /application/config/config.php
 
 # Ignore index.php file
-index.php
+/index.php
+.gitignore
