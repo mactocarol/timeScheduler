@@ -1,5 +1,5 @@
 
-        <div class="container-fluid">
+        <div class="container-fluid" >
 			<!-- alert message -->
 			<div class="alert alert-dismissible alert-success" id="message">
 				<button type="button" class="close" data-dismiss="alert">×</button>
@@ -17,7 +17,8 @@
                <div class="row">
                  <div class="col-xl-6 col-md-12 mb-4">
                  <div class="left_side">
-                   <h2><?php echo $business['name']; ?></h2>
+                   <h2><?php echo $business_name; ?></h2>
+				   
                    <label class="saving_schedule" title="All changes are automatically saved.">All Changes saved</label>
                    <span><a href="#">Refresh</a></span>
                  </div>
@@ -25,7 +26,7 @@
                <div class="col-xl-6 col-md-12 mb-4">
                  <div class="right_side">
                    <button class="add_time_btn" data-toggle="modal" data-target="#addtime">Add Time Off</button>
-                   <button class="crate_shift_btn" data-toggle="modal" data-target="#addshift">Create Shift</button>
+                   <button class="crate_shift_btn" id="addshift">Create Shift</button>
                </div>
 
                </div>
@@ -76,7 +77,7 @@
                          <thead>
                            <tr>
                              <th>Employee Name</th>
-                            <th class="d1" style="width:100px"></th>
+                              <th class="d1" style="width:100px"></th>
 							  <th class="d2" style="width:100px"></th>
 							  <th class="d3" style="width:100px"></th>
 							  <th class="d4" style="width:100px"></th>
@@ -85,7 +86,7 @@
 							  <th class="d7" style="width:100px"></th>
                            </tr>
                          </thead>
-                         <tbody>
+                         <tbody id="mainbodyc">
 						 <?php if(!empty($staffName)){ 
 			                     foreach ($staffName as $key => $value) { ?>
                            <tr>
@@ -95,13 +96,27 @@
                                  <span>0 Hours</span>
                                </div>
                              </td>
-                             <td class="pad schedule_box">
+                             <td class="pad schedule_box ">
                               <span class="add_icon add_more_input">
                                 <i class="fas fa-plus"></i>
                               </span>
-                              <!-- Append data -->
+                            
+							 
                               <div class="append_td_data">
-                                
+                                <div class="form_group" id="s_row">
+								  <?php
+										$shifts = isset($finalArray[$alldates[0]]) ? $finalArray[$alldates[0]] : []; 
+										foreach($shifts as $key=>$val){
+											if($key == $value['id']){
+												foreach($val as $v){
+													echo $v['start_time'].'-'.$v['end_time'].'<br>';
+												}
+											}
+										}
+								  ?>	
+								  <input type="text" name="name" placeholder="E.g. 9-5" value="">
+								  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+								</div>
                               </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
@@ -132,7 +147,20 @@
                               </span>
                               <!-- Append data -->
                               <div class="append_td_data">
-                                
+								<div class="form_group" id="s_row">
+								  <?php
+										$shifts = isset($finalArray[$alldates[1]]) ? $finalArray[$alldates[1]] : []; 
+										foreach($shifts as $key=>$val){
+											if($key == $value['id']){
+												foreach($val as $v){
+													echo $v['start_time'].'-'.$v['end_time'].'<br>';
+												}
+											}
+										}
+								  ?>	
+								  
+								  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+								</div>
                               </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
@@ -163,7 +191,20 @@
                               </span>
                               <!-- Append data -->
                               <div class="append_td_data">
-                                
+									<div class="form_group" id="s_row">
+									  <?php
+											$shifts = isset($finalArray[$alldates[2]]) ? $finalArray[$alldates[2]] : []; 
+											foreach($shifts as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){
+														echo $v['start_time'].'-'.$v['end_time'].'<br>';
+													}
+												}
+											}
+									  ?>	
+									  
+									  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+									</div>
                               </div>
                               <!-- Append data -->
                                <!-- shecule menus -->
@@ -189,27 +230,99 @@
                               <!-- shecule menus -->
                              </td>
                              <td class="pad schedule_box">
-                              <div class="Vacation addtime_off_bx">
+                              <!--<div class="Vacation addtime_off_bx">
                                  <p>Vacation<span>9:00am - 4:00pm</span></p>
-                               </div>
+                               </div>-->
                                <span class="add_icon">
                                 <i class="fas fa-plus"></i>
                               </span>
+							   <!-- Append data -->
+                              <div class="append_td_data">
+									<div class="form_group" id="s_row">
+									  <?php
+											$shifts = isset($finalArray[$alldates[3]]) ? $finalArray[$alldates[3]] : []; 
+											foreach($shifts as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){
+														echo $v['start_time'].'-'.$v['end_time'].'<br>';
+													}
+												}
+											}
+									  ?>	
+									  
+									  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+									</div>
+                              </div>
+                              <!-- Append data -->
                              </td>
                              <td class="pad schedule_box">
                                <span class="add_icon">
                                 <i class="fas fa-plus"></i>
                               </span>
+							   <!-- Append data -->
+                              <div class="append_td_data">
+									<div class="form_group" id="s_row">
+									  <?php
+											$shifts = isset($finalArray[$alldates[4]]) ? $finalArray[$alldates[4]] : []; 
+											foreach($shifts as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){
+														echo $v['start_time'].'-'.$v['end_time'].'<br>';
+													}
+												}
+											}
+									  ?>	
+									  
+									  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+									</div>
+                              </div>
+                              <!-- Append data -->
                              </td>
                              <td class="pad schedule_box">
                                <span class="add_icon">
                                 <i class="fas fa-plus"></i>
                               </span>
+							   <!-- Append data -->
+                              <div class="append_td_data">
+									<div class="form_group" id="s_row">
+									  <?php
+											$shifts = isset($finalArray[$alldates[5]]) ? $finalArray[$alldates[5]] : []; 
+											foreach($shifts as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){
+														echo $v['start_time'].'-'.$v['end_time'].'<br>';
+													}
+												}
+											}
+									  ?>	
+									  
+									  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+									</div>
+                              </div>
+                              <!-- Append data -->
                              </td>
                              <td class="pad schedule_box">
                                <span class="add_icon">
                                 <i class="fas fa-plus"></i>
                               </span>
+							   <!-- Append data -->
+                              <div class="append_td_data">
+									<div class="form_group" id="s_row">
+									  <?php
+											$shifts = isset($finalArray[$alldates[6]]) ? $finalArray[$alldates[6]] : []; 
+											foreach($shifts as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){
+														echo $v['start_time'].'-'.$v['end_time'].'<br>';
+													}
+												}
+											}
+									  ?>	
+									  
+									  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+									</div>
+                              </div>
+                              <!-- Append data -->
                              </td>
                            </tr>
 						 <?php } } ?>
@@ -249,7 +362,7 @@
 							 </tr>
 						   <tr class="schdule_hour_row">
 							  <td>
-							   <a class="staff_lnk" href="#" data-toggle="modal" data-target="#addstaff">
+							   <a class="staff_lnk" href="#" id="addstaff">
 							   add staff</a>
 							  </td>
 							  <td colspan="7">
@@ -460,179 +573,17 @@
              </div>
           </div>
         </div>
-<!-- add satff modal -->
-<div class="modal express_modal" id="addstaff">
-<div class="modal-dialog">
-  <div class="modal-content">
-	<!-- Modal Header -->
-	<div class="modal-header custom_modal">
-	  <h4 class="modal-title">Add Staff Member</h4>
-      <span><a href="#" data-toggle="modal" data-target="#multiple_staff_modal">Add Multiple Staff</a></span>
-	  <button type="button" class="close" data-dismiss="modal">&times;</button>
-	</div>
-    <form class="my_common_form" id="staffform">
-	<!-- Modal body -->
-	<div class="modal-body create_frm">
-	 
-	  <div class="form-group">
-		  <label for="name">First Name</label>
-		  <input type="text" class="form-control" placeholder="John" id="fname" name="fname" required="">
-	  </div>
-	  <div class="form-group">
-		  <label for="name">Last Name</label>
-		  <input type="text" class="form-control" placeholder="Smith" id="lname" name="lname" required="">
-	  </div>
-	  <div class="form-group">
-		<label for="email">Email</label>
-		<input type="email" class="form-control" placeholder="example123@gmail.com" id="email" name="email" required="">
-	  </div>
-	  <div class="form-group">
-		<label for="number">Phone Number</label>
-		<input type="text" class="form-control" placeholder="+91-98765-43210" id="phone_no" name="phone_no" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-		<input type="hidden" id="business_id" value="<?php echo $this->uri->segment(4);?>">
-	  </div>
-	 
-	</div>
 
-	<!-- Modal footer -->
-	<div class="modal-footer">
-	  <button type="submit" class="btn btn-secondary btn-icon-split" id="addstaff" disabled="disabled">
-		<span class="icon text-white-50">
-		  <i class="fas fa-arrow-right"></i>
-		</span>
-		<span class="text">Add Staff</span>
-	  </button>
-	  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-	</div>
-	</form>
-  </div>
-</div>
-</div>
-<!-- modal add satff -->
-<script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
-  <!-- validation and add staff by ajax -->
-  <script>
-    $(document).ready(function() { 
-$('#message').hide();	
-        $('#staffform').bootstrapValidator({            
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                               
-                fname: {
-						validators: {
-							notEmpty: {
-								message: 'The First name Field is required'
-							},
-						
-						callback: {
-							message: 'please enter only letters and numbers',
-							callback: function(value, validator, $field) {
-								if (!isUsernameValid(value)) {
-								  return {
-									valid: false,
-								  };
-								}
-								else
-								{
-								  return {
-									valid: true,
-								  };    
-								}
+<input type="hidden" id="business_id" value="<?php echo $this->uri->segment(4); ?>">
 
-							}
-						},
-						 stringLength: {
-                            min: 3 ,
-                            max: 15,
-                            message: 'The First name length min 3 and max 15 character Long'
-                        }
-					},
-				},	
-				
-				
-				
-				lname: {
-						validators: {
-							notEmpty: {
-								message: 'The Last name Field is required'
-							},
-						
-						callback: {
-							message: 'please enter only letters and numbers',
-							callback: function(value, validator, $field) {
-								if (!isUsernameValid(value)) {
-								  return {
-									valid: false,
-								  };
-								}
-								else
-								{
-								  return {
-									valid: true,
-								  };    
-								}
-
-							}
-						},
-						 stringLength: {
-                            min: 3 ,
-                            max: 15,
-                            message: 'The Last name length min 3 and max 15 character Long'
-                        }
-					},
-				},	
-				
-				
-				
-				
-                email: {
-                    validators: {
-                        notEmpty: {
-                            message : 'The email Field is required'
-                        },
-                         remote: {  
-                         type: 'POST',
-                         url: "<?php echo site_url();?>user/check_staffemail_exists",
-                         data: function(validator) {
-                             return {
-                                 //email: $('#email').val()
-                                 email: validator.getFieldElements('email').val()
-                                 };
-                            },
-                         message: 'This email is already in use.'     
-                         }
-                    },
-                },    
-                
-                
-            }
-        });
-    
-    });
-        
-    function isUsernameValid(value)
-    {
-      var fieldNum = /^[a-z0-9]+$/i;
-    
-      if ((value.match(fieldNum))) {
-          return true
-      }
-      else
-      {
-          return false
-      }
-    
-    }
-	
-	
-	
-	$(document).on('click','#addstaff', function(){
+   <!--  <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
+<!-- add staff by ajax -->
+ <script>
+ $('#message').hide();	
+	$(document).on('click','#addstaffbutton', function(){
 		//alert('hi');
 		var fname = $('#fname').val();
+		//alert(fname);
 		var lname = $('#lname').val();
 		var email = $('#email').val();
 		var phone_no = $('#phone_no').val();
@@ -659,95 +610,59 @@ $('#message').hide();
 			type:'post',
 			data:{fname: fname,lname: lname,email: email, phone_no: phone_no,business_id: business_id},
 			success: function(response){
-				//alert(response);
+				//console.log(response);
 				
 				
 			}
 		});
-    });
-    </script>
-  
-  
-  
-  
-  
-  
-  
-  <!-- validation and add shift by ajax -->
-  <script>
-    /* $(document).ready(function() {        
-        $('#shiftform').bootstrapValidator({            
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                 staff_check: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please select staff'
-                        },
-                    }
-                },
-				
-                date: {
-						validators: {
-                        notEmpty: {
-                            message: 'Please select date'
-                        },
-                    }
-				},	
-				
-				 start_time: {
-						validators: {
-                        notEmpty: {
-                            message: 'Please select start time'
-                        },
-                    }
-				},
-				
-				end_time: {
-						validators: {
-                        notEmpty: {
-                            message: 'Please select end time'
-                        },
-                    }
-				},
-				
-                
-            }
-        });
-    
-    });  */
-        
-    
+    });	
 	
-	
-	
+</script>
+<!-- add shift by ajax -->
+ <script>
 	$(document).on('submit','#shiftform', function(e){
 		e.preventDefault();
-		//alert('hi');
-		/* var staffId = [];
-        $.each($("input[name='staff_id']:checked"), function(){            
-            staffId.push($(this).val());
-        });
-        var staff_id = staffId.join(","); */
-		//alert(staff_id); 
+		var date = $('#date').val();
+		var start_time = $('#start_time').val();
+		var end_time = $('#end_time').val();
 		
+		if(date == ""){
+			$('#addshiftbutton').prop('disabled', true);
+			return false;
+			
+		}
+		if(start_time == ""){
+			$('#addshiftbutton').prop('disabled', true);
+			return false;
+		}
+		if(end_time == ""){
+			$('#addshiftbutton').prop('disabled', true);
+			return false;
+		}
 	
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addshift",
 			type:'post',
 			data:$('#shiftform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
 			success: function(response){
-				//alert(response);
-				$('#addshift').modal('hide');
-				$('#message').show();
-				$('#message .msg').text(response);
+				$('#addshiftmod').modal('hide');
+				
+				if(response==1){
+					 $("#mainbodyc").text("");					
+				}
+				else
+				{
+					$("#mainbodyc").html(response);
+					//location.reload();
+					//$('#message').show();
+				    // $('#message .msg').html("Shift Added Successfully");
+				} 
+				
+				//$('#message').show();
+				//$('#message .msg').text(response);
 				
 				
 			}
 		});
     });
-    </script>
+</script>

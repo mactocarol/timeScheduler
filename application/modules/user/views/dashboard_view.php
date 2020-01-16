@@ -1,10 +1,11 @@
-
-
-      
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
+       <!-- Begin Page Content -->
+        <div class="container-fluid" id="mainbodyh">
+          <!-- alert message 
+			<div class="alert alert-dismissible alert-success" id="message">
+				<button type="button" class="close" data-dismiss="alert">×</button>
+				<div class="msg"></div>
+			</div>
+			<!-- alert message -->
           <!-- Page Heading -->
           <div class="heading_select">
             <h1>Select your business</h1>
@@ -12,33 +13,35 @@
           <!-- Content Row -->
           <div class="content_back">
             <div class="row">
+			
                <!-- Earnings (Monthly) Card Example -->
 			<?php if(!empty($businessList)){ 
 			        foreach ($businessList as $key => $value) { ?>
-						<div class="col-xl-3 col-md-6 mb-4">
-						  <div class="card border-left-primary h-100 py-2 create_bus">
-							<div class="card-body">
-							  <div class="row no-gutters align-items-center">
-								<div class="col mr-2">
-								  <div class="font-weight-bold text-primary text-uppercase mb-1 text-center"><?php echo $value['name']; ?></div>
-								</div>
-							  </div>
-							</div>
-							 <div class="bus_block">
-							  <span class="info_menu_icon"><i class="fas fa-ellipsis-v"></i></span>
-							  <div class="info_nav">
-								<ul>
-								  <li data-toggle="modal" data-target="#infoDetail"><a href="#">Edit Information</a></li>
-								  <li><a href="#">Delete</a></li>
-								</ul>
-							  </div>
-							  
-							  <a href="<?php echo site_url('schedule/openSchedule/'.$value['name'].'/'.$value['id']);?>" class="open_btn">Open Schedule</a>
+					<div class="col-xl-3 col-md-6 mb-4">
+					  <div class="card border-left-primary h-100 py-2 create_bus">
+						<div class="card-body">
+						  <div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+							  <div class="font-weight-bold text-primary text-uppercase mb-1 text-center"><?php echo $value['name']; ?></div>
 							</div>
 						  </div>
 						</div>
+						 <div class="bus_block">
+						  <span class="info_menu_icon"><i class="fas fa-ellipsis-v"></i></span>
+						  <div class="info_nav">
+							<ul>
+							  <li data-toggle="modal" data-target="#infoDetail"><a href="#">Edit Information</a></li>
+							  <li><a href="#">Delete</a></li>
+							</ul>
+						  </div>
+						
+						  <a href="<?php echo site_url('schedule/openSchedule/'.$value['name'].'/'.$value['id']);?>" class="open_btn">Open Schedule</a>
+						</div>
+					  </div>
+					</div>
             <?php } 
 			}?>
+			
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-success box_sad h-100 py-2" data-toggle="modal" data-target="#addBusiness">
@@ -59,8 +62,6 @@
             </div>
            
           </div>
-    
-
         </div>
         <!-- /.container-fluid -->
 
@@ -111,7 +112,8 @@
 <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
   <!-- validation and add business by ajax -->
   <script>
-    $(document).ready(function() {        
+    $(document).ready(function() { 
+     $('#message').hide();	
         $('#registerform').bootstrapValidator({            
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
@@ -201,8 +203,9 @@
 	
 	
 	
-	$(document).on('click','#addbusiness', function(){
+	$(document).on('click','#addbusiness', function(e){
 		//alert('hi');
+		e.preventDefault();
 		var name = $('#name').val();
 		var email = $('#email').val();
 		var phone_no = $('#phone_no').val();
@@ -214,7 +217,7 @@
 		if(email == ""){
 			$('#addbusiness').prop('disabled', true);
 			return false;
-		}
+		} 
 	
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addBusiness",
@@ -222,8 +225,17 @@
 			data:{name: name,email: email, phone_no: phone_no},
 			success: function(response){
 				//alert(response);
-				//$("#view_transaction_table1").html(response);
-				
+				$('#addBusiness').modal('hide');
+				if(response==1){
+					$("#mainbodyh").text("");					
+				}
+				else
+				{
+					$("#mainbodyh").html(response);
+					location.reload();
+					//$('#message').show();
+				     //$('#message .msg').html("Business Added Successfully");
+				} 
 			}
 		});
     });

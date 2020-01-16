@@ -43,7 +43,8 @@
           <span>Dashboard</span></a>
       </li>
       <hr class="sidebar-divider my-0">
-      <li class="nav-item" data-toggle="modal" data-target="#addshift">
+     <!-- <li class="nav-item" data-toggle="modal" data-target="#addshift">-->
+	  <li class="nav-item" id="addshift">
         <a class="nav-link" href="#">
           <i class="fas fa-user-clock"></i>
           <span>Add Shift</span></a>
@@ -70,7 +71,7 @@
       <!-- Divider -->
      <hr class="sidebar-divider my-0">
       <!-- Nav Item - Charts -->
-      <li class="nav-item" data-toggle="modal" data-target="#addstaff">
+      <li class="nav-item" id="addstaff">
         <a class="nav-link" href="#">
           <i class="fas fa-users"></i>
           <span>Add Staff Member</span></a>
@@ -272,3 +273,51 @@
 
         </nav>
         <!-- navbar -->
+			
+	<div id="showShiftmodal"></div>
+		<div id="showStaffmodal"></div>
+		<input type="hidden" id="business_id" name="business_id" value="<?php echo $this->uri->segment(4); ?>">
+	<script>
+	$(document).on('click','#addshift', function(e){
+		//alert('hiii');
+		var business_id = $('#business_id').val();
+		e.preventDefault();
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/shiftModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				
+				
+					//document.getElementById('mainbody').innerHTML=response;
+					$("#showShiftmodal").html(response);
+					$('#addshiftmod').modal('show');
+				
+			}
+		});
+    });
+	
+	
+	
+	$(document).on('click','#addstaff', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/staffModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				
+				
+					//document.getElementById('mainbody').innerHTML=response;
+					$("#showStaffmodal").html(response);
+					$('#addstaffmod').modal('show');
+				
+			}
+		});
+    });
+	
+    </script>

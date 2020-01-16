@@ -98,71 +98,68 @@
 			</div>
 		</div>
     </div>
-<!-- modal openschedule -->
+		  
+	 <!-- The Modal -->
+	  <div class="modal" id="infoDetail">
+		<div class="modal-dialog">
+		  <div class="modal-content">
 
+			<!-- Modal Header -->
+			<div class="modal-header custom_modal">
+			  <h4 class="modal-title">Edit Business Info</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
 
-			  
-		     <!-- The Modal -->
-              <div class="modal" id="infoDetail">
-                <div class="modal-dialog">
-                  <div class="modal-content">
+			<!-- Modal body -->
+			<div class="modal-body">
+			 <form>
+			  <div class="form-group">
+				  <label for="name">Name</label>
+				  <input type="text" class="form-control" placeholder="New Business" id="">
+			  </div>
+			  <div class="form-group">
+				<label for="email">Email Address</label>
+				<input type="email" class="form-control" placeholder="example@gmail.com" id="email">
+			  </div>
+			  <div class="form-group">
+				<label for="number">Phone Number</label>
+				<input type="text" class="form-control" placeholder="123456789" id="email">
+			  </div>
+			 </form>
+			</div>
 
-                    <!-- Modal Header -->
-                    <div class="modal-header custom_modal">
-                      <h4 class="modal-title">Edit Business Info</h4>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+			<!-- Modal footer -->
+			<div class="modal-footer">
+			  <a href="#" class="btn btn-success btn-icon-split">
+				<span class="icon text-white-50">
+				  <i class="fas fa-check"></i>
+				</span>
+				<span class="text">Save</span>
+			  </a>
+			  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+			</div>
 
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                     <form>
-                      <div class="form-group">
-                          <label for="name">Name</label>
-                          <input type="text" class="form-control" placeholder="New Business" id="">
-                      </div>
-                      <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" class="form-control" placeholder="example@gmail.com" id="email">
-                      </div>
-                      <div class="form-group">
-                        <label for="number">Phone Number</label>
-                        <input type="text" class="form-control" placeholder="123456789" id="email">
-                      </div>
-                     </form>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                      <a href="#" class="btn btn-success btn-icon-split">
-                        <span class="icon text-white-50">
-                          <i class="fas fa-check"></i>
-                        </span>
-                        <span class="text">Save</span>
-                      </a>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    </div>
-
-                  </div>
-                </div>
-              </div>	  
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="<?php echo site_url('logout');?>">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+		  </div>
+		</div>
+	  </div>	  
+	  <!-- Logout Modal-->
+	  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+			  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			  </button>
+			</div>
+			<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+			<div class="modal-footer">
+			  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+			  <a class="btn btn-primary" href="<?php echo site_url('logout');?>">Logout</a>
+			</div>
+		  </div>
+		</div>
+	  </div>
  
 	  
 	  <!-- Edit satff modal Start -->
@@ -386,130 +383,7 @@
         </div>
     <!-- Email Schedule modal -->
 	
-	
-	 
-    
-  
-  
-  
-  
-  <!-- Multiple staff modal -->
-      <div class="modal express_modal" id="multiple_staff_modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header custom_modal">
-              <h4 class="modal-title">Add Multiple Staff Member</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body create_frm">
-             <form class="my_common_form" id="multistaffform">
-				<div class="append_staff_row">
-				  <div class="staffs_row">
-					<div class="form-group">
-					  <label for="name">First Name</label>
-					  <input type="text" class="form-control" placeholder="John" id="fname" name="fname" required="">
-					</div>
-					<div class="form-group">
-					  <label for="name">Last Name</label>
-					  <input type="text" class="form-control" placeholder="Smith" id="lname" name="lname" required="">
-					</div>
-					<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" class="form-control" placeholder="example123@gmail.com" id="email" name="email" required="">
-					</div>
-					<div class="form-group">
-					<label for="number">Phone Number</label>
-					<input type="text" class="form-control" placeholder="+91-98765-43210" id="phone_no" name="phone_no" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-					<input type="hidden" id="business_id" value="<?php echo $this->uri->segment(4);?>">
-					</div>
-				  </div>
-				</div>
-				<div class="form_footer">
-					<button type="button" class="btn btn-secondary add_mlt_staff">Add More</button>
-					<button type="submit" class="btn btn-secondary save_staff"  id="addmultistaff" >Save</button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-				  </div>
-             </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Multiple staff modal -->
-	  
-	  <!-- add shift modal -->
-    <div class="modal express_modal" id="addshift">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header custom_modal">
-            <h4 class="modal-title">Create Shift</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <form class="my_common_form" id="shiftform" method="POST">
-          <!-- Modal body -->
-          <div class="modal-body adshi_modal">
-          
-            <div class="form-group">
-              <p>Staff Member</p>
-              <!-- check boxs -->
-                <div class="check_boxs">
-                 <label class="custom_check">All Staff
-                  <input type="checkbox" value="all staff" name="staff_check" class="all_checked" >
-                  <span class="checkmark"></span>
-                </label>
-				<?php if(!empty($staffName))
-				    { 
-			            foreach ($staffName as $key => $value) 
-						{ ?>
-							<label class="custom_check"><?php echo $value['first_name']." ".$value['last_name']; ?> 
-							  <input type="checkbox" value="<?php echo $value['id'];?> " name="staff_id[]" class="check_inputs" id="staff_id">
-							  <span class="checkmark"></span>
-							</label>
-				  <?php } 
-				    }?>
-              </div>
-              <!-- check boxs -->
-            </div>
-            <div class="form-group">
-              <label for="date">Shift Date</label>
-              <input type="text" class="form-control date_picker" id="date" name="date" autocomplete="off">
-            </div>
-            <div class="form-group">
-              <label for="number">Start Time</label>
-              <input type="text" name="start_time" class="form-control start_time time_picker" placeholder="09:00 am" id="start_time" name="start_time">
-            </div>
-            <div class="form-group">
-              <label for="number">End Time</label>
-              <input type="text" name="end_time" class="form-control end_time time_picker" placeholder="05:00 pm" id="end_time" name="end_time">
-			  <input type="hidden" id="business_idd" name="business_idd" value="<?php echo $this->uri->segment(4);?>">
-            </div>
-            <small>Total Hour 8</small>
-           
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-secondary btn-icon-split" id="addshift">
-              <span class="icon text-white-50">
-                <i class="fas fa-arrow-right"></i>
-              </span>
-              <span class="text">Create Shift</span>
-            </button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          </div>
-		  </form>
-        </div>
-      </div>
-    </div>
-  <!-- add shift modal -->
-  
-	  
-
-  <!-- Bootstrap core JavaScript-->
-    <!-- Bootstrap core JavaScript-->
- 
+<!-- Bootstrap core JavaScript-->
   <script src="<?php echo base_url();?>/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- Core plugin JavaScript-->
   <script src="<?php echo base_url();?>/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -524,7 +398,8 @@
   <script src="<?php echo base_url();?>/assets/js/jquery_ui/jquery-ui.min.js"></script>
   <script src="<?php echo base_url();?>/assets/js/jquery_ui/jquery-ui-timepicker-addon.js"></script>
   <script src="<?php echo base_url();?>/assets/js/custom_script.js"></script>
-  
+<!-- Bootstrap core JavaScript-->
+
 <script>
   $( function() {
 
@@ -553,10 +428,32 @@
         var firstdate = (localStorage.getItem("firstDate"));        
         firstdate = new Date(firstdate);
         firstdate.setDate(firstdate.getDate()-7); 
-        if(firstdate < new Date()){
+        /* if(firstdate < new Date()){
           alert('Previous Dates are disabled');
           return false;
-        }
+        } */
+		var business_id = $('#business_id').val();
+		
+   
+	
+		$.ajax({
+			 url: "<?php echo site_url();?>schedule/showCalendar",
+			type:'post',
+			data:{firstdate: firstdate,business_id: business_id},
+			success: function(response){
+				//console.log(response);
+				
+				if(response==1){
+					 $("#mainbodyc").text("");					
+				}
+				else
+				{
+					$("#mainbodyc").html(response);
+				} 
+				
+			}
+		});
+		
         $("#datepicker").datepicker( "setDate" , firstdate );
         setCalendarDate(firstdate);
     });
@@ -566,6 +463,26 @@
         var lastdate = (localStorage.getItem("lastDate"));        
         lastdate = new Date(lastdate);
         lastdate.setDate(lastdate.getDate()+1); 
+		//alert(lastdate);
+		var business_id = $('#business_id').val();
+		$.ajax({
+			 url: "<?php echo site_url();?>schedule/showCalendar",
+			type:'post',
+			data:{firstdate: lastdate,business_id: business_id},
+			success: function(response){
+				//console.log(response);
+				
+				if(response==1){
+					//document.getElementById('mainbody').text("");	
+					
+                     $("#mainbodyc").text("");					
+				}
+				else
+				{
+					$("#mainbodyc").html(response);
+				} 
+			}
+		});
         $("#datepicker").datepicker( "setDate" , lastdate );
         setCalendarDate(lastdate);
     });
@@ -575,9 +492,31 @@
 
 <script>
   // get selected date from calendar and  set it to week
-  function setNewDate(){      
+  function setNewDate(){
       setCalendarDate($('#datepicker').val());
-  }
+	  var datepicker = $('#datepicker').val();
+      var business_id = $('#business_id').val();
+	  
+	  $.ajax({
+			 url: "<?php echo site_url();?>schedule/showCalendar",
+			type:'post',
+			data:{firstdate: datepicker,business_id: business_id},
+			success: function(response){
+				//console.log(response);
+				
+				if(response==1){
+					//document.getElementById('mainbody').text("");	
+					
+                     $("#mainbodyc").text("");					
+				}
+				else
+				{
+					$("#mainbodyc").html(response);
+				} 
+				
+			}
+		});
+	}
 
   // to show week date
   function setCalendarDate(today){      
