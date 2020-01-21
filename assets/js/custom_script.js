@@ -6,6 +6,17 @@
 	});
   	// date picker
   	 $( ".date_picker" ).datepicker();
+	 //Jquery ui Datepicker Range
+	$("#first_dayoff").datepicker({          
+	  onClose: function( selectedDate ) {
+		$("#last_dayoff").datepicker( "option", "minDate", selectedDate );
+	  }
+	});
+	$("#last_dayoff").datepicker({
+	  onClose: function( selectedDate ) {
+		$("#first_dayoff").datepicker( "option", "maxDate", selectedDate );
+	  }
+	});
   	//tabs Menu
 	$('.tab_menu .tab_link').on('click', function(){
 		$(".tab_content").removeClass("active");
@@ -36,7 +47,7 @@
 	//Timepicker
 	if($(".time_picker").length > 0){
 		$('.time_picker').timepicker({
-		  timeFormat: 'h:mm: TT',
+		  timeFormat: 'h:mm tt',
 		  ampm: true,
 		  stepHour: 1,
 		  stepMinute: 5,

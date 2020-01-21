@@ -50,7 +50,7 @@
           <span>Add Shift</span></a>
       </li>
       <hr class="sidebar-divider my-0">
-      <li class="nav-item" data-toggle="modal" data-target="#addtime">
+      <li class="nav-item" id="addtime">
         <a class="nav-link" href="#">
           <i class="far fa-clock"></i>
           <span>Add Time-off</span></a>
@@ -276,11 +276,13 @@
 			
 	<div id="showShiftmodal"></div>
 		<div id="showStaffmodal"></div>
+		<div id="showTimeoffmodal"></div>
 		<input type="hidden" id="business_id" name="business_id" value="<?php echo $this->uri->segment(4); ?>">
 	<script>
 	$(document).on('click','#addshift', function(e){
 		//alert('hiii');
 		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
 		e.preventDefault();
 		 $.ajax({
 			 url: "<?php echo site_url();?>schedule/shiftModal",
@@ -292,6 +294,7 @@
 				
 					//document.getElementById('mainbody').innerHTML=response;
 					$("#showShiftmodal").html(response);
+					$('.firstdate').val(datepicker);
 					$('#addshiftmod').modal('show');
 				
 			}
@@ -304,6 +307,7 @@
 		//alert('hiii');
 		e.preventDefault();
 		var business_id = $('#business_id').val();
+		
 		 $.ajax({
 			 url: "<?php echo site_url();?>schedule/staffModal",
 			type:'post',
@@ -314,7 +318,32 @@
 				
 					//document.getElementById('mainbody').innerHTML=response;
 					$("#showStaffmodal").html(response);
+					
 					$('#addstaffmod').modal('show');
+				
+			}
+		});
+    });
+	
+	
+	$(document).on('click','#addtime', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/timeoffModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				
+				
+					//document.getElementById('mainbody').innerHTML=response;
+					$("#showTimeoffmodal").html(response);
+					$('.firstdate').val(datepicker);
+					$('#addtimemod').modal('show');
 				
 			}
 		});

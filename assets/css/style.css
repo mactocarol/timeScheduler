@@ -576,12 +576,17 @@ td.pad.backcolor {
 }
 .Vacation {
     background-color: #159dc7;
+    min-width: 120px;
+    padding: 4px;
+	margin:3px 0;
+	opacity:0.8;
+	position:relative;
 }
 .Vacation p {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     text-align: center;
-    padding: 3px 1px;
+    padding: 0;
     color: #fff;
     margin-bottom: 0;
 }
@@ -589,6 +594,17 @@ td.pad.backcolor {
     display: block;
     font-size: 12px;
 }
+.Vacation .remove_btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    display: none;
+}
+.Vacation:hover .remove_btn {
+   display: block;
+}
+
 p.time_break {
     background-color: #e6ecfb;
     margin-bottom: 0;
@@ -830,10 +846,11 @@ td.pad{
 /*=== Schedule table topbar css ====*/
 /*=== Schedule table css ====*/
 .schedule_tables table tr td {
-    padding: 15px;
+    padding: 11px;
 }
 .schedule_tables table tr td.s_td_name {
-    width: 131px;
+    min-width: 115px;
+    vertical-align: middle;
 }
 .week_schedule_tbl tr td{
  width: 12.5%;
@@ -845,9 +862,8 @@ td.pad{
     font-size: 12px;
     width: 100%;
     border: none;
-    padding: 0 5px;
+    padding: 9px 5px;
     background: #efefef;
-    height: 30px;
     color: #000;
 }
 .append_td_data .form_group input {
@@ -863,12 +879,12 @@ td.pad{
     display: inline-block;
     padding: 0;
     border: none;
-    font-size: 15px;
-    background: #159dc7;
+    font-size: 13px;
+    background: #e20303;
     color: #fff;
-    line-height: 17px;
-    height: 19px;
-    width: 19px;
+    line-height: 15px;
+    height: 15px;
+    width: 15px;
     text-align: center;
 }
 .append_td_data .form_group .remove_btn {
@@ -894,6 +910,7 @@ td.pad{
     display: none;
     text-align: center;
     line-height: 22px;
+	z-index:1;
 }
 .schedule_box:hover .add_icon {
  display: block;

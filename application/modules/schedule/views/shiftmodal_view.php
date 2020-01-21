@@ -45,7 +45,8 @@
             <div class="form-group">
               <label for="number">End Time</label>
               <input type="text" name="end_time" class="form-control end_time time_picker" placeholder="05:00 pm" id="end_time" name="end_time" autocomplete="off">
-			  <input type="hidden" id="business_idd" name="business_idd" value="<?php echo $business_id; ?>">
+			  <input type="hidden" id="business_id" name="business_id" value="<?php echo $business_id; ?>">
+			   <input type="hidden" name="firstdate" class="firstdate">
             </div>
             <small>Total Hour 8</small>
            

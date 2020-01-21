@@ -34,8 +34,11 @@
 							  <li><a href="#">Delete</a></li>
 							</ul>
 						  </div>
-						
-						  <a href="<?php echo site_url('schedule/openSchedule/'.$value['name'].'/'.$value['id']);?>" class="open_btn">Open Schedule</a>
+						  <input type="hidden" id="business_name" name="business_name" value="<?php echo $value['name']; ?>">
+						   <input type="hidden" id="business_id" name="business_id" value="<?php echo $value['id']; ?>">
+						   
+						  <a  onclick="openSchedule('<?php echo site_url('schedule/openSchedule/'.$value['name'].'/'.$value['id']);?>')" class="open_btn">Open Schedule</a>
+						  <!-- <button type="button" class="open_btn" id="openSchedule" onclick="openSchedule('<?php //echo site_url('schedule/openSchedule/'.$value['name'].'/'.$value['id']);?>')">Open Schedule</button>-->
 						</div>
 					  </div>
 					</div>
@@ -112,6 +115,36 @@
 <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
   <!-- validation and add business by ajax -->
   <script>
+  
+  //$(document).on('click','#openSchedule', function(){
+	//alert('hiii');
+	
+	function openSchedule(mainUrl){
+		
+		var business_name = $('#business_name').val();
+		var business_id = $('#business_id').val();
+		if(localStorage.getItem("startDate"))
+		{
+			var date = localStorage.getItem("startDate");
+		}
+		else{
+			var date = '';
+		}
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/setDate",
+			type:'post',
+			data:{business_name: business_name,business_id: business_id,firstdate: date},
+			success: function(response){
+				$("#mainbodyh").html(response);
+				window.location.href = mainUrl;
+				
+			}
+		});
+	}
+    //});
+	
+	
+	
     $(document).ready(function() { 
      $('#message').hide();	
         $('#registerform').bootstrapValidator({            
@@ -209,6 +242,7 @@
 		var name = $('#name').val();
 		var email = $('#email').val();
 		var phone_no = $('#phone_no').val();
+		
 		if(name == ""){
 			$('#addbusiness').prop('disabled', true);
 			return false;
@@ -232,7 +266,7 @@
 				else
 				{
 					$("#mainbodyh").html(response);
-					location.reload();
+					//location.reload();
 					//$('#message').show();
 				     //$('#message .msg').html("Business Added Successfully");
 				} 

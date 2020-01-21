@@ -211,96 +211,7 @@
 	 
 	  
 	  
-	   <!-- add time Modal -->
-      <div class="modal express_modal" id="addtime">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header custom_modal">
-              <h4 class="modal-title">Add Time Off</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body adshi_modal">
-             <form class="my_common_form">
-              <div class="form-group">
-                <p>Staff Member</p>
-                <!-- check boxs -->
-                <div class="check_boxs">
-                 <label class="custom_check">Everyone (Public Holiday)
-                  <input type="checkbox" value="" name="" class="all_checked">
-                  <span class="checkmark"></span>
-                </label>
-                <label class="custom_check">Neha Sharma
-                  <input type="checkbox" value="Neha Sharma" name="staff_check" class="check_inputs" checked="">
-                  <span class="checkmark"></span>
-                </label>
-                <label class="custom_check">Anusha Gour
-                  <input type="checkbox" value="Anusha Gour" name="staff_check" class="check_inputs">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <!-- check boxs -->
-              </div>
-              <div class="form-group">
-                <label for="exampleFormControlSelect1">Type of Time off</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>Vacation</option>
-                  <option>Public Holiday</option>
-                  <option>LOA</option>
-                  <option>Maternity</option>
-                  <option>Personal</option>
-                  <option>RDO</option>
-                  <option>Sick Leave</option>
-                  <option>Training</option>
-                  <option>Unavailable</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="exampleFormControlTextarea1">Notes</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="date">First day off</label>
-                <input type="text" class="form-control date_picker" id="">
-              </div>
-              <div class="form-group">
-                <label for="date">Last day off</label>
-                <input type="text" class="form-control date_picker" id="">
-              </div>
-            <div class="form-group">
-                <label class="custom_check">Time Range
-                  <input type="checkbox" value="time_range" name="timerange" class="time_range_check">
-                  <span class="checkmark"></span>
-                </label>
-            </div>
-          <div class="form-group">
-          <label for="number">Start Time</label>
-          <input type="text" name="start_time" class="form-control start_time time_picker time_range_inpt" placeholder="09:00 am" disabled="">
-        </div>
-        <div class="form-group">
-          <label for="number">End Time</label>
-          <input type="text" name="end_time" class="form-control end_time time_picker time_range_inpt" placeholder="05:00 pm" disabled="">
-        </div>
-              <small>Total Hour 8</small>
-             </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <a href="#" class="btn btn-secondary btn-icon-split">
-                <span class="icon text-white-50">
-                  <i class="fas fa-arrow-right"></i>
-                </span>
-                <span class="text">Add Time off</span>
-              </a>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- add time Modal -->
+	  
 	    <!--Email Schedule modal -->
       <div class="modal express_modal" id="emailschedule">
           <div class="modal-dialog">
@@ -390,11 +301,11 @@
   <!-- Custom scripts for all pages-->
   <script src="<?php echo base_url();?>/assets/js/sb-admin-2.min.js"></script>
   <!-- Page level plugins -->
-  <script src="<?php echo base_url();?>/assets/vendor/chart.js/Chart.min.js"></script>
+  <!--<script src="<?php echo base_url();?>/assets/vendor/chart.js/Chart.min.js"></script>-->
   <!-- Page level custom scripts -->
-  <script src="<?php echo base_url();?>/assets/js/demo/chart-area-demo.js"></script>
+  <!--<script src="<?php echo base_url();?>/assets/js/demo/chart-area-demo.js"></script>
   <script src="<?php echo base_url();?>/assets/js/demo/chart-pie-demo.js"></script>
-  <script src="<?php echo base_url();?>/assets/js/demo/chart-bar-demo.js"></script>
+  <script src="<?php echo base_url();?>/assets/js/demo/chart-bar-demo.js"></script>-->
   <script src="<?php echo base_url();?>/assets/js/jquery_ui/jquery-ui.min.js"></script>
   <script src="<?php echo base_url();?>/assets/js/jquery_ui/jquery-ui-timepicker-addon.js"></script>
   <script src="<?php echo base_url();?>/assets/js/custom_script.js"></script>
