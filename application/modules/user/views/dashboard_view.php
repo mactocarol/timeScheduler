@@ -125,15 +125,18 @@
 		var business_id = $('#business_id').val();
 		if(localStorage.getItem("startDate"))
 		{
-			var date = localStorage.getItem("startDate");
+			var datee = localStorage.getItem("startDate");
+			var date = new Date(datee);
+			//console.log(datee);
+			var firstdate = (date.getMonth()+1)+'/'+(date.getDate())+'/'+(date.getFullYear());	
 		}
 		else{
-			var date = '';
+			var firstdate = '';
 		}
 		 $.ajax({
 			 url: "<?php echo site_url();?>schedule/setDate",
 			type:'post',
-			data:{business_name: business_name,business_id: business_id,firstdate: date},
+			data:{business_name: business_name,business_id: business_id,firstdate: firstdate},
 			success: function(response){
 				$("#mainbodyh").html(response);
 				window.location.href = mainUrl;

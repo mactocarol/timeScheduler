@@ -11,11 +11,13 @@ class Schedule extends MY_Controller
             }   */          
         }
 		public function setDate(){
-			$chkdt = $this->input->post('firstdate');
-			$chkdtarr=explode("GMT",$chkdt);
-			$newdt= strtotime($chkdtarr[0]);
-            if($newdt){
-				$timestamp= $newdt;			
+			$chkdt = $this->input->post('firstdate'); 
+			$newdate = explode('/',$chkdt);
+			
+			$newdt = $newdate[2].'-'.$newdate[0].'-'.$newdate[1].' 00:00:00';						
+			$timestamp1 = strtotime($newdt);
+            if($chkdt){
+				$timestamp= $timestamp1;			
 			}else{
 				$timestamp =time();
 			}
@@ -136,6 +138,7 @@ class Schedule extends MY_Controller
 			//$newdt= strtotime($chkdtarr[0]); 
 			//die;
 			$timestamp = strtotime($newdt);
+			$this->session->set_userdata('timestamp',$timestamp);
 			/* if($newdt){
 			     
 			}
