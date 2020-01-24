@@ -19,6 +19,7 @@ class Schedule extends MY_Controller
 			}else{
 				$timestamp =time();
 			}
+			//echo date('Y-m-d h:i:s',time()); die;
 			$this->session->set_userdata('timestamp',$timestamp);
 			
 		}
@@ -44,9 +45,9 @@ class Schedule extends MY_Controller
 			$data['alldates'] = [$date1,$date2,$date3,$date4,$date5,$date6,$date7];
 			
 			
-			//print_r($timestamp);die;
+			//print_r($data['alldates']);die;
 			$where = 'business_id = '.$business_id;			
-			$where .= ' AND shift_date >= "'.$date1.'" AND shift_date <= "'.$date7.'"  ';
+			$where .= ' AND shift_date >= "'.$date1.'" AND shift_date <= "'.$date7.'" ';
 			
 			$shifts=$this->schedule_model->SelectRecord('shift','*',$where,$orderby=array());			
 			
@@ -68,7 +69,7 @@ class Schedule extends MY_Controller
 			$timeoffs=$this->schedule_model->SelectRecord('timeoff','*',$wheret,$orderby=array());			
 			
 			$arrt = $this->group_by($timeoffs,'firstday_off');
-		  //print_r($arr); die;					
+		  //print_r($arrt); die;					
 			$finalArrayTimeoff = [];	
 			foreach($arrt as $key=>$row){			
 				$arrrt = $this->group_by($row,'user_id');
@@ -76,7 +77,39 @@ class Schedule extends MY_Controller
 			}
 			
 			$data['finalArrayTimeoff'] = $finalArrayTimeoff;
-          			
+          	
+
+              // comment 
+            $wherec = 'business_id = '.$business_id;			
+			$wherec .= ' AND comment_date >= "'.$date1.'" AND comment_date <= "'.$date7.'"';
+			 
+			
+			$comments=$this->schedule_model->SelectRecord('comments','*',$wherec,$orderby=array());			
+			
+			$arrc = $this->group_by($comments,'comment_date');
+		     $finalArrayComment = [];	
+			foreach($arrc as $key=>$row){			
+				$arrrc = $this->group_by($row,'user_id');
+				$finalArrayComment[$key] = $arrrc;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayComment'] = $finalArrayComment;
+
+              // break 
+            $whereb = 'business_id = '.$business_id;			
+			$whereb .= ' AND addbraek_date >= "'.$date1.'" AND addbraek_date <= "'.$date7.'"';
+			 
+			
+			$breaks=$this->schedule_model->SelectRecord('break','*',$whereb,$orderby=array());			
+			
+			$arrb = $this->group_by($breaks,'addbraek_date');
+		     $finalArrayBreak = [];	
+			foreach($arrb as $key=>$row){			
+				$arrrb = $this->group_by($row,'user_id');
+				$finalArrayBreak[$key] = $arrrb;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayBreak'] = $finalArrayBreak;					
 			
 		   $udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
            $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
@@ -91,16 +124,25 @@ class Schedule extends MY_Controller
 		//showcalender by ajax on previous,next week and go
 		
 		public function showCalendar(){            									
-			 $business_id =  $this->input->post('business_id'); 
-			//die;
-			//$timestamp = time();
-			//echo  $timestamp = $this->input->post('business_id'); die;
+			$business_id =  $this->input->post('business_id'); 
 			$chkdt = $this->input->post('firstdate');
-			$chkdtarr=explode("GMT",$chkdt);
-			$newdt= strtotime($chkdtarr[0]);
+			$newdate = explode('/',$chkdt);
+			//print_r($newdate); die;
+			$newdt = $newdate[2].'-'.$newdate[0].'-'.$newdate[1].' 00:00:00';
 			
-			$timestamp = $newdt; 
-			
+			//echo $newdt3= strtotime($chkdt); die;
+			//$timestamp = $this->session->userdata('timestamp');
+			//$chkdtarr=explode("GMT",$chkdt);
+			//$newdt= strtotime($chkdtarr[0]); 
+			//die;
+			$timestamp = strtotime($newdt);
+			/* if($newdt){
+			     
+			}
+			else{ */
+				//$timestamp = $this->session->userdata('timestamp');
+			//}
+			//$timestamp = $newdt;
 			$date1 = date('m/d/Y', strtotime('+0day', $timestamp)); 
 			$date2 = date('m/d/Y', strtotime('+1day', $timestamp));
 			$date3 = date('m/d/Y', strtotime('+2day', $timestamp));
@@ -126,9 +168,6 @@ class Schedule extends MY_Controller
 			
 			$data['finalArray'] = $finalArray;	
             
-
-
-
            // timeoff 
             $wheret = 'business_id = '.$business_id;			
 			$wheret .= ' AND firstday_off >= "'.$date1.'" AND firstday_off <= "'.$date7.'"';
@@ -137,14 +176,45 @@ class Schedule extends MY_Controller
 			$timeoffs=$this->schedule_model->SelectRecord('timeoff','*',$wheret,$orderby=array());			
 			
 			$arrt = $this->group_by($timeoffs,'firstday_off');
-		  //print_r($arr); die;					
-			$finalArrayTimeoff = [];	
+		     $finalArrayTimeoff = [];	
 			foreach($arrt as $key=>$row){			
 				$arrrt = $this->group_by($row,'user_id');
 				$finalArrayTimeoff[$key] = $arrrt;//['date'=>$key,'userdata'=>$arrr];				
 			}
 			
-			$data['finalArrayTimeoff'] = $finalArrayTimeoff;				
+			$data['finalArrayTimeoff'] = $finalArrayTimeoff;	
+
+             // comment 
+            $wherec = 'business_id = '.$business_id;			
+			$wherec .= ' AND comment_date >= "'.$date1.'" AND comment_date <= "'.$date7.'"';
+			 
+			
+			$comments=$this->schedule_model->SelectRecord('comments','*',$wherec,$orderby=array());			
+			
+			$arrc = $this->group_by($comments,'comment_date');
+		     $finalArrayComment = [];	
+			foreach($arrc as $key=>$row){			
+				$arrrc = $this->group_by($row,'user_id');
+				$finalArrayComment[$key] = $arrrc;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayComment'] = $finalArrayComment;	
+
+			// break 
+            $whereb = 'business_id = '.$business_id;			
+			$whereb .= ' AND addbraek_date >= "'.$date1.'" AND addbraek_date <= "'.$date7.'"';
+			 
+			
+			$breaks=$this->schedule_model->SelectRecord('break','*',$whereb,$orderby=array());			
+			
+			$arrb = $this->group_by($breaks,'addbraek_date');
+		     $finalArrayBreak = [];	
+			foreach($arrb as $key=>$row){			
+				$arrrb = $this->group_by($row,'user_id');
+				$finalArrayBreak[$key] = $arrrb;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayBreak'] = $finalArrayBreak;				
 			
 			$udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$this->input->post('business_id')); 
             $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
@@ -216,6 +286,84 @@ class Schedule extends MY_Controller
                 }
         }
 		
+		// add break cal
+		public function addbreakcal(){
+			//$admin_id = $this->session->userdata('id'); 
+            $staff_id = $this->input->post('staff_id');
+			 $insert=array(    
+					'user_id'=>$this->input->post('staff_id'),		 
+					'business_id'=>$this->input->post('business_id'),			 
+					'break'=>$this->input->post('addbreak'),
+					'addbraek_date'=>$this->input->post('breakdate'),
+					'is_deleted'=>1
+				);
+           
+			$new_id = $this->schedule_model->InsertRecord('break',$insert);
+			echo $this->showCalendar();
+			 
+        }
+		
+		// add comment cal
+		public function addcommentcal(){
+			//$admin_id = $this->session->userdata('id'); 
+            $staff_id = $this->input->post('staff_id');
+			 $insert=array(    
+					'user_id'=>$this->input->post('staff_id'),		 
+					'business_id'=>$this->input->post('business_id'),			 
+					'comment'=>$this->input->post('comment'),
+					'comment_date'=>$this->input->post('commentdate'),
+					'is_deleted'=>1
+				);
+           
+			$new_id = $this->schedule_model->InsertRecord('comments',$insert);
+			echo $this->showCalendar();
+			 
+        }
+		
+		
+		// add shift cal
+		public function addshiftcal(){
+			$admin_id = $this->session->userdata('id'); 
+            $staff_id = $this->input->post('staff_id');
+		    $time = $this->input->post('start_time');
+			if (strpos($time, '-') !== false) {
+				 $array = explode("-", $time); 
+				 $start_times = $array[0].':00';			
+				  //$start_time = date("h:i a", strtotime($start_times));
+				 if($start_times >= 12){
+				  $start_time = date("h:i p", strtotime($start_times));
+				 }
+				 else{
+					$start_time = date("h:i a", strtotime($start_times));
+				 }
+				 $end_times = $array[1].':00';  
+				 if($end_times >= 12){
+				   $end_time = date("h:i p", strtotime($end_times));
+				 }
+				 else{
+					$end_time = date("h:i a", strtotime($end_times));
+				 }
+				
+				}else {
+				 $start_time = $time;
+				 $end_time = '';
+			}
+			 
+				 $insert=array(    
+					'admin_id'=>$admin_id,			 
+					'user_id'=>$this->input->post('staff_id'),		 
+					'business_id'=>$this->input->post('business_id'),			 
+					'shift_date'=>$this->input->post('shiftdate'),
+					'start_time'=>$start_time,
+					'end_time'=>$end_time,
+					'is_deleted'=>1
+				);
+           
+			$new_id = $this->schedule_model->InsertRecord('shift',$insert);
+			echo $this->showCalendar();
+			 
+        }
+		
 		// add shift
 		public function addshift(){
 			$admin_id = $this->session->userdata('id'); 
@@ -245,7 +393,7 @@ class Schedule extends MY_Controller
 		
 		// add timeoff
 		public function addtimeoff(){
-			$admin_id = $this->session->userdata('id'); 
+		   $admin_id = $this->session->userdata('id'); 
            $staff_id = $this->input->post('staff_id');
 		   $first_dayoff = $this->input->post('first_dayoff');
 		   $last_dayoff = $this->input->post('last_dayoff');
@@ -340,6 +488,10 @@ class Schedule extends MY_Controller
             $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
 		 
 		   $data['business_id']= $this->input->post('business_id'); 
+		   //only for edit on calendar staffid
+		   $data['staffid']=  $this->input->post('staffid'); 
+		   $data['dates']=  $this->input->post('dates'); 
+			
            echo $temp = $this->load->view('timeoffmodal_view',$data);   
            			
         }

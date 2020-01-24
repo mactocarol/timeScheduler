@@ -321,7 +321,7 @@
     }
     
     $( "#datepicker" ).datepicker({
-      //dateFormat: 'd M, yy',
+      //dateFormat: 'yy M, d',
       changeMonth: true,
       changeYear: true,
       minDate: 0
@@ -344,7 +344,7 @@
           return false;
         } */
 		var business_id = $('#business_id').val();
-		
+		var firstdate = (firstdate.getMonth()+1)+'/'+(firstdate.getDate())+'/'+(firstdate.getFullYear());		
    
 	
 		$.ajax({
@@ -355,11 +355,13 @@
 				//console.log(response);
 				
 				if(response==1){
-					 $("#mainbodyc").text("");					
+					 $("#mainbodyc").text("");
+					caljs();					 
 				}
 				else
 				{
 					$("#mainbodyc").html(response);
+					caljs();
 				} 
 				
 			}
@@ -373,24 +375,29 @@
     $('.next').click(function(){
         var lastdate = (localStorage.getItem("lastDate"));        
         lastdate = new Date(lastdate);
-        lastdate.setDate(lastdate.getDate()+1); 
+        lastdate.setDate(lastdate.getDate()+1);
+		
+		var firstdate = (lastdate.getMonth()+1)+'/'+(lastdate.getDate())+'/'+(lastdate.getFullYear());				
 		//alert(lastdate);
 		var business_id = $('#business_id').val();
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/showCalendar",
 			type:'post',
-			data:{firstdate: lastdate,business_id: business_id},
+			data:{firstdate: firstdate,business_id: business_id},
 			success: function(response){
 				//console.log(response);
 				
 				if(response==1){
 					//document.getElementById('mainbody').text("");	
 					
-                     $("#mainbodyc").text("");					
+                     $("#mainbodyc").text("");	
+                     caljs();					 
 				}
 				else
 				{
 					$("#mainbodyc").html(response);
+					caljs();
+					
 				} 
 			}
 		});
@@ -418,11 +425,13 @@
 				if(response==1){
 					//document.getElementById('mainbody').text("");	
 					
-                     $("#mainbodyc").text("");					
+                     $("#mainbodyc").text("");
+                       caljs();					 
 				}
 				else
 				{
 					$("#mainbodyc").html(response);
+					caljs();
 				} 
 				
 			}

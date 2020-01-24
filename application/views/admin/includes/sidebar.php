@@ -325,13 +325,12 @@
 		});
     });
 	
-	
+	// timeoff modal 
 	$(document).on('click','#addtime', function(e){
 		//alert('hiii');
 		e.preventDefault();
 		var business_id = $('#business_id').val();
 		var datepicker = $('#datepicker').val();
-		
 		 $.ajax({
 			 url: "<?php echo site_url();?>schedule/timeoffModal",
 			type:'post',
@@ -342,11 +341,44 @@
 				
 					//document.getElementById('mainbody').innerHTML=response;
 					$("#showTimeoffmodal").html(response);
+					var datepicker = $('#datepicker').val();
 					$('.firstdate').val(datepicker);
 					$('#addtimemod').modal('show');
 				
 			}
 		});
     });
+	
+	
+	// edit timeoff modal 
+	$(document).on('click','#addtimecal', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var staffid = $(this).data('staffid');
+		var dates = $(this).data('dates');
+		
+		//var dates = $('.date').val();
+		//alert(dates);
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/timeoffModal",
+			type:'post',
+			data:{business_id: business_id,staffid: staffid,dates: dates},
+			success: function(response){
+				//alert(response);
+				
+				
+					//document.getElementById('mainbody').innerHTML=response;
+					$("#showTimeoffmodal").html(response);
+					var datepicker = $('#datepicker').val();
+					$('.firstdate').val(datepicker);
+					$('#addtimemod').modal('show');
+				
+			}
+		});
+    });
+	
+	
+	
 	
     </script>

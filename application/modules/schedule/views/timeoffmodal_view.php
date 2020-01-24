@@ -43,7 +43,7 @@
 			            foreach ($staffName as $key => $value) 
 						{ ?>
 							<label class="custom_check" ><?php echo $value['first_name']." ".$value['last_name']; ?> 
-							  <input type="checkbox" class="staffdis" value="<?php echo $value['id'];?> " name="staff_id[]" class="check_inputs" id="staff_id">
+							  <input type="checkbox" class="staffdis" value="<?php echo $value['id'];?> " <?php if($value['id'] == $staffid){echo "checked"; } ?> name="staff_id[]" class="check_inputs" id="staff_id">
 							  <span class="checkmark"></span>
 							</label>
 				  <?php } 
@@ -72,11 +72,11 @@
               </div>
               <div class="form-group">
                 <label for="date">First day off</label>
-                <input type="text" class="form-control" id="first_dayoff" name="first_dayoff" autocomplete="off">
+                <input type="text" class="form-control" id="first_dayoff" name="first_dayoff" autocomplete="off" value="<?php echo $dates; ?>">
               </div>
               <div class="form-group">
                 <label for="date">Last day off</label>
-                <input type="text" class="form-control" id="last_dayoff" name="last_dayoff" autocomplete="off">
+                <input type="text" class="form-control" id="last_dayoff" name="last_dayoff" autocomplete="off" value="<?php echo $dates; ?>">
               </div>
             <div class="form-group">
                 <label class="custom_check">Time Range
@@ -94,6 +94,7 @@
 			 <input type="hidden" id="business_id" name="business_id" value="<?php echo $business_id; ?>">
 			 <input type="hidden" name="firstdate" class="firstdate">
 			<!-- localStorage.getItem("startDate") -->
+			
 			</div>
              
             

@@ -37,6 +37,15 @@
 	$(".schedule_box").bind("contextmenu",function(e){
 	    $(".verticle_menu").hide();
         $(this).children(".verticle_menu").toggle();
+		//offset menu
+		var menu = $(this).children(".verticle_menu");
+		var menupos = $(menu).offset();
+		if (menupos.left + menu.width() > $(window).width()) {
+			$(".verticle_menu").addClass("offset_menus").css({'left':'auto', 'right':'0'});
+		}
+		else{
+			$(".verticle_menu").removeClass("offset_menus").css({'left':'50%', 'right':'auto'});
+		}
 	    return false;
 	});
 	//hide menu on click
@@ -69,11 +78,17 @@
 	//============== append add shift field on click ===============//
 	var i = 1;
 	$('.add_shift_btn').on('click', function(){
+			var staffid = $(this).data('staffid');
+	        var dates = $(this).data('dates');
 		i++;
-		var html = '<div class="form_group" id="s_row'+i+'">\
-		  <input type="text" name="name" placeholder="E.g. 9-5"/>\
-		  <button type="button" class="remove_btn" id="s_remove_'+i+'">&times;</button>\
+		var html = '<div class="form_group shift_grp" id="s_row'+i+'">\
+		  <input type="text" name="shifttime" id="shifttime" placeholder="E.g. 9-5"/>\
+		  <div class="btn_div">\
+		  <button type="button" class="submit_shift" id="shift_submit">&check;</button>\
+		   </div>\
 		</div>';
+		localStorage.setItem("staffids", staffid);
+	    localStorage.setItem("daysid", dates);
 		$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
 		$(this).parents(".verticle_menu").hide();
 	});
@@ -88,10 +103,16 @@
 	var j = 1;
 	$('.add_cmt_btn').on('click', function(){
 		j++;
-		var html = '<div class="form_group" id="cmt_row'+j+'">\
-		  <input type="text" name="name" placeholder="Add Comment"/>\
-		  <button type="button" class="remove_btn" id="remove-'+j+'">&times;</button>\
+		var staffid = $(this).data('staffid');
+	    var dates = $(this).data('dates');
+		var html = '<div class="form_group shift_grp" id="cmt_row'+j+'">\
+		  <input type="text" name="comment" id="comment" placeholder="Add Comment"/>\
+		  <div class="btn_div">\
+		  <button type="button" class="submit_shift" id="comment_submit">&check;</button>\
+		  </div>\
 		</div>';
+		localStorage.setItem("staffids", staffid);
+	    localStorage.setItem("daysid", dates);
 		$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
 		//$(this).parents(".verticle_menu").hide();
 	});
@@ -104,12 +125,23 @@
 	//============== append Break field on click ===============//
 	var k = 1;
 	$(".break_menu ul li").on("click", function(){
+		var staffid = $(this).data('staffid');
+	    var dates = $(this).data('dates');
+		
 		var b_time = $(this).text();
 		k++;
-		var html = '<div class="form_group break_group" id="brk_row'+k+'">\
-		  <input class="break_input" type="text" name="name" value="'+b_time+'" disabled/>\
-		  <button type="button" class="remove_btn" id="remove_'+k+'">&times;</button>\
+		var html = '<div class="form_group shift_grp" id="cmt_row'+k+'">\
+		  <input type="text" name="break" id="break" value="'+b_time+'"/>\
+		  <div class="btn_div">\
+		  <button type="button" class="submit_shift" id="break_submit">&check;</button>\
+		  </div>\
 		</div>';
+		/* var html = '<div class="form_group break_group" id="brk_row'+k+'">\
+		  <input class="break_input" type="text" name="break" value="'+b_time+'"/>\
+		  <button type="button" class="remove_btn" id="remove_'+k+'">&times;</button>\
+		</div>'; */
+		localStorage.setItem("staffids", staffid);
+	    localStorage.setItem("daysid", dates);
 		$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
 	});
 	//remove break input field

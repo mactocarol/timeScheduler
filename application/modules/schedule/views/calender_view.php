@@ -1,4 +1,4 @@
-
+  
 						 <?php if(!empty($staffName)){ 
 			                     foreach ($staffName as $key => $value) { ?>
                            <tr>
@@ -34,13 +34,47 @@
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
-													<button type="button" class="remove_btn" id="s_remove">&times;</button>
+												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
+												    <button type="button" class="remove_btn" id="s_remove">&times;</button>
 								                   </div>
 												<?php }
 											}
 										}
 								  ?>	
+								    <?php
+									 $comments = isset($finalArrayComment[$alldates[0]]) ? $finalArrayComment[$alldates[0]] : []; 
+											foreach($comments as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['comment']; ?>
+													<div class="btn_div">
+														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
+									  <?php
+									 $breaks = isset($finalArrayBreak[$alldates[0]]) ? $finalArrayBreak[$alldates[0]] : []; 
+											foreach($breaks as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['break']; ?>
+													<div class="btn_div">
+														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
 								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
 								  
                               </div>
@@ -49,18 +83,18 @@
                                <div class="verticle_menu">
                                 <ul>
                                   <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
+                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Shift</li>
+                                  <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Comment</li>
+                                  <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
                                     <div class="submenu break_menu">
                                       <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">15 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">30 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">45 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">1 hour</li>
                                       </ul>
-                                  </div>
+                                    </div>
                                   </li>
                                   <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
                                 </ul>
@@ -93,33 +127,67 @@
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
+												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
 													<button type="button" class="remove_btn" id="s_remove">&times;</button>
 								                   </div>
 												<?php }
 											}
 										}
 								  ?>	
+								  <?php
+									 $comments = isset($finalArrayComment[$alldates[1]]) ? $finalArrayComment[$alldates[1]] : []; 
+											foreach($comments as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['comment']; ?>
+													<div class="btn_div">
+														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
+									  <?php
+									 $breaks = isset($finalArrayBreak[$alldates[1]]) ? $finalArrayBreak[$alldates[1]] : []; 
+											foreach($breaks as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['break']; ?>
+													<div class="btn_div">
+														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
 								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
 								  
                               </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu">
-                                <ul>
+                               <ul>
                                   <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
+                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">Add Shift</li>
+                                  <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">Add Comment</li>
+                                  <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
                                     <div class="submenu break_menu">
                                       <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">15 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">30 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">45 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">1 hour</li>
                                       </ul>
-                                  </div>
+                                    </div>
                                   </li>
                                   <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
                                 </ul>
@@ -152,33 +220,67 @@
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
+												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
 													<button type="button" class="remove_btn" id="s_remove">&times;</button>
 								                   </div>
 												<?php }
 											}
 										}
-								  ?>	
+								  ?>
+								<?php
+									 $comments = isset($finalArrayComment[$alldates[2]]) ? $finalArrayComment[$alldates[2]] : []; 
+											foreach($comments as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['comment']; ?>
+													<div class="btn_div">
+														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
+									  <?php
+									 $breaks = isset($finalArrayBreak[$alldates[2]]) ? $finalArrayBreak[$alldates[2]] : []; 
+											foreach($breaks as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['break']; ?>
+													<div class="btn_div">
+														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>								  
 								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
 								  
                               </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu">
-                                <ul>
+                                 <ul>
                                   <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
+                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">Add Shift</li>
+                                  <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">Add Comment</li>
+                                  <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
                                     <div class="submenu break_menu">
                                       <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">15 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">30 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">45 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">1 hour</li>
                                       </ul>
-                                  </div>
+                                    </div>
                                   </li>
                                   <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
                                 </ul>
@@ -211,33 +313,67 @@
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
+												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
 													<button type="button" class="remove_btn" id="s_remove">&times;</button>
 								                   </div>
 												<?php }
 											}
 										}
 								  ?>	
+								  <?php
+									 $comments = isset($finalArrayComment[$alldates[3]]) ? $finalArrayComment[$alldates[3]] : []; 
+											foreach($comments as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['comment']; ?>
+													<div class="btn_div">
+														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
+									  <?php
+									 $breaks = isset($finalArrayBreak[$alldates[3]]) ? $finalArrayBreak[$alldates[3]] : []; 
+											foreach($breaks as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['break']; ?>
+													<div class="btn_div">
+														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
 								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
 								  
                               </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu">
-                                <ul>
+                                 <ul>
                                   <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
+                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">Add Shift</li>
+                                  <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">Add Comment</li>
+                                  <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
                                     <div class="submenu break_menu">
                                       <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">15 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">30 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">45 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">1 hour</li>
                                       </ul>
-                                  </div>
+                                    </div>
                                   </li>
                                   <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
                                 </ul>
@@ -270,13 +406,47 @@
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
+												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
 													<button type="button" class="remove_btn" id="s_remove">&times;</button>
 								                   </div>
 												<?php }
 											}
 										}
-								  ?>	
+								  ?>
+									<?php
+									 $comments = isset($finalArrayComment[$alldates[4]]) ? $finalArrayComment[$alldates[4]] : []; 
+											foreach($comments as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['comment']; ?>
+													<div class="btn_div">
+														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
+									  <?php
+									 $breaks = isset($finalArrayBreak[$alldates[4]]) ? $finalArrayBreak[$alldates[4]] : []; 
+											foreach($breaks as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['break']; ?>
+													<div class="btn_div">
+														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>								  
 								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
 								  
                               </div>
@@ -285,18 +455,18 @@
                                <div class="verticle_menu">
                                 <ul>
                                   <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
+                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">Add Shift</li>
+                                  <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">Add Comment</li>
+                                  <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
                                     <div class="submenu break_menu">
                                       <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">15 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">30 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">45 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">1 hour</li>
                                       </ul>
-                                  </div>
+                                    </div>
                                   </li>
                                   <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
                                 </ul>
@@ -329,13 +499,47 @@
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
+												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
 													<button type="button" class="remove_btn" id="s_remove">&times;</button>
 								                   </div>
 												<?php }
 											}
 										}
 								  ?>	
+								  <?php
+									 $comments = isset($finalArrayComment[$alldates[5]]) ? $finalArrayComment[$alldates[5]] : []; 
+											foreach($comments as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['comment']; ?>
+													<div class="btn_div">
+														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
+									  <?php
+									 $breaks = isset($finalArrayBreak[$alldates[5]]) ? $finalArrayBreak[$alldates[5]] : []; 
+											foreach($breaks as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['break']; ?>
+													<div class="btn_div">
+														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
 								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
 								  
                               </div>
@@ -344,18 +548,18 @@
                                <div class="verticle_menu">
                                 <ul>
                                   <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
+                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">Add Shift</li>
+                                  <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">Add Comment</li>
+                                  <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
                                     <div class="submenu break_menu">
                                       <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">15 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">30 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">45 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">1 hour</li>
                                       </ul>
-                                  </div>
+                                    </div>
                                   </li>
                                   <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
                                 </ul>
@@ -388,33 +592,67 @@
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
+												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
 													<button type="button" class="remove_btn" id="s_remove">&times;</button>
 								                   </div>
 												<?php }
 											}
 										}
-								  ?>	
+								  ?>
+								  <?php
+									 $comments = isset($finalArrayComment[$alldates[6]]) ? $finalArrayComment[$alldates[6]] : []; 
+											foreach($comments as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['comment']; ?>
+													<div class="btn_div">
+														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
+									  <?php
+									 $breaks = isset($finalArrayBreak[$alldates[6]]) ? $finalArrayBreak[$alldates[6]] : []; 
+											foreach($breaks as $key=>$val){
+												if($key == $value['id']){
+													foreach($val as $v){ ?>
+													<div class="form_group shift_grp" id="cmt_row">
+													<?php echo $v['break']; ?>
+													<div class="btn_div">
+														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														</div>
+													 </div>
+														
+														
+												<?php 	}
+												}
+											}
+									  ?>
 								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
 								  
                               </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu">
-                                <ul>
+                               <ul>
                                   <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
+                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Add Shift</li>
+                                  <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Add Comment</li>
+                                  <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
                                     <div class="submenu break_menu">
                                       <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">15 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">30 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">45 minutes</li>
+                                        <li data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">1 hour</li>
                                       </ul>
-                                  </div>
+                                    </div>
                                   </li>
                                   <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
                                 </ul>

@@ -576,7 +576,7 @@ td.pad.backcolor {
 }
 .Vacation {
     background-color: #159dc7;
-    min-width: 120px;
+    width: 100%;
     padding: 4px;
 	margin:3px 0;
 	opacity:0.8;
@@ -703,7 +703,7 @@ td.pad{
     display: none;
     position: absolute;
     top: 19px;
-    left: 60%;
+    left: 50%;
     z-index: 11;
 }
 .verticle_menu ul{
@@ -735,7 +735,7 @@ td.pad{
     left: 100%;
     position: absolute;
     width: 100px;
-    background-color: #e6ecfb;
+    background-color: #07617d;
     padding: 8px 0;
     top: 0;
     display: none;
@@ -746,13 +746,18 @@ td.pad{
 }
 .submenu ul li{
     list-style: none;
-    color: #000;
+    color: #ffffff;
 }
 .submenu ul li a{
     color: #363636;
 }
 .verticle_menu > ul > li:hover >.submenu {
     display: block;
+}
+
+.verticle_menu.offset_menus .submenu {
+    right: 100%;
+    left: auto;
 }
 .user_content .table-responsive {
     overflow-x: initial;
@@ -933,6 +938,38 @@ td.pad{
     color: #159dc7;
 }
 /*=== Schedule table css ====*/
+/*=== shift css start ====*/
+.append_td_data .form_group .btn_div {
+    position: absolute;
+    top: 0;
+    right: 0;
+	display:none;
+}
+.append_td_data .form_group:hover .btn_div {
+    display: inline-block;
+    display: flex;
+}
+.append_td_data .form_group .btn_div .remove_btn {
+    position: relative;
+    display: block;
+}
+.append_td_data .form_group .btn_div button{
+	margin:0 1px;
+}
+.submit_shift {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0;
+    border: none;
+    font-size: 13px;
+    background: #60dc60;
+    color: #fff;
+    line-height: 15px;
+    height: 15px;
+    width: 15px;
+    text-align: center;
+}
+/*=== shift css end ====*/
 
 /*=== Schedule break css ====*/
 .append_td_data .break_group .break_text {
