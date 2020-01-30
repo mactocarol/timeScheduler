@@ -5,6 +5,7 @@
 				<button type="button" class="close" data-dismiss="alert">×</button>
 				<div class="msg"></div>
 			</div>
+			<!--<input type="text" id="ccc">-->
 			<!-- alert message -->
           <div class="inner_page_header">
              <div class="tab_menu">
@@ -25,7 +26,7 @@
                </div>
                <div class="col-xl-6 col-md-12 mb-4">
                  <div class="right_side">
-                   <button class="add_time_btn" data-toggle="modal" data-target="#addtime">Add Time Off</button>
+                   <button class="add_time_btn" id="addtime">Add Time Off</button>
                    <button class="crate_shift_btn" id="addshift">Create Shift</button>
                </div>
 
@@ -51,7 +52,7 @@
                     <!-- Right side -->
                     <div class="controler_right">
                       <div class="email_text ctrl_item">
-                        <a href="#" class="text_link" data-toggle="modal" data-target="#emailschedule">Email</a>
+                        <a href="#" class="text_link" id="emailschedule">Email</a>
                       </div>
                       <div class="download_text ctrl_item">
                         <a href="#" class="text_link">Download Schedule</a>
@@ -161,10 +162,12 @@
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
-													<div class="btn_div">
+													    <div class="btn_div">
 														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														    
+														    
 														</div>
-													 </div>
+													</div>
 														
 														
 												<?php 	}
@@ -175,10 +178,27 @@
 								  </div>
                               
                               <!-- Append data -->
+							  <?php if(isset($finalArrayTimeoff[$alldates[0]]) ? $finalArrayTimeoff[$alldates[0]] : []) ?>
                               <!-- shecule menus -->
                                <div class="verticle_menu">
                                 <ul>
+								
                                   <li>Paste</li>
+								  <!--<script> 
+										
+
+										$("#ccc").bind({
+											copy : function(){
+												//alert('copy behaviour detected!');
+											},
+											paste : function(){
+												//alert('paste behaviour detected!');
+											},
+											cut : function(){
+												//alert('cut behaviour detected!');
+											}
+										});									
+								 </script> -->
                                   <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Add Time off</a></li>
@@ -192,7 +212,17 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+								   <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Email</a></li>
+                                </ul>
+                              </div>
+							  <!-- shecule menus -->
+							  <!--<div class="cccv">
+                                <ul>
+                                  <li>Cut</li>
+                                  <li>Copy</li>
+                                  <li>Paste</li>
+                                  <li>Edit</li>
+                                  <li>Delete</li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -289,10 +319,10 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>" >Email</a></li>
                                 </ul>
                               </div>
-                              <!-- shecule menus -->
+                              
                              </td>
 							 <td class="pad schedule_box ">
 							 <?php
@@ -382,7 +412,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                 <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -448,7 +478,7 @@
 													<?php echo $v['break']; ?>
 													<div class="btn_div">
 														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
-														</div>
+													</div>
 													 </div>
 														
 														
@@ -477,7 +507,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -570,7 +600,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -663,7 +693,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -711,7 +741,7 @@
 													<div class="btn_div">
 														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
 														</div>
-													 </div>
+													</div>
 														
 														
 												<?php 	}
@@ -741,7 +771,7 @@
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu">
-                              <ul>
+                               <ul>
                                   <li>Paste</li>
                                   <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Add Comment</li>
@@ -756,7 +786,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -862,7 +892,7 @@
                            </tr>
                          </thead>
                          <tbody>
-                           <tr>
+                         <tr>
                              <td class="pad backcolor s_td_name">
                                <div class="name">
                                  <h3>Neha Sharma</h3>
@@ -901,19 +931,19 @@
                               <!-- shecule menus -->
                              </td>
                            </tr>
-                           <tr>
-                             <td class="pad backcolor">
-                               <div class="name">
-                                 <h3>Anush Gour</h3>
-                                 <span>0 Hours</span>
-                               </div>
-                             </td>
-                             <td class="pad schedule_box">
-                              <span class="add_icon">
-                                <i class="fas fa-plus"></i>
-                              </span>
-                             </td>
-                           </tr>
+							   <tr>
+								 <td class="pad backcolor">
+								   <div class="name">
+									 <h3>Anush Gour</h3>
+									 <span>0 Hours</span>
+								   </div>
+								 </td>
+								 <td class="pad schedule_box">
+								  <span class="add_icon">
+									<i class="fas fa-plus"></i>
+								  </span>
+								 </td>
+							   </tr>
 							   <tr class="schdule_hour_row">
 								 <td>
 								  <div class="s_hour">Scheduled hours</div>
@@ -941,13 +971,9 @@
                 </div>
                 <!-- Day tab content -->
           </div>
-
-
-
-
-
-             </div>
-             <div class="tab_content" id="tab_2">
+         </div>
+		  <!-- Timeoff -->
+            <div class="tab_content" id="tab_2">
                <div class="row">
                  <div class="col-xl-6 col-md-12 mb-4">
                  <div class="left_side">
@@ -956,7 +982,7 @@
                </div>
                <div class="col-xl-6 col-md-12 mb-4">
                  <div class="right_side">
-                   <button class="crate_shift_btn" data-toggle="modal" data-target="#addtime">Add Time Off</button>
+                   <button class="crate_shift_btn" id="addtime">Add Time Off</button>
                  </div>
                </div>
                </div>
@@ -981,26 +1007,37 @@
                          </tr>
                        </thead>
                        <tbody>
-                         <tr>
-                           <td>5-01-2020</td>
-                           <td><a href="#" data-toggle="modal" data-target="#staff_edit_modal">Neha</a></td>
-                           <td><a href="#" data-toggle="modal" data-target="#staff_edit_modal">Sharma</a></td>
-                           <td><a href="#" data-toggle="modal" data-target="#staff_edit_modal">nehasharma@gmail.com</a></td>
-                           <td>5-01-2020</td>
-                           <td>6-01-2020</td>
-                           <td>9:00 AM</td>
-                           <td>5:00 PM</td>
-                           <td>8 Hours</td>
-                           <td>Maternity</td>
-                           <td class="action_td">
-                             <a href="#" class="icons">
-                               <i class="fas fa-edit"></i>
-                             </a>
-                             <a href="#" class="icons">
-                               <i class="fas fa-trash-alt"></i>
-                             </a>
-                           </td>
-                         </tr>
+					   <?php
+                 
+				    if(!empty($timeOff))
+				       { 
+			            foreach ($timeOff as $keytime => $valuetime) 
+						{ 
+						  $created_date = $valuetime['created_at'];
+                          $newDate = date("d M ,Y", strtotime($created_date));
+					   ?>
+							 <tr>
+							   <td><?php echo $newDate; ?></td>
+							   <td><!--<a href="#" data-toggle="modal" data-target="#staff_edit_modal">--><?php echo $valuetime['first_name'];?></a></td>
+							   <td><!--<a href="#" data-toggle="modal" data-target="#staff_edit_modal">--><?php echo $valuetime['last_name'];?></a></td>
+							   <td><!--<a href="#" data-toggle="modal" data-target="#staff_edit_modal">--><?php echo $valuetime['email'];?></a></td>
+							   <td><?php echo $valuetime['firstday_off'];?></td>
+							   <td><?php echo $valuetime['firstday_off'];?></td>
+							   <td><?php echo $valuetime['start_time'];?></td>
+							   <td><?php echo $valuetime['end_time'];?></td>
+							   <td>8 Hours</td>
+							   <td><?php echo $valuetime['end_time'];?></td>
+							   <td class="action_td">
+								 <a href="#" class="icons">
+								   <i class="fas fa-edit"></i>
+								 </a>
+								 <a href="#" class="icons">
+								   <i class="fas fa-trash-alt"></i>
+								 </a>
+							   </td>
+							 </tr>
+					   <?php } 
+					   }?>
                        </tbody>
                      </table>
                    </div>
@@ -1008,10 +1045,12 @@
                  </div>
                </div>
              </div>
+			  <!-- Timeoff -->
           </div>
         </div>
 
 <input type="hidden" id="business_id" value="<?php echo $this->uri->segment(4); ?>">
+
 
    <!--  <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
 <!-- add staff by ajax -->
@@ -1048,7 +1087,8 @@
 			data:{fname: fname,lname: lname,email: email, phone_no: phone_no,business_id: business_id},
 			success: function(response){
 				//console.log(response);
-				
+				$('#message').show();
+				$('#message .msg').html("Staff Added Successfully");
 				
 			}
 		});
@@ -1090,8 +1130,8 @@
 					$('#addshiftmod').modal('hide');
 					caljs();
 					//location.reload();
-					//$('#message').show();
-				    // $('#message .msg').html("Shift Added Successfully");
+					 $('#message').show();
+				     $('#message .msg').html("Shift Added Successfully");
 				
 				//$('#message').show();
 				//$('#message .msg').text(response);
@@ -1124,8 +1164,8 @@
 					$('#addtimemod').modal('hide');
 		             caljs();
 					//location.reload();
-					//$('#message').show();
-				    // $('#message .msg').html("Shift Added Successfully");
+					$('#message').show();
+				    $('#message .msg').html("Timeoff Added Successfully");
 				//} 
 				
 				//$('#message').show();
@@ -1137,6 +1177,53 @@
     });
 </script>
 
+<!-- add email schedule by ajax -->
+ <script>
+	$(document).on('click','#sendbtn', function(e){
+		e.preventDefault();
+	
+		
+		$.ajax({
+			url: "<?php echo site_url();?>schedule/addemail",
+			type:'post',
+			data:$('#emailform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
+			success: function(response){
+				//alert(response);
+					$("#mainbodyc").html(response);
+					$('#addemailmod').modal('hide');
+					
+		             //caljs();
+					//location.reload();
+					$('#message').show();
+				    $('#message .msg').html("Email Send Successfully");
+				//} 
+				
+				//$('#message').show();
+				//$('#message .msg').text(response);
+			}
+		});
+    });
+	
+	
+	//email preview
+	$(document).on('click','#previewbtn', function(e){
+		
+		e.preventDefault();
+	      $.ajax({
+			url: "<?php echo site_url();?>schedule/emailPreview",
+			type:'post',
+			data:$('#emailform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
+			success: function(response){
+				//alert(response);
+				//$('#addemailmod').modal('hide');
+				$("#moddiv").html(response);
+				
+				//$('#email_preview_modal').modal('show');
+				
+			}
+		}); 
+    });
+</script>
 
 
  <!--add by ajax on calendar view shift,comment -->
@@ -1271,5 +1358,6 @@
 			localStorage.setItem("daysid", dates);
 			$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
 		});
-	}	
+	}
+
 </script>

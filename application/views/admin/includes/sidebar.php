@@ -56,7 +56,7 @@
           <span>Add Time-off</span></a>
       </li>
       <hr class="sidebar-divider my-0">
-      <li class="nav-item" data-toggle="modal" data-target="#emailschedule">
+      <li class="nav-item" id="emailschedule">
         <a class="nav-link" href="#">
           <i class="far fa-envelope"></i>
           <span>Email Schedule</span></a>
@@ -277,7 +277,9 @@
 	<div id="showShiftmodal"></div>
 		<div id="showStaffmodal"></div>
 		<div id="showTimeoffmodal"></div>
+		<div id="showEmailmodal"></div>
 		<input type="hidden" id="business_id" name="business_id" value="<?php echo $this->uri->segment(4); ?>">
+		
 	<script>
 	$(document).on('click','#addshift', function(e){
 		//alert('hiii');
@@ -365,11 +367,7 @@
 			type:'post',
 			data:{business_id: business_id,staffid: staffid,dates: dates},
 			success: function(response){
-				//alert(response);
-				
-				
-					//document.getElementById('mainbody').innerHTML=response;
-					$("#showTimeoffmodal").html(response);
+				    $("#showTimeoffmodal").html(response);
 					var datepicker = $('#datepicker').val();
 					$('.firstdate').val(datepicker);
 					$('#addtimemod').modal('show');
@@ -379,6 +377,48 @@
     });
 	
 	
+	// email schedule modal 
+	$(document).on('click','#emailschedule', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/emailModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				$("#showEmailmodal").html(response);
+				var datepicker = $('#datepicker').val();
+				$('.firstdate').val(datepicker);
+				$('#addemailmod').modal('show');
+			}
+		});
+    });
 	
+	// edit email schedule modal 
+	$(document).on('click','#addemailcal', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var staffid = $(this).data('staffid');
+		var dates = $(this).data('dates');
+		
+		//var dates = $('.date').val();
+		//alert(dates);
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/emailModal",
+			type:'post',
+			data:{business_id: business_id,staffid: staffid,dates: dates},
+			success: function(response){
+				    $("#showEmailmodal").html(response);
+					var datepicker = $('#datepicker').val();
+					$('.firstdate').val(datepicker);
+					$('#addemailmod').modal('show');
+				
+			}
+		});
+    });
 	
     </script>

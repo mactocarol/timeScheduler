@@ -96,7 +96,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                 <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -189,7 +189,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -282,7 +282,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                 <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -375,7 +375,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -468,7 +468,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -561,7 +561,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                  <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->
@@ -654,7 +654,7 @@
                                       </ul>
                                     </div>
                                   </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
+                                 <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>" >Email</a></li>
                                 </ul>
                               </div>
                               <!-- shecule menus -->

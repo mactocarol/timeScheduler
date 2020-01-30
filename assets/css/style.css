@@ -32,6 +32,7 @@ input:focus, button:focus, select:focus, textarea:focus{
 .my_common_form .form-group > label {
     font-size: 14px;
     margin-bottom: 4px;
+    color: #363636;
 }
 .my_common_form .form-group {
     margin-bottom: 10px;
@@ -1066,3 +1067,65 @@ td.pad{
 		text-shadow: none;
 	}
 /*=== alert css End ====*/
+/*=== Clear schedule css End ====*/
+.clear_schedule_form {
+    text-align: center;
+}
+
+.clear_schedule_form p {
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+/*=== Clear schedule css End ====*/
+/*=== Email Copy css start ====*/
+.email_copy_input{
+    display: none;   
+}
+/*=== Email Copy css End ====*/
+/*=== Email Preview css start ====*/
+#email_preview_modal .modal-dialog {
+    max-width: 800px;
+}
+.email_preview_box {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #444;
+    padding: 9px;
+}
+.email_preview_box .body_message p {
+    font-size: 15px;
+    color: #444;
+    line-height: 25px;
+}
+.emali_prev_table .table tr td, 
+.emali_prev_table .table tr th {
+    border: 1px solid #444;
+    padding: 10px;
+    color: #444444;
+}
+.emali_prev_table .table tr th {
+    color: #000;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+}
+.emali_prev_table tr td .peview_text {
+    border: 1px solid #444444;
+    padding: 5px;
+    text-align: center;
+    margin: 2px 0;
+}
+.staf_m_n {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+.email_preview_box table tr th, .email_preview_box table tr td {
+    padding: 5px;
+    border: 1px solid #111;
+}
+.email_preview_box table tr th {
+    color: #000;
+}
+/*=== Email Preview css End ====*/

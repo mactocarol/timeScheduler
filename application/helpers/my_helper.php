@@ -35,7 +35,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
             $CI =& get_instance();
             $CI->db->select('*');
             $CI->db->where(array('id'=>$userid));
-            $query = $CI->db->get('users');            
+            $query = $CI->db->get('user');            
             $reslt = $query->row();
             //print_r($userid); die;
             return $reslt;

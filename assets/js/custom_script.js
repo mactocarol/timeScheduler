@@ -17,6 +17,18 @@
 		$("#first_dayoff").datepicker( "option", "maxDate", selectedDate );
 	  }
 	});
+	
+	
+	$("#from").datepicker({          
+	  onClose: function( selectedDate ) {
+		$("#to").datepicker( "option", "minDate", selectedDate );
+	  }
+	});
+	$("#to").datepicker({
+	  onClose: function( selectedDate ) {
+		$("#from").datepicker( "option", "maxDate", selectedDate );
+	  }
+	});
   	//tabs Menu
 	$('.tab_menu .tab_link').on('click', function(){
 		$(".tab_content").removeClass("active");
@@ -211,6 +223,15 @@
 		}
 	});
 	//Enable input on checkbox
+	$(document).on('change', '.staffdis, .all_checked', function(){
+		if ($(this).is(":checked")) {
+		  $(".disable_btn").removeAttr("disabled");
+		}
+		else{
+			$(".disable_btn").attr("disabled",'true');
+		}
+	});
+	//Enable input on checkbox
 	$(document).on('change', '.time_range_check', function(){
 		if ($(this).is(":checked")) {
 		  $("input.time_range_inpt").removeAttr("disabled");
@@ -219,5 +240,20 @@
 			$("input.time_range_inpt").attr("disabled",'true');
 		}
 	});
+	//============== email copy on checked  ===============//
+	$('.email_copy_check').change(function(){
+		if ($(this).is(":checked")) {
+			$(".email_copy_input").show();
+				     
+			}
+		else{
+			$(".email_copy_input").hide();
+		}
+	});
+	//custom hide bootstrape modal
+    // Hide modal on button click
+    $(".modal_hide").click(function(){
+        $("#emailschedule").modal('hide');
+    });
 })(jQuery);
 

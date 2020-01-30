@@ -6,6 +6,7 @@ class Schedule extends MY_Controller
         public function __construct(){
             parent::__construct();
 			$this->load->model('schedule_model');
+			$this->load->helper('my_helper');
             /* if( $this->session->userdata('user_group_id') != 1){
                 redirect('user');
             }   */          
@@ -112,10 +113,25 @@ class Schedule extends MY_Controller
 			}
 			
 			$data['finalArrayBreak'] = $finalArrayBreak;					
-			
+			//for staff list
 		   $udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
            $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
-			//print_r($data['staffName']);
+		   
+		   
+		   //for timeoff
+		  $data['timeOff'] =$this->schedule_model->joindataResult('t.user_id','u.id',array('t.admin_id'=>$this->session->userdata('id'),'t.business_id'=>$business_id),'t.*,u.first_name,u.last_name,u.email','timeoff as t','user as u',$orderby=array());
+          // $data['timeOff'] = $this->group_by($timeOffview,'created_at');
+          // print_r($arrview); die; 		   
+		     /*  $timeOff = [];	
+			foreach($arrview as $keyv=>$rowv){			
+				$arrrbv = $this->group_by($rowv,'user_id');
+				$timeOff[$keyv] = $arrrbv;//['date'=>$key,'userdata'=>$arrr];				
+			} 
+		   $data['timeOff'] = $timeOff;  */
+			//echo "<pre>";
+            // print_r($data['timeOff']);		die;	
+			
+		   //$data['timeOff'] = $this->group_by($timeOffview,'created_at');	
 		   $this->load->view('admin/includes/sidebar');	
            $this->load->view('schedule_view',$data); 
 		   $this->load->view('admin/includes/footer');	
@@ -237,36 +253,35 @@ class Schedule extends MY_Controller
 		
 		// addBusiness
         public function addBusiness(){
-			   $admin_id = $this->session->userdata('id');
+			$admin_id = $this->session->userdata('id');
+			$insert=array(    
+				'admin_id'=>$admin_id,			 
+				'name'=>$this->input->post('name'),
+				'email'=>$this->input->post('email'),
+				'phone_no'=>$this->input->post('phone_no'),
+				'is_deleted'=>1
+			);
+	  
+			$new_id = $this->schedule_model->InsertRecord('business',$insert);
+			if($new_id)
+			{
+			  
+			$udata=array('admin_id'=>$this->session->userdata('id')); 
+			$dataq['businessList']=$this->schedule_model->SelectRecord('business','*',$udata=array(),'id asc');
+			
+			  echo $dt = $this->load->view('user/dashboard_view',$dataq); 
+			}
+			else{
 			   
-				 $insert=array(    
-					'admin_id'=>$admin_id,			 
-					'name'=>$this->input->post('name'),
-					'email'=>$this->input->post('email'),
-					'phone_no'=>$this->input->post('phone_no'),
-					'is_deleted'=>1
-				);
-          
-                $new_id = $this->schedule_model->InsertRecord('business',$insert);
-                if($new_id)
-                {
-                  
-				$udata=array('admin_id'=>$this->session->userdata('id')); 
-                $dataq['businessList']=$this->schedule_model->SelectRecord('business','*',$udata=array(),'id asc');
-				
-				  echo $dt = $this->load->view('user/dashboard_view',$dataq); 
-                }
-                else{
-                   
-					echo $dt =1;
-                }
+				echo $dt =1;
+			}
         }
 		
 		// add staff
 		public function addstaff(){
-           $admin_id = $this->session->userdata('id'); 
+            $admin_id = $this->session->userdata('id'); 
           
-             $insert=array(    
+            $insert=array(    
                 'admin_id'=>$admin_id,			 
                 'business_id'=>$this->input->post('business_id'),			 
                 'first_name'=>$this->input->post('fname'),
@@ -471,23 +486,246 @@ class Schedule extends MY_Controller
 						 
         }
 		
+		// add emailschedule and mail 
+		public function addemail(){
+			$firstdate = $this->input->post('from');
+			$lastdate = $this->input->post('to');
+			$business_id = $this->input->post('business_id');
+			$staff_id = $this->input->post('staff_id');
+			$type = $this->input->post('option');
+			
+			for ($currentDate = strtotime($firstdate); $currentDate <= strtotime($lastdate); $currentDate += (86400)) { 
+				$data['alldates'][] = date('m/d/Y', $currentDate);
+			}
+			//print_r($data['alldates']); die;	
+			$date1 = $data['alldates'][0];
+			$date7 = $data['alldates'][count($data['alldates'])-1];			
+			//shift
+			$where = 'business_id = '.$business_id;			
+			$where .= ' AND shift_date >= "'.$date1.'" AND shift_date <= "'.$date7.'"  ';
+			
+			$shifts=$this->schedule_model->SelectRecord('shift','*',$where,$orderby=array());			
+			//print_r($shifts); die;
+			$arr = $this->group_by($shifts,'shift_date');	
+			$finalArray = [];	
+			foreach($arr as $key=>$row){			
+				$arrr = $this->group_by($row,'user_id');
+				$finalArray[$key] = $arrr;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArray'] = $finalArray;	
+            
+           // timeoff 
+            $wheret = 'business_id = '.$business_id;			
+			$wheret .= ' AND firstday_off >= "'.$date1.'" AND firstday_off <= "'.$date7.'"';
+			 
+			
+			$timeoffs=$this->schedule_model->SelectRecord('timeoff','*',$wheret,$orderby=array());			
+			
+			$arrt = $this->group_by($timeoffs,'firstday_off');
+		     $finalArrayTimeoff = [];	
+			foreach($arrt as $key=>$row){			
+				$arrrt = $this->group_by($row,'user_id');
+				$finalArrayTimeoff[$key] = $arrrt;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayTimeoff'] = $finalArrayTimeoff;	
+
+             // comment 
+            $wherec = 'business_id = '.$business_id;			
+			$wherec .= ' AND comment_date >= "'.$date1.'" AND comment_date <= "'.$date7.'"';
+			 
+			
+			$comments=$this->schedule_model->SelectRecord('comments','*',$wherec,$orderby=array());			
+			
+			$arrc = $this->group_by($comments,'comment_date');
+		     $finalArrayComment = [];	
+			foreach($arrc as $key=>$row){			
+				$arrrc = $this->group_by($row,'user_id');
+				$finalArrayComment[$key] = $arrrc;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayComment'] = $finalArrayComment;	
+
+			// break 
+            $whereb = 'business_id = '.$business_id;			
+			$whereb .= ' AND addbraek_date >= "'.$date1.'" AND addbraek_date <= "'.$date7.'"';
+			 
+			
+			$breaks=$this->schedule_model->SelectRecord('break','*',$whereb,$orderby=array());			
+			
+			$arrb = $this->group_by($breaks,'addbraek_date');
+		     $finalArrayBreak = [];	
+			foreach($arrb as $key=>$row){			
+				$arrrb = $this->group_by($row,'user_id');
+				$finalArrayBreak[$key] = $arrrb;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayBreak'] = $finalArrayBreak;				
+			
+			$html = '<div class="table-responsive"><table border="1" style="border-collapse: collapse;"><tr><th>Names</th>';
+			
+			foreach($data['alldates'] as $key=>$val){
+				$html .= '<th>'.$val.'</th>';
+			}
+			
+			$html .= '</tr>';
+			
+			$html2 = ''; $staffArray = [];
+			
+			foreach($staff_id as $row){
+				$udata1=array('id'=>$row); 
+                $data1=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
+				$html2 = '<tr><td>'.$data1[0]['first_name'].' '.$data1[0]['last_name'].'</td>';
+				
+				foreach($data['alldates'] as $key=>$val){
+					$shifts = isset($finalArray[$val]) ? $finalArray[$val] : [];
+					$timeoffs = isset($finalArrayTimeoff[$val]) ? $finalArrayTimeoff[$val] : []; 
+					$comments = isset($finalArrayComment[$val]) ? $finalArrayComment[$val] : []; 
+					$breaks = isset($finalArrayBreak[$val]) ? $finalArrayBreak[$val] : []; 
+					$html2 .= '<td>';
+                    if($shifts){
+						foreach($shifts as $key1=>$valu){
+							if($key1 == $row){
+								foreach($valu as $v){
+								$html2 .='<div style="border: 1px solid #444444;padding: 5px;text-align: center;margin: 2px 0;">';
+								$html2 .= ''.$v['start_time'].'-'.$v['end_time'].'';
+								$html2 .='</div>';
+								}
+							}
+						
+						}
+					}
+					if($timeoffs){
+						foreach($timeoffs as $key2=>$valu2){
+							if($key2 == $row){
+								foreach($valu2 as $v2){
+									$html2 .= '<div style="word-break:break-word;border:1px solid #808080; padding:4px; text-align: center;">';
+									$html2 .= ''.$v2['timeoff_type'].'';
+								    $html2 .= '</br>';
+									if($v2['start_time'] && $v2['end_time']){
+									   $html2 .= ''.$v2['start_time'].'-'.$v2['end_time'].'';
+									}
+									else{
+									$html2 .= 'Full day';
+									}
+									$html2 .= '</div>';
+								}
+							}
+						
+						}
+					}
+					if($comments){
+						foreach($comments as $key3=>$valu3){
+							if($key3 == $row){
+								foreach($valu3 as $v3){
+								$html2 .='<div style="border: 1px solid #444444;padding: 5px;text-align: center;margin: 2px 0;">';
+								$html2 .= ''.$v3['comment'].'';
+								$html2 .='</div>';
+								}
+							}
+						
+						}
+					}
+					if($breaks){
+						foreach($breaks as $key4=>$valu4){
+							if($key4 == $row){
+								foreach($valu4 as $v4){
+								$html2 .='<div style="border: 1px solid #444444;padding: 5px;text-align: center;margin: 2px 0;">';
+								$html2 .= ''.$v4['break'].'';
+								$html2 .='</div>';
+								}
+							}
+						
+						}
+					}
+					
+					
+					$html2 .= '</td>';
+				}
+				$html2 .='</tr>';
+				
+				$staffArray[] = $html2;
+				// if single option would be send
+				if($type == 1){
+					
+					  $insert[]=array(    
+						//'admin_id'=>$admin_id,			 
+						'user_id'=>$row,		 
+						'business_id'=>$this->input->post('business_id'),			 
+						'subject'=>$this->input->post('subject'),
+						'body'=>$this->input->post('body'),
+						'from'=>$this->input->post('from'),
+						'to'=>$this->input->post('to'),
+						'send_option'=>$this->input->post('option'),
+						'email'=>$this->input->post('email'),
+						'attachment'=>$html.$html2.'</table></div>',
+						'is_deleted'=>1
+					);
+					$udata11=array('id'=>$row); 
+                    $data11=$this->schedule_model->SelectRecord('user','*',$udata11,$orderby=array());
+					$to = $data11[0]['email'];
+					$sub = "Staff own schedule";
+					//phpmailer($to,$sub,$html.$html2.'</table></div>');
+				}
+				
+                	  			
+			}
+			
+			foreach($staffArray as $staff){
+				$html .= $staff;
+			}			
+			
+			$html .= '</table></div>';
+			// if option is  all
+			
+			if($type == 2){
+				foreach ($staff_id as $staff_ids){				
+				 $insert[]=array(    
+					//'admin_id'=>$admin_id,			 
+					'user_id'=>$staff_ids,		 
+					'business_id'=>$this->input->post('business_id'),			 
+					'subject'=>$this->input->post('subject'),
+					'body'=>$this->input->post('body'),
+					'from'=>$this->input->post('from'),
+					'to'=>$this->input->post('to'),
+					'send_option'=>$this->input->post('option'),
+					'email'=>$this->input->post('email'),
+					'attachment'=>$html,
+					'is_deleted'=>1
+				); 
+				$udata12=array('id'=>$staff_ids); 
+				$data12=$this->schedule_model->SelectRecord('user','*',$udata12,$orderby=array());
+				$to = $data12[0]['email'];
+				$to = $this->input->post('email');
+				$sub = "Staff full schedule";
+				//phpmailer($to,$sub,$html);
+					
+				}
+			}	 
+			//print_r($insert); die;
+			$new_id = $this->schedule_model->InsertBatch('email_schedule',$insert);
+
+			echo $this->showCalendar();
+		 
+		}
 		
 		public function shiftModal(){
 			   
-             $business_id = $this->input->post('business_id');			 
-             $udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
+            $business_id = $this->input->post('business_id');			 
+            $udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
             $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
 		 
-		   $data['business_id']= $this->input->post('business_id'); 
-           echo $temp = $this->load->view('shiftmodal_view',$data);   
+		    $data['business_id']= $this->input->post('business_id'); 
+            echo $temp = $this->load->view('shiftmodal_view',$data);   
            			
         }
 		
 		
 		public function timeoffModal(){
 			   
-             $business_id = $this->input->post('business_id');			 
-             $udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
+            $business_id = $this->input->post('business_id');			 
+            $udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
             $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
 		 
 		   $data['business_id']= $this->input->post('business_id'); 
@@ -499,11 +737,218 @@ class Schedule extends MY_Controller
            			
         }
 		
+		public function emailModal(){
+			
+			$business_id = $this->input->post('business_id');			 
+            $udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
+            $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
+		 
+		   $data['business_id']= $this->input->post('business_id'); 
+		   //only for edit on calendar staffid
+		  $data['staffid']=  $this->input->post('staffid'); 
+		  $data['dates']=  $this->input->post('dates'); 
+			
+           echo $temp = $this->load->view('emailmodal_view',$data);   
+           			
+        }
+		
 		public function staffModal(){
 			$data['business_id']= $this->input->post('business_id'); 
            echo $temp = $this->load->view('staffmodal_view',$data);   
            			
         }
+		
+		
+		
+		// add email preview 
+		public function emailPreview(){
+			$firstdate = $this->input->post('from');
+			$lastdate = $this->input->post('to');
+			$business_id = $this->input->post('business_id');
+			$staff_id = $this->input->post('staff_id');
+			$type = $this->input->post('option');
+			
+			for ($currentDate = strtotime($firstdate); $currentDate <= strtotime($lastdate); $currentDate += (86400)) { 
+				$data['alldates'][] = date('m/d/Y', $currentDate);
+			}
+			//print_r($data['alldates']); die;	
+			$date1 = $data['alldates'][0];
+			$date7 = $data['alldates'][count($data['alldates'])-1];			
+			//shift
+			$where = 'business_id = '.$business_id;			
+			$where .= ' AND shift_date >= "'.$date1.'" AND shift_date <= "'.$date7.'"  ';
+			
+			$shifts=$this->schedule_model->SelectRecord('shift','*',$where,$orderby=array());			
+			//print_r($shifts); die;
+			$arr = $this->group_by($shifts,'shift_date');	
+			$finalArray = [];	
+			foreach($arr as $key=>$row){			
+				$arrr = $this->group_by($row,'user_id');
+				$finalArray[$key] = $arrr;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArray'] = $finalArray;	
+            
+           // timeoff 
+            $wheret = 'business_id = '.$business_id;			
+			$wheret .= ' AND firstday_off >= "'.$date1.'" AND firstday_off <= "'.$date7.'"';
+			 
+			
+			$timeoffs=$this->schedule_model->SelectRecord('timeoff','*',$wheret,$orderby=array());			
+			
+			$arrt = $this->group_by($timeoffs,'firstday_off');
+		     $finalArrayTimeoff = [];	
+			foreach($arrt as $key=>$row){			
+				$arrrt = $this->group_by($row,'user_id');
+				$finalArrayTimeoff[$key] = $arrrt;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayTimeoff'] = $finalArrayTimeoff;	
+
+             // comment 
+            $wherec = 'business_id = '.$business_id;			
+			$wherec .= ' AND comment_date >= "'.$date1.'" AND comment_date <= "'.$date7.'"';
+			 
+			
+			$comments=$this->schedule_model->SelectRecord('comments','*',$wherec,$orderby=array());			
+			
+			$arrc = $this->group_by($comments,'comment_date');
+		     $finalArrayComment = [];	
+			foreach($arrc as $key=>$row){			
+				$arrrc = $this->group_by($row,'user_id');
+				$finalArrayComment[$key] = $arrrc;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayComment'] = $finalArrayComment;	
+
+			// break 
+            $whereb = 'business_id = '.$business_id;			
+			$whereb .= ' AND addbraek_date >= "'.$date1.'" AND addbraek_date <= "'.$date7.'"';
+			 
+			
+			$breaks=$this->schedule_model->SelectRecord('break','*',$whereb,$orderby=array());			
+			
+			$arrb = $this->group_by($breaks,'addbraek_date');
+		     $finalArrayBreak = [];	
+			foreach($arrb as $key=>$row){			
+				$arrrb = $this->group_by($row,'user_id');
+				$finalArrayBreak[$key] = $arrrb;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayBreak'] = $finalArrayBreak;				
+			
+			$html = '<div class="table-responsive"><table border="1" style="border-collapse: collapse;"><tr><th>Names</th>';
+			
+			foreach($data['alldates'] as $key=>$val){
+				$html .= '<th>'.$val.'</th>';
+			}
+			
+			$html .= '</tr>';
+			
+			$html2 = ''; $staffArray = [];
+			
+			foreach($staff_id as $row){
+				$udata1=array('id'=>$row); 
+                $data1=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
+				$html2 = '<tr><td>'.$data1[0]['first_name'].' '.$data1[0]['last_name'].'</td>';
+				
+				foreach($data['alldates'] as $key=>$val){
+					$shifts = isset($finalArray[$val]) ? $finalArray[$val] : [];
+					$timeoffs = isset($finalArrayTimeoff[$val]) ? $finalArrayTimeoff[$val] : []; 
+					$comments = isset($finalArrayComment[$val]) ? $finalArrayComment[$val] : []; 
+					$breaks = isset($finalArrayBreak[$val]) ? $finalArrayBreak[$val] : []; 
+					$html2 .= '<td>';
+                    if($shifts){
+						foreach($shifts as $key1=>$valu){
+							if($key1 == $row){
+								foreach($valu as $v){
+								$html2 .='<div style="border: 1px solid #444444;padding: 5px;text-align: center;margin: 2px 0;">';
+								$html2 .= ''.$v['start_time'].'-'.$v['end_time'].'';
+								$html2 .='</div>';
+								}
+							}
+						
+						}
+					}
+					if($timeoffs){
+						foreach($timeoffs as $key2=>$valu2){
+							if($key2 == $row){
+								foreach($valu2 as $v2){
+									$html2 .= '<div style="word-break:break-word;border:1px solid #808080; padding:4px; text-align: center;">';
+									$html2 .= ''.$v2['timeoff_type'].'';
+								    $html2 .= '</br>';
+									if($v2['start_time'] && $v2['end_time']){
+									   $html2 .= ''.$v2['start_time'].'-'.$v2['end_time'].'';
+									}
+									else{
+									$html2 .= 'Full day';
+									}
+									$html2 .= '</div>';
+								}
+							}
+						
+						}
+					}
+					if($comments){
+						foreach($comments as $key3=>$valu3){
+							if($key3 == $row){
+								foreach($valu3 as $v3){
+								$html2 .='<div style="border: 1px solid #444444;padding: 5px;text-align: center;margin: 2px 0;">';
+								$html2 .= ''.$v3['comment'].'';
+								$html2 .='</div>';
+								}
+							}
+						
+						}
+					}
+					if($breaks){
+						foreach($breaks as $key4=>$valu4){
+							if($key4 == $row){
+								foreach($valu4 as $v4){
+								$html2 .='<div style="border: 1px solid #444444;padding: 5px;text-align: center;margin: 2px 0;">';
+								$html2 .= ''.$v4['break'].'';
+								$html2 .='</div>';
+								}
+							}
+						
+						}
+					}
+					
+					
+					$html2 .= '</td>';
+				}
+				$html2 .='</tr>';
+				
+				$staffArray[] = $html2;
+				// if single option would be send
+				if($type == 1){
+					$data['body']=$this->input->post('body'); 
+					$data['html']=$html.$html2.'</table></div>';
+					$udata19=array('id'=>$row); 
+                    $data['staffsel']=$this->schedule_model->SelectRecord('user','*',$udata19,$orderby=array());
+					
+					echo $this->load->view('previewmodal_view',$data);
+                }
+			}
+			
+			foreach($staffArray as $staff){
+				$html .= $staff;
+			}			
+			
+			$html .= '</table></div>';
+			// if option is  all
+			if($type == 2){
+				foreach ($staff_id as $staff_ids){
+					$data['body']=$this->input->post('body'); 
+					$data['html']=$html;
+					$udata19=array('id'=>$staff_ids); 
+                    $data['staffsel']=$this->schedule_model->SelectRecord('user','*',$udata19,$orderby=array());
+					echo $this->load->view('previewmodal_view',$data); 					
+				}
+			}	 
+		//echo $this->showCalendar();
+		 
+		}
         
                 		        	
 }
