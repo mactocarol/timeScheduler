@@ -38,12 +38,9 @@
 		$("#"+tab_data).addClass("active");
 	});
 	//day week tabs
-	$('.schedules_tabs > .tab_link').on('click', function(){
-		$(".s_tab_content").removeClass("active");
-		var tab_data = $(this).attr("data-tab");
-		//$('.schedules_tabs .tab_link').removeClass("active_lnk");
-		//$(this).addClass("active_lnk");
-		$("#"+tab_data).addClass("active");
+	$('.schedules_tabs .tab_link').on('click', function(){
+		$('.schedules_tabs .tab_link').removeClass("active_lnk");
+		$(this).addClass("active_lnk");
 	});
 	//on right click show menu
 	$(".schedule_box").bind("contextmenu",function(e){
@@ -190,15 +187,15 @@
 		var html = '<div class="staffs_row staffs_row_new" id="stf_row'+st+'">\
 			<div class="form-group">\
 			   <label for="name">First Name</label>\
-			   <input type="text" class="form-control" placeholder="John" id="">\
+			   <input type="text" class="form-control" name="fnames[]" placeholder="John" id="">\
 			</div>\
 			<div class="form-group">\
 			    <label for="name">Last Name</label>\
-				<input type="text" class="form-control" placeholder="Smith" id="">\
+				<input type="text" class="form-control" name="lnames[]" placeholder="Smith" id="">\
 			</div>\
 			<div class="form-group">\
 			    <label for="email">Email</label>\
-				<input type="email" class="form-control" placeholder="example123@gmail.com" id="">\
+				<input type="email" class="form-control" name="emails[]" placeholder="example123@gmail.com" id="">\
 			</div>\
 			<div class="form-group">\
 			    <label for="number">Phone Number</label>\

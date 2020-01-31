@@ -252,6 +252,8 @@
 
     // get previous 7 days
     $('.previous').click(function(){
+		$('#daydates').hide();
+		$('#weekdates').show();
         var firstdate = (localStorage.getItem("firstDate"));        
         firstdate = new Date(firstdate);
         firstdate.setDate(firstdate.getDate()-7); 
@@ -289,6 +291,8 @@
 
     // get next 7 days
     $('.next').click(function(){
+		$('#daydates').hide();
+		$('#weekdates').show();
         var lastdate = (localStorage.getItem("lastDate"));        
         lastdate = new Date(lastdate);
         lastdate.setDate(lastdate.getDate()+1);
@@ -327,6 +331,8 @@
 <script>
   // get selected date from calendar and  set it to week
   function setNewDate(){
+	  $('#daydates').hide();
+		$('#weekdates').show();
       setCalendarDate($('#datepicker').val());
 	  var datepicker = $('#datepicker').val();
       var business_id = $('#business_id').val();

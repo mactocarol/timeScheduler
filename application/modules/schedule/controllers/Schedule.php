@@ -44,7 +44,7 @@ class Schedule extends MY_Controller
 			$date5 = date('m/d/Y', strtotime('+4day', $timestamp));
 			$date6 = date('m/d/Y', strtotime('+5day', $timestamp));
 			$date7 = date('m/d/Y', strtotime('+6day', $timestamp));
-			
+			$data['currdates'] = $date1;
 			$data['alldates'] = [$date1,$date2,$date3,$date4,$date5,$date6,$date7];
 			
 			
@@ -136,6 +136,99 @@ class Schedule extends MY_Controller
            $this->load->view('schedule_view',$data); 
 		   $this->load->view('admin/includes/footer');	
          
+		   
+        }
+		
+		
+		// dayCalendar  
+        public function dayCalendar(){
+           
+			
+			$data['business_name'] = $this->uri->segment(3);
+			$business_id = $this->input->post('business_id');
+			$chkdt = $this->input->post('firstdate'); 
+			$newdate = explode('/',$chkdt);
+			
+			$newdt = $newdate[2].'-'.$newdate[0].'-'.$newdate[1].' 00:00:00';						
+			$timestamp = strtotime($newdt);
+			//$timestamp = $this->session->userdata('timestamp');
+			
+			
+			 $date1 = date('m/d/Y', strtotime('+0day', $timestamp));
+			
+			$data['currdates'] = $date1;
+			//print_r($data['currdates']); die;
+			$data['alldates'] = [$date1];
+			
+			$where = 'business_id = '.$business_id;			
+			$where .= ' AND shift_date >= "'.$date1.'" AND shift_date <= "'.$date1.'" ';
+			
+			$shifts=$this->schedule_model->SelectRecord('shift','*',$where,$orderby=array());			
+			
+			$arr = $this->group_by($shifts,'shift_date');	
+			$finalArray = [];	
+			foreach($arr as $key=>$row){			
+				$arrr = $this->group_by($row,'user_id');
+				$finalArray[$key] = $arrr;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArray'] = $finalArray;
+			
+			
+			// timeoff 
+            $wheret = 'business_id = '.$business_id;			
+			$wheret .= ' AND firstday_off >= "'.$date1.'" AND firstday_off <= "'.$date1.'"';
+			 
+			
+			$timeoffs=$this->schedule_model->SelectRecord('timeoff','*',$wheret,$orderby=array());			
+			
+			$arrt = $this->group_by($timeoffs,'firstday_off');
+		  //print_r($arrt); die;					
+			$finalArrayTimeoff = [];	
+			foreach($arrt as $key=>$row){			
+				$arrrt = $this->group_by($row,'user_id');
+				$finalArrayTimeoff[$key] = $arrrt;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayTimeoff'] = $finalArrayTimeoff;
+          	
+
+              // comment 
+            $wherec = 'business_id = '.$business_id;			
+			$wherec .= ' AND comment_date >= "'.$date1.'" AND comment_date <= "'.$date1.'"';
+			 
+			
+			$comments=$this->schedule_model->SelectRecord('comments','*',$wherec,$orderby=array());			
+			
+			$arrc = $this->group_by($comments,'comment_date');
+		     $finalArrayComment = [];	
+			foreach($arrc as $key=>$row){			
+				$arrrc = $this->group_by($row,'user_id');
+				$finalArrayComment[$key] = $arrrc;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayComment'] = $finalArrayComment;
+
+              // break 
+            $whereb = 'business_id = '.$business_id;			
+			$whereb .= ' AND addbraek_date >= "'.$date1.'" AND addbraek_date <= "'.$date1.'"';
+			 
+			
+			$breaks=$this->schedule_model->SelectRecord('break','*',$whereb,$orderby=array());			
+			
+			$arrb = $this->group_by($breaks,'addbraek_date');
+		     $finalArrayBreak = [];	
+			foreach($arrb as $key=>$row){			
+				$arrrb = $this->group_by($row,'user_id');
+				$finalArrayBreak[$key] = $arrrb;//['date'=>$key,'userdata'=>$arrr];				
+			}
+			
+			$data['finalArrayBreak'] = $finalArrayBreak;	
+			//print_r($data['finalArray']);die;
+			$udata1=array('admin_id'=>$this->session->userdata('id'),'business_id'=>$business_id); 
+            $data['staffName']=$this->schedule_model->SelectRecord('user','*',$udata1,$orderby=array());
+			
+            echo $this->load->view('day_view',$data); 	
 		   
         }
 		
@@ -308,6 +401,7 @@ class Schedule extends MY_Controller
 		public function addbreakcal(){
 			//$admin_id = $this->session->userdata('id'); 
             $staff_id = $this->input->post('staff_id');
+			$dayvalue = $this->input->post('dayvalue');
 			 $insert=array(    
 					'user_id'=>$this->input->post('staff_id'),		 
 					'business_id'=>$this->input->post('business_id'),			 
@@ -317,7 +411,14 @@ class Schedule extends MY_Controller
 				);
            
 			$new_id = $this->schedule_model->InsertRecord('break',$insert);
-			echo $this->showCalendar();
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
 			 
         }
 		
@@ -325,6 +426,7 @@ class Schedule extends MY_Controller
 		public function addcommentcal(){
 			//$admin_id = $this->session->userdata('id'); 
             $staff_id = $this->input->post('staff_id');
+			$dayvalue = $this->input->post('dayvalue');
 			 $insert=array(    
 					'user_id'=>$this->input->post('staff_id'),		 
 					'business_id'=>$this->input->post('business_id'),			 
@@ -334,7 +436,14 @@ class Schedule extends MY_Controller
 				);
            
 			$new_id = $this->schedule_model->InsertRecord('comments',$insert);
-			echo $this->showCalendar();
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
 			 
         }
 		
@@ -344,6 +453,7 @@ class Schedule extends MY_Controller
 			$admin_id = $this->session->userdata('id'); 
             $staff_id = $this->input->post('staff_id');
 		    $time = $this->input->post('start_time');
+			$dayvalue = $this->input->post('dayvalue');
 			if (strpos($time, '-') !== false) {
 				 $array = explode("-", $time); 
 				 $start_times = $array[0].':00';			
@@ -378,8 +488,15 @@ class Schedule extends MY_Controller
 				);
            
 			$new_id = $this->schedule_model->InsertRecord('shift',$insert);
-			echo $this->showCalendar();
-			 
+			
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
         }
 		
 		// add shift
@@ -949,6 +1066,48 @@ class Schedule extends MY_Controller
 		//echo $this->showCalendar();
 		 
 		}
+		
+		
+		
+		public function addMultistaff(){
+			//print_r($_POST); die;
+			$admin_id = $this->session->userdata('id');
+			$business_id = $this->input->post('business_id');
+			$data = array('first_name'=>$this->input->post('fnames'),
+				'last_name'=>$this->input->post('lnames'),
+				'email'=>$this->input->post('emails'),
+				'phone_no'=>$this->input->post('phonenos'));
+				
+			 	
+            foreach($data['first_name'] as $key => $da){
+				 $insert=array(    
+					'admin_id'=>$admin_id,			 
+					'business_id'=>$business_id,			 
+					'first_name'=>$da,
+					'last_name'=>$data['last_name'][$key],
+					'email'=>$data['email'][$key],
+					'phone_no'=>$data['phone_no'][$key],
+					'password'=>md5(12345),
+					'status'=>1,
+					'is_deleted'=>1
+				);
+				$new_id = $this->schedule_model->insertstaff($insert); 
+              				
+            }
+			if($new_id)
+                {
+                    echo 'User Added Successfully';
+                }
+                else{
+                    echo 'Fail To Add User';
+                }
+			//$new_id = $this->schedule_model->InsertBatch('user',$insert);
+			  
+			 
+        }
+		
+		
+		
         
                 		        	
 }

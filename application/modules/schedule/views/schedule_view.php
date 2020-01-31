@@ -44,8 +44,8 @@
                         <input type="text" name="s_date" class="date_picker" id="datepicker"><button class="btn btn-sm" onclick="setNewDate();">Go</button></p>
                       </div>
                       <div class="week_links ctrl_item">
-                        <span class="text_link prev_link previous">Previous Week</span>
-                        <span class="text_link next_link next">Next Week</span>
+                        <span class="text_link prev_link previous" >Previous Week</span>
+                        <span class="text_link next_link next" >Next Week</span>
                       </div>
                     </div>
                     <!-- left side -->
@@ -64,8 +64,8 @@
                         <span class="text_link">clear week</span>
                       </div>
                       <ul class="schedules_tabs">
-                        <li class="tab_link active_lnk" data-tab="week_tab">week</li>
-                        <li class="tab_link" data-tab="day_tab">day</li>
+                        <li class="tab_link active_lnk" id="week">week</li>
+                        <li class="tab_link" id="day">day</li>
                       </ul>
                     </div>
                     <!-- Right side -->
@@ -74,9 +74,9 @@
                   <!-- table start -->
                   <div class="schedule_tables week_schedule_tbl">
                     <div class="table-responsive">
-                       <table class="table table-bordered dataTable">
+                       <table class="table table-bordered dataTable" id="printTable">
                          <thead>
-                           <tr>
+                           <tr id="weekdates">
                              <th>Employee Name</th>
                               <th class="d1" style="width:100px"></th>
 							  <th class="d2" style="width:100px"></th>
@@ -85,8 +85,11 @@
 							  <th class="d5" style="width:100px"></th>
 							  <th class="d6" style="width:100px"></th>
 							  <th class="d7" style="width:100px"></th>
-							 
-                           </tr>
+							</tr>
+						   <tr id="daydates" style="text-align:center;">
+                             <th>Employee Name</th>
+                             <th><?php echo $currdates; ?> </th>
+						  </tr>
                          </thead>
                          <tbody id="mainbodyc">
 						 <?php if(!empty($staffName)){ 
@@ -844,133 +847,7 @@
                  </div>
                  <!-- week tab content -->
                  <!-- Day tab content -->
-                <div class="s_tab_content" id="day_tab">
-                  <!-- controler bar start-->
-                  <div class="controler_bar">
-                    <!-- left side -->
-                    <div class="controler_left">
-                      <div class="ctrl_date ctrl_item">
-                        <span>Date</span>
-                        <input type="text" name="s_date1" class="date_picker">
-                      </div>
-                      <div class="week_links ctrl_item">
-                        <span class="text_link prev_link">Previous Day</span>
-                        <span class="text_link next_link">Next Day</span>
-                      </div>
-                    </div>
-                    <!-- left side -->
-                    <!-- Right side -->
-                    <div class="controler_right">
-                      <div class="email_text ctrl_item">
-                        <a href="#" class="text_link" data-toggle="modal" data-target="#emailschedule">Email</a>
-                      </div>
-                      <div class="download_text ctrl_item">
-                        <a href="#" class="text_link">Download Schedule</a>
-                      </div>
-                      <div class="print_text ctrl_item">
-                        <span class="print_button text_link">Print</span>
-                      </div>
-                      <div class="email_text ctrl_item">
-                        <span class="text_link">clear Day</span>
-                      </div>
-                      <ul class="schedules_tabs">
-                        <li class="tab_link" data-tab="week_tab">week</li>
-                        <li class="tab_link active_lnk" data-tab="day_tab">day</li>
-                      </ul>
-                    </div>
-                    <!-- Right side -->
-                  </div>
-                  <!-- controler bar end-->
-                  <!-- table start -->
-                  <div class="schedule_tables day_schedule_tbl">
-                     <div class="table-responsive">
-                       <table class="table table-bordered dataTable">
-                         <thead>
-                           <tr>
-                             <th>Employee Name</th>
-                             <th>Wednesday, 1 Jan</th>
-                           </tr>
-                         </thead>
-                         <tbody>
-                         <tr>
-                             <td class="pad backcolor s_td_name">
-                               <div class="name">
-                                 <h3>Neha Sharma</h3>
-                                 <span>0 Hours</span>
-                               </div>
-                             </td>
-                             <td class="pad schedule_box">
-                              <span class="add_icon">
-                                <i class="fas fa-plus"></i>
-                              </span>
-                              <!-- Append data -->
-                              <div class="append_td_data">
-                                
-                              </div>
-                              <!-- Append data -->
-                              <!-- shecule menus -->
-                               <div class="verticle_menu">
-                                <ul>
-                                  <li>Paste</li>
-                                  <li class="add_shift_btn">Add Shift</li>
-                                  <li class="add_cmt_btn">Add Comment</li>
-                                  <li><a href="#" data-toggle="modal" data-target="#addtime">Add Time off</a></li>
-                                  <li class="ver_menu"><a href="#">Add Break</a>
-                                    <div class="submenu break_menu">
-                                      <ul>
-                                        <li>15 minutes</li>
-                                        <li>30 minutes</li>
-                                        <li>45 minutes</li>
-                                        <li>1 hour</li>
-                                      </ul>
-                                  </div>
-                                  </li>
-                                  <li><a href="#" data-toggle="modal" data-target="#emailschedule">Email</a></li>
-                                </ul>
-                              </div>
-                              <!-- shecule menus -->
-                             </td>
-                           </tr>
-							   <tr>
-								 <td class="pad backcolor">
-								   <div class="name">
-									 <h3>Anush Gour</h3>
-									 <span>0 Hours</span>
-								   </div>
-								 </td>
-								 <td class="pad schedule_box">
-								  <span class="add_icon">
-									<i class="fas fa-plus"></i>
-								  </span>
-								 </td>
-							   </tr>
-							   <tr class="schdule_hour_row">
-								 <td>
-								  <div class="s_hour">Scheduled hours</div>
-								  <div class="emp">Employees</div>
-								</td>
-								<td>
-								  <div class="s_hour">0 Hrs</div>
-								  <div class="emp">0 People</div>
-								</td>
-							   </tr>
-							   <tr class="schdule_hour_row">
-								<td>
-								 <a class="staff_lnk" href="#" data-toggle="modal" data-target="#addstaff">
-								 add staff</a>
-								</td>
-								<td>
-								 
-								</td>
-							   </tr>
-                         </tbody>
-                       </table>
-                     </div>
-                  </div>
-                  <!-- table end -->
-                </div>
-                <!-- Day tab content -->
-          </div>
+                
          </div>
 		  <!-- Timeoff -->
             <div class="tab_content" id="tab_2">
@@ -1050,12 +927,15 @@
         </div>
 
 <input type="hidden" id="business_id" value="<?php echo $this->uri->segment(4); ?>">
+<input type="hidden" id="dayvalue">
 
 
    <!--  <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
 <!-- add staff by ajax -->
  <script>
  $('#message').hide();	
+ $('#daydates').hide();	
+ 
 	$(document).on('click','#addstaffbutton', function(){
 		//alert('hi');
 		var fname = $('#fname').val();
@@ -1094,6 +974,29 @@
 		});
     });	
 	
+	
+	
+	
+	//add multiple staff button
+	$(document).on('click','#addmultistaff', function(){
+		
+	      $.ajax({
+			url: "<?php echo site_url();?>schedule/addMultistaff",
+			type:'post',
+			data:$('#multistaffform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
+			success: function(response){
+				//alert(response);
+				
+				//$('#multiple_staff_modal').modal('hide');
+				//$('#addstaffmod').modal('hide');
+				//$("#moddiv").html(response);
+				//$('#message').show();
+				//$('#message .msg').html("Staffs Added Successfully");
+				//$('#email_preview_modal').modal('show');
+				
+			}
+		}); 
+    });
 </script>
 <!-- add shift by ajax -->
  <script>
@@ -1145,7 +1048,8 @@
  <script>
 	$(document).on('submit','#timeoffform', function(e){
 		e.preventDefault();
-	
+	    $('#daydates').hide();
+		$('#weekdates').show(); 
 		
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addtimeoff",
@@ -1230,18 +1134,22 @@
  <script>
  //shift 
     $(document).on('click','#shift_submit', function(e){
+		/* $('#daydates').hide();
+		$('#weekdates').show(); */
        e.preventDefault();
 		var staff_id = localStorage.getItem("staffids");
 		var shiftdate = localStorage.getItem("daysid");
 		var business_id = $('#business_id').val();
 		var start_time = $('#shifttime').val();
 		var datepicker = $('#datepicker').val();
-		
+		var dayvalue = $('#dayvalue').val();
+		//var weekvalue = $('#weekvalue').val();
+		//alert(dayvalue);
 		
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addshiftcal",
 			type:'post',
-			data:{business_id: business_id,staff_id: staff_id,start_time: start_time,firstdate: datepicker,shiftdate:shiftdate},
+			data:{business_id: business_id,staff_id: staff_id,start_time: start_time,firstdate: datepicker,shiftdate:shiftdate,dayvalue: dayvalue},
 			success: function(response){
 				$("#mainbodyc").html(response);
 				caljs();
@@ -1251,16 +1159,19 @@
 	
 	//comment
 	 $(document).on('click','#comment_submit', function(e){
+		 
        e.preventDefault();
+	 
 		var staff_id = localStorage.getItem("staffids");
 		var commentdate = localStorage.getItem("daysid");
 		var business_id = $('#business_id').val();
 		var comment = $('#comment').val();
 		var datepicker = $('#datepicker').val();
+		var dayvalue = $('#dayvalue').val();
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addcommentcal",
 			type:'post',
-			data:{business_id: business_id,staff_id: staff_id,comment: comment,firstdate: datepicker,commentdate: commentdate},
+			data:{business_id: business_id,staff_id: staff_id,comment: comment,firstdate: datepicker,commentdate: commentdate,dayvalue: dayvalue},
 			success: function(response){
 				//alert(response); 
 				$("#mainbodyc").html(response);
@@ -1274,16 +1185,18 @@
 	
 	// add break
 	 $(document).on('click','#break_submit', function(e){
+		
        e.preventDefault();
 		var staff_id = localStorage.getItem("staffids");
 		var breakdate = localStorage.getItem("daysid");
 		var business_id = $('#business_id').val();
 		var addbreak = $('#break').val();
 		var datepicker = $('#datepicker').val();
+		var dayvalue = $('#dayvalue').val();
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addbreakcal",
 			type:'post',
-			data:{business_id: business_id,staff_id: staff_id,addbreak: addbreak,firstdate: datepicker,breakdate: breakdate},
+			data:{business_id: business_id,staff_id: staff_id,addbreak: addbreak,firstdate: datepicker,breakdate: breakdate,dayvalue: dayvalue},
 			success: function(response){
 				$("#mainbodyc").html(response);
 				caljs();
@@ -1292,6 +1205,53 @@
 		});
     });
 	
+	
+	// week
+	$(document).on('click','#week', function(e){
+        $('#daydates').hide();		
+		$('#weekdates').show();
+		e.preventDefault();
+		$('#dayvalue').val(1);
+		
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/showCalendar",
+			type:'post',
+			data:{business_id: business_id,firstdate: datepicker},
+			success: function(response){
+				//console.log(response);
+				    
+					$('#mainbodyc').html(response); 
+					caljs();
+				
+			}
+		});
+    });
+	
+	// day
+	$(document).on('click','#day', function(e){
+		$('#weekdates').hide();
+		$('#daydates').show();
+		e.preventDefault();
+		$('#dayvalue').val(2); 
+		
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		//alert(datepicker);
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/dayCalendar",
+			type:'post',
+			data:{business_id: business_id,firstdate: datepicker},
+			success: function(response){
+				//alert(response);
+				$('#mainbodyc').html(response); 
+				caljs();
+				
+			}
+		});
+    });
 	
 	//calendar js
 	function caljs(){
@@ -1360,4 +1320,19 @@
 		});
 	}
 
+
+
+//print
+ function printData()
+{
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
+
+$('#prinnt').on('click',function(){
+printData();
+}); 
 </script>

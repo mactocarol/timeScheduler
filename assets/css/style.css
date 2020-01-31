@@ -855,7 +855,7 @@ td.pad{
     padding: 11px;
 }
 .schedule_tables table tr td.s_td_name {
-    min-width: 115px;
+    width: 115px;
     vertical-align: middle;
 }
 .week_schedule_tbl tr td{
@@ -1127,5 +1127,16 @@ td.pad{
 }
 .email_preview_box table tr th {
     color: #000;
+}
+
+/*=== day ==*/
+.schedule_tables table tr.daytable td {
+    width: auto;
+}
+.schedule_tables table tr.daytable td.s_td_name{
+	width:141px;
+}
+.schedule_tables table tr.daytable th{
+	text-align:center;
 }
 /*=== Email Preview css End ====*/

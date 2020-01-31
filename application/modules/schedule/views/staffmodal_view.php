@@ -1,4 +1,4 @@
-  
+ <script src="<?php echo base_url();?>/assets/js/custom_script.js"></script> 
 <!-- add satff modal -->
 <div class="modal express_modal" id="addstaffmod">
 <div class="modal-dialog">
@@ -62,23 +62,24 @@
             <!-- Modal body -->
             <div class="modal-body create_frm">
              <form class="my_common_form" id="multistaffform">
+			 <input type="hidden" id="business_id"  name="business_id" value="<?php echo $business_id; ?>">
 				<div class="append_staff_row">
 				  <div class="staffs_row">
 					<div class="form-group">
 					  <label for="name">First Name</label>
-					  <input type="text" class="form-control" placeholder="John" id="fname" name="fname" required="">
+					  <input type="text" class="form-control" placeholder="John" id="fname" name="fnames[]" required="">
 					</div>
 					<div class="form-group">
 					  <label for="name">Last Name</label>
-					  <input type="text" class="form-control" placeholder="Smith" id="lname" name="lname" required="">
+					  <input type="text" class="form-control" placeholder="Smith" id="lname" name="lnames[]" required="">
 					</div>
 					<div class="form-group">
 					<label for="email">Email</label>
-					<input type="email" class="form-control" placeholder="example123@gmail.com" id="email" name="email" required="">
+					<input type="email" class="form-control" placeholder="example123@gmail.com" id="email" name="emails[]" required="">
 					</div>
 					<div class="form-group">
 					<label for="number">Phone Number</label>
-					<input type="text" class="form-control" placeholder="+91-98765-43210" id="phone_no" name="phone_no" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+					<input type="text" class="form-control" placeholder="+91-98765-43210" id="phone_no" name="phonenos[]" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 					
 					</div>
 				  </div>

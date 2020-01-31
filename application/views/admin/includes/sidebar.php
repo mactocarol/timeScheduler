@@ -65,7 +65,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-print"></i>
-          <span>Print Schedule</span></a>
+          <span id="prinnt">Print Schedule</span></a>
       </li>
       
       <!-- Divider -->
