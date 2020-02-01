@@ -1128,7 +1128,40 @@ td.pad{
 .email_preview_box table tr th {
     color: #000;
 }
-
+/*=== verticle menu second css Start ====*/
+.verticle_menu_scnd {
+    padding: 0;
+    background-color: #07617d;
+    min-width: 120px;
+    display: none;
+    position: absolute;
+    top: 19px;
+    left: 60%;
+    z-index: 11;
+}
+.verticle_menu_scnd ul{
+    margin:0;
+    padding: 0;
+}
+.verticle_menu_scnd ul li {
+    list-style: none;
+    position: relative;
+    padding: 5px 10px;
+    line-height: 15px;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+}
+.verticle_menu_scnd ul li a{
+    text-decoration: none;
+    font-size: 14px;
+    color: #fff;
+}
+.verticle_menu_scnd ul li:hover {
+    background-color: #159dc7;
+    color: #fff;
+}
+/*=== verticle menu second css End ====*/
 /*=== day ==*/
 .schedule_tables table tr.daytable td {
     width: auto;
@@ -1140,3 +1173,8 @@ td.pad{
 	text-align:center;
 }
 /*=== Email Preview css End ====*/
+@media print {
+  .verticle_menu {
+    display: none !important;
+  }
+}

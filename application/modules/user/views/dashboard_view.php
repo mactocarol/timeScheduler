@@ -30,8 +30,8 @@
 						  <span class="info_menu_icon"><i class="fas fa-ellipsis-v"></i></span>
 						  <div class="info_nav">
 							<ul>
-							  <li data-toggle="modal" data-target="#infoDetail"><a href="#">Edit Information</a></li>
-							  <li><a href="#">Delete</a></li>
+							  <li><a href="#" id="editinfo" data-busid="<?= $value['id']; ?>"  data-name="<?= $value['name']; ?>" data-email="<?= $value['email']; ?>" data-phone_no="<?= $value['phone_no']; ?>">Edit Information</a></li>
+							  <li><a href="#" data-toggle="modal" data-target="#clear_businees_modal" onclick="delmod(<?php echo $value['id']; ?>)">Delete</a></li>
 							</ul>
 						  </div>
 						  <input type="hidden" id="business_name" name="business_name" value="<?php echo $value['name']; ?>">
@@ -67,57 +67,236 @@
           </div>
         </div>
         <!-- /.container-fluid -->
+<div class="modal" id="openschedule">
+		<div class="modal-dialog">
+			  <div class="modal-content">
 
+				<!-- Modal Header -->
+				<div class="modal-header custom_modal">
+				  <h4 class="modal-title">Select Scheduling System</h4>
+				 <!--  <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+				</div>
+
+				<!-- Modal body -->
+				<?php if(!empty($businessList)){ 
+			        foreach ($businessList as $key => $value) { ?>
+				<div class="modal-body">
+					
+				 <div class="software_btn">
+				   <h2><?php echo $value['name']; ?></h2>
+				  <button class="crate_shift_btn"> <a  onclick="openSchedule('<?php echo site_url('schedule/openSchedule/'.$value['name'].'/'.$value['id']);?>')" class="open_btn">Open Schedule</a></button>
+						  
+				   <!--<button class="crate_shift_btn">Open Scheduling</button>-->
+				 </div>
+					
+				</div>
+              <?php } }?>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+				  <a href="#" class="btn btn-secondary btn-icon-split" data-toggle="modal" data-target="#demo">
+					<span class="icon text-white-50">
+					  <i class="fas fa-arrow-right"></i>
+					</span>
+					<span class="text"  data-toggle="modal" data-target="#addBusiness">New Business</span>
+				  </a>
+				  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> -->
+				</div>
+				
+			</div>
+		</div>
+    </div>
 <!-- The addBusiness Modal -->
 <div class="modal" id="addBusiness">
-<div class="modal-dialog">
-  <div class="modal-content">
+	<div class="modal-dialog">
+	  <div class="modal-content">
 
-	<!-- Modal Header -->
-	<div class="modal-header custom_modal">
-	  <h4 class="modal-title">Create New Business</h4>
-	  <button type="button" class="close" data-dismiss="modal">&times;</button>
-	</div>
+		<!-- Modal Header -->
+		<div class="modal-header custom_modal">
+		  <h4 class="modal-title">Create New Business</h4>
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
 
-	<!-- Modal body -->
-	<form id="registerform" class="form-horizontal form-material">
-	<div class="modal-body create_frm">
-	 
-	  <div class="form-group">
-		  <label for="name">Name</label>
-		  <input type="text" class="form-control" placeholder="Business Name" id="name" name="name" required="">
-	  </div>
-	  <div class="form-group">
-		<label for="email">Email Address</label>
-		<input type="email" class="form-control" placeholder="Enter email" id="email" name="email" required="">
-	  </div>
-	  <div class="form-group">
-		<label for="number">Phone Number(Optional)</label>
-		<input type="text" class="form-control" placeholder="Phone Number" id="phone_no" name="phone_no" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-	  </div>
-	
-	</div>
+		<!-- Modal body -->
+		<form id="registerform" class="form-horizontal form-material">
+		<div class="modal-body create_frm">
+		 
+		  <div class="form-group">
+			  <label for="name">Name</label>
+			  <input type="text" class="form-control" placeholder="Business Name" id="name" name="name"  required="">
+		  </div>
+		  <div class="form-group">
+			<label for="email">Email Address</label>
+			<input type="email" class="form-control" placeholder="Enter email" id="email" name="email" required="" >
+		  </div>
+		  <div class="form-group">
+			<label for="number">Phone Number(Optional)</label>
+			<input type="text" class="form-control" placeholder="Phone Number" id="phone_no" name="phone_no" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+		  </div>
+		
+		</div>
 
-	<!-- Modal footer -->
-	<div class="modal-footer">
-	  <button type="submit" class="btn btn-secondary btn-icon-split" id="addbusiness" disabled="disabled">
-		<span class="icon text-white-50">
-		  <i class="fas fa-arrow-right"></i>
-		</span>
-		<span class="text">Create Business</span>
-	  </button>
-	  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="submit" class="btn btn-secondary btn-icon-split" id="addbusiness" disabled="disabled">
+			<span class="icon text-white-50">
+			  <i class="fas fa-arrow-right"></i>
+			</span>
+			<span class="text">Add</span>
+		  </button>
+		  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+		</div>
+	 </form>
+	  </div>
 	</div>
- </form>
-  </div>
 </div>
+
+
+<!-- The edit Modal -->
+<div class="modal" id="editBusiness">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+
+		<!-- Modal Header -->
+		<div class="modal-header custom_modal">
+		  <h4 class="modal-title">Edit info Business</h4>
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
+
+		<!-- Modal body -->
+		<form id="" class="form-horizontal form-material">
+		<div class="modal-body create_frm">
+		 
+		  <div class="form-group">
+			  <label for="name">Name</label>
+			  <input type="hidden" id="business_ids">
+			  <input type="text" class="form-control" placeholder="Business Name" id="names" name="name"  required="">
+		  </div>
+		  <div class="form-group">
+			<label for="email">Email Address</label>
+			<input type="email" class="form-control" placeholder="Enter email" id="emails" name="email" required="" >
+		  </div>
+		  <div class="form-group">
+			<label for="number">Phone Number(Optional)</label>
+			<input type="text" class="form-control" placeholder="Phone Number" id="phone_nos" name="phone_no" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+		  </div>
+		
+		</div>
+
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="submit" class="btn btn-secondary btn-icon-split" id="updatebusiness">
+			<span class="icon text-white-50">
+			  <i class="fas fa-arrow-right"></i>
+			</span>
+			<span class="text">Update</span>
+		  </button>
+		  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+		</div>
+	 </form>
+	  </div>
+	</div>
 </div>
+ <!-- clear busineess modal -->
+    <div class="modal" id="clear_businees_modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header custom_modal">
+              <h4 class="modal-title">Delete Business</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body clear_schedule_form">
+             <form class="my_common_form">
+                <p>Are you sure you want to delete this business?</p>
+                <div class="button_groups">
+				<input type="hidden" id="businessids">
+                  <button type="button" class="site_button" id="delbus">Delete</button>
+                  <button type="button" class="site_button" data-dismiss="modal">cancel</button>
+                </div>
+             </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- clear busineess modal -->
 <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
   <!-- validation and add business by ajax -->
   <script>
+  $(document).on('click','#delbus', function(){
+		var business_id = $('#businessids').val();
+		//alert(business_id);
+		 $.ajax({
+			 url: "<?php echo site_url();?>user/deleteBussines",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				$("#clear_businees_modal").hide();
+				window.location.href = '<?php echo site_url('user/dashboard'); ?>';
+			}
+		}); 
+    });
   
-  //$(document).on('click','#openSchedule', function(){
-	//alert('hiii');
+	
+	function delmod(id){
+		$('#businessids').val(id);
+		
+	}
+	
+	// edit timeoff modal 
+	$(document).on('click','#editinfo', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		
+		var business_id = $(this).data('busid');
+		var name = $(this).data('name');
+		var email = $(this).data('email');
+		var phone_no = $(this).data('phone_no');
+		$('#business_ids').val(business_id);
+		$('#names').val(name);
+		$('#emails').val(email);
+		$('#phone_nos').val(phone_no);
+		//alert(business_id);
+		//alert(name);
+		//alert(email);
+		//alert(phone_no);
+		$('#editBusiness').modal('show');
+		
+    });
+	
+	$(document).on('click','#updatebusiness', function(e){
+		e.preventDefault();
+		var business_ids = $('#business_ids').val();
+		var names = $('#names').val();
+		var emails = $('#emails').val();
+		var phone_nos = $('#phone_nos').val();
+		
+		$.ajax({
+			 url: "<?php echo site_url();?>user/bussinessUpdate",
+			type:'post',
+			data:{business_ids: business_ids,names: names,emails: emails,phone_nos: phone_nos},
+			success: function(response){
+				$("#editBusiness").hide();
+				window.location.href = '<?php echo site_url('user/dashboard'); ?>';
+				
+			}
+		});
+    });
+	/* function editmod(id){
+		
+		var business_id = id;
+		//alert(business_id);
+		 $.ajax({
+			 url: "<?php echo site_url();?>user/dashboard",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+			alert(response);
+			
+			}
+		});
+	} */
+	
 	
 	function openSchedule(mainUrl){
 		
@@ -242,6 +421,8 @@
 	$(document).on('click','#addbusiness', function(e){
 		//alert('hi');
 		e.preventDefault();
+		
+				
 		var name = $('#name').val();
 		var email = $('#email').val();
 		var phone_no = $('#phone_no').val();
@@ -263,13 +444,14 @@
 			success: function(response){
 				//alert(response);
 				$('#addBusiness').modal('hide');
+				
 				if(response==1){
 					$("#mainbodyh").text("");					
 				}
 				else
 				{
 					$("#mainbodyh").html(response);
-					//location.reload();
+					location.reload();
 					//$('#message').show();
 				     //$('#message .msg').html("Business Added Successfully");
 				} 

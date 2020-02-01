@@ -342,6 +342,13 @@ class User extends MY_Controller
 			
 			
 			//echo $this->session->userdata('id'); die;
+			 
+			//$data['business_id']= $this->input->post('business_id'); 
+		   //only for edit on calendar staffid
+		   //$data['name']=  $this->input->post('name'); 
+		   //$data['email']=  $this->input->post('email');
+		   //$data['phone_no']=  $this->input->post('phone_no');
+			
 			$udata=array('admin_id'=>$this->session->userdata('id')); 
             $data['businessList']=$this->user_model->SelectRecord('business','*',$udata=array(),'id asc');
 			//print_r($data['businessList']); die;
@@ -350,7 +357,17 @@ class User extends MY_Controller
             $this->load->view('admin/includes/footer');
         }
                 
-
+        public function bussinessUpdate()
+        {            
+            			
+			 $update=array(    
+					'name'=>$this->input->post('names'),			 
+					'email'=>$this->input->post('emails'),
+					'phone_no'=>$this->input->post('phone_nos')
+				); 
+			$this->user_model->UpdateRecord('business',$update,array("id"=>$this->input->post('business_ids')));
+			
+        }
        
         
         public function profile(){
@@ -874,6 +891,14 @@ class User extends MY_Controller
         $this->db->update('order_detail',array('payment_status' => 'paid'));
 
     }
+	
+	
+	 //break delete
+		 public function deleteBussines(){
+			$id= $this->input->post('business_id'); 
+			$new_id = $this->user_model->delete_record('business',array("id"=>$id)); 
+			
+         }
 
 }
 ?>

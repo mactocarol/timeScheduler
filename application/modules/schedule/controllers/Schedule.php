@@ -532,7 +532,7 @@ class Schedule extends MY_Controller
            $staff_id = $this->input->post('staff_id');
 		   $first_dayoff = $this->input->post('first_dayoff');
 		   $last_dayoff = $this->input->post('last_dayoff');
-		   
+		   $dayvalue = $this->input->post('dayvaluew');
 		   $Variable1 = strtotime($first_dayoff); 
            $Variable2 = strtotime($last_dayoff); 
            $timeoff_type =$this->input->post('timeoff_type');							  
@@ -599,7 +599,14 @@ class Schedule extends MY_Controller
 			
 			$new_id = $this->schedule_model->InsertBatch('timeoff',$insert);
 			
-			echo $this->showCalendar();
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
 						 
         }
 		
@@ -1105,7 +1112,30 @@ class Schedule extends MY_Controller
 			  
 			 
         }
-		
+		//shift delete
+		public function shiftDelete(){
+			$id= $this->input->post('shift_id'); 
+			$new_id = $this->schedule_model->delete_record('shift',array("id"=>$id)); 
+			
+         }
+		 //time off delete
+		 public function timeoffDelete(){
+			$id= $this->input->post('timeoff_id'); 
+			$new_id = $this->schedule_model->delete_record('timeoff',array("id"=>$id)); 
+			
+         }
+		 //comment delete
+		 public function commentDelete(){
+			$id= $this->input->post('comment_id'); 
+			$new_id = $this->schedule_model->delete_record('comments',array("id"=>$id)); 
+			
+         }
+		 //break delete
+		 public function breakDelete(){
+			$id= $this->input->post('break_id'); 
+			$new_id = $this->schedule_model->delete_record('break',array("id"=>$id)); 
+			
+         }
 		
 		
         

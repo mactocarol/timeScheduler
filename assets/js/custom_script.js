@@ -46,6 +46,7 @@
 	$(".schedule_box").bind("contextmenu",function(e){
 	    $(".verticle_menu").hide();
         $(this).children(".verticle_menu").toggle();
+		$(this).children(".verticle_menu_scnd").hide();
 		//offset menu
 		var menu = $(this).children(".verticle_menu");
 		var menupos = $(menu).offset();
@@ -60,6 +61,7 @@
 	//hide menu on click
 	$(".schedule_box").on("click", function(e){
 	    $(".verticle_menu").hide();
+		$(".verticle_menu_scnd").hide();
 	});
 	//============== Timepicker jquery script ===============//
 	//Timepicker
@@ -100,6 +102,8 @@
 	    localStorage.setItem("daysid", dates);
 		$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
 		$(this).parents(".verticle_menu").hide();
+		//add vertical menu second
+		vertical_menu_second();
 	});
 	//remove shift field
 	$(document).on('click', '.remove_btn', function(){
@@ -107,7 +111,8 @@
 		//var remove_prnt = $(this).parents(".form_group");
 		$('#s_row'+button_id+'').remove();
 	});
-		
+	//add vertical menu second
+	vertical_menu_second();
 	//============== append comment field on click ===============//
 	var j = 1;
 	$('.add_cmt_btn').on('click', function(){
@@ -124,6 +129,8 @@
 	    localStorage.setItem("daysid", dates);
 		$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
 		//$(this).parents(".verticle_menu").hide();
+		//add vertical menu second
+		vertical_menu_second();
 	});
 	//remove comment field
 	$(document).on('click', '.remove_btn', function(){
@@ -152,6 +159,8 @@
 		localStorage.setItem("staffids", staffid);
 	    localStorage.setItem("daysid", dates);
 		$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
+		//add vertical menu second
+		vertical_menu_second();
 	});
 	//remove break input field
 	$(document).on('click', '.remove_btn', function(){
@@ -168,16 +177,25 @@
 	//============== Add input on plus icon click ===============//
 	var ad = 1;
 	$(".add_more_input").on("click", function(){
+		var staffid = $(this).data('staffid');
+	        var dates = $(this).data('dates');
 		ad++;
 		var html = '<div class="form_group more_input" id="input_row'+ad+'">\
-		<input class="input" type="text" name="" placeholder="e.g 9-5">\
-		<button type="button" class="remove_btn" id="remove_input'+ad+'">&times;</button>\
+		<input type="text" name="shifttime" id="shifttime" placeholder="E.g. 9-5"/>\
+		<button type="button" class="submit_shift" id="shift_submit">&check;</button>\
 		</div>';
+		localStorage.setItem("staffids", staffid);
+	    localStorage.setItem("daysid", dates);
 		$(this).next('.append_td_data').append(html);
 	});
 	//remove break input field
 	$(document).on('click', '.remove_btn', function(){
 		var remove_prnt = $(this).parents(".form_group");
+		$(remove_prnt).remove();
+	});
+	//remove break input field
+	$(document).on('click', '.remove_btn', function(){
+		var remove_prnt = $(this).parents(".Vacation");
 		$(remove_prnt).remove();
 	});
 	//============== append Multiple Staff field on click ===============//
@@ -199,7 +217,7 @@
 			</div>\
 			<div class="form-group">\
 			    <label for="number">Phone Number</label>\
-				<input type="text" class="form-control" placeholder="+91-98765-43210" id="">\
+				<input type="text" class="form-control" name="phonenos[]" placeholder="+91-98765-43210" id="">\
 			</div>\
 			<button type="button" class="remove_btn" id="remove-stf'+st+'">&times;</button>\
 		</div>';
@@ -252,5 +270,15 @@
     $(".modal_hide").click(function(){
         $("#emailschedule").modal('hide');
     });
+	
+	//show vertical menu on right click
+	function vertical_menu_second(){
+	$(".append_td_data .form_group").bind("contextmenu",function(e){
+		$(".verticle_menu_scnd").hide();
+		$(".verticle_menu").hide();
+		$(this).parents(".schedule_box").children(".verticle_menu_scnd").toggle();
+		return false;
+	});
+	}
 })(jQuery);
 

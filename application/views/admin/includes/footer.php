@@ -24,80 +24,7 @@
   </a>
      <!-- modal openschedule -->
 
-    <div class="modal" id="openschedule">
-		<div class="modal-dialog">
-			  <div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header custom_modal">
-				  <h4 class="modal-title">Select Scheduling System</h4>
-				 <!--  <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-				 <div class="software_btn">
-				   <h2>Business</h2>
-				   <button class="crate_shift_btn">Open Scheduling</button>
-				 </div>
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-				  <a href="#" class="btn btn-secondary btn-icon-split" data-toggle="modal" data-target="#demo">
-					<span class="icon text-white-50">
-					  <i class="fas fa-arrow-right"></i>
-					</span>
-					<span class="text">New Business</span>
-				  </a>
-				  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> -->
-				</div>
-				<!-- modal -->
-				<div class="modal" id="demo">
-					<div class="modal-dialog">
-					  <div class="modal-content">
-
-						<!-- Modal Header -->
-						<div class="modal-header custom_modal">
-						  <h4 class="modal-title">Create New Business</h4>
-						  <button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-
-						<!-- Modal body -->
-						<div class="modal-body create_frm">
-						 <form>
-						  <div class="form-group">
-							  <label for="name">Name</label>
-							  <input type="text" class="form-control" placeholder="Business Name" id="">
-						  </div>
-						  <div class="form-group">
-							<label for="email">Email Address</label>
-							<input type="email" class="form-control" placeholder="Enter email" id="email">
-						  </div>
-						  <div class="form-group">
-							<label for="number">Phone Number</label>
-							<input type="text" class="form-control" placeholder="Phone Number" id="email">
-						  </div>
-						 </form>
-						</div>
-
-						<!-- Modal footer -->
-						<div class="modal-footer">
-						  <a href="#" class="btn btn-secondary btn-icon-split">
-							<span class="icon text-white-50">
-							  <i class="fas fa-arrow-right"></i>
-							</span>
-							<span class="text">Create Business</span>
-						  </a>
-						  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-						</div>
-
-					  </div>
-					</div>
-				</div>
-			</div>
-		</div>
-    </div>
+    
 		  
 	 <!-- The Modal -->
 	  <div class="modal" id="infoDetail">
@@ -402,6 +329,32 @@
       $('.d7').html(d7.getDate()+'-'+(monthNames[d7.getMonth()])+'-'+d7.getFullYear());
     }
 
+
+function printData()
+{
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+   
+   
+}
+
+$('.prinnt').on('click',function(){
+	//alert('dsfsd');
+	$('.verticle_menu').html('');
+	/* document.getElementById("verticle_menus").style.display = "none";
+	document.getElementById("verticle_menus1").style.display = "none";
+	document.getElementById("verticle_menus2").style.display = "none";
+	document.getElementById("verticle_menus3").style.display = "none";
+	document.getElementById("verticle_menus4").style.display = "none";
+	document.getElementById("verticle_menus5").style.display = "none";
+	document.getElementById("verticle_menus6").style.display = "none"; */
+   printData();
+
+  
+}); 
 </script>
 <!-- calender end-->
 </body>

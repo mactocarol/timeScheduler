@@ -1,4 +1,4 @@
-  
+
 						 <?php if(!empty($staffName)){ 
 			                     foreach ($staffName as $key => $value) { ?>
                            <tr>
@@ -16,14 +16,14 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-                                             <button type="button" class="remove_btn" id="s_remove">&times;</button>											  
+                                                 <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>											  
 											  </div>
 												
 										<?php 	}
 										}
 									}
 							  ?>
-							  <span class="add_icon add_more_input">
+							  <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
@@ -35,7 +35,7 @@
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-												    <button type="button" class="remove_btn" id="s_remove">&times;</button>
+												    <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php }
 											}
@@ -49,7 +49,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														 <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -65,12 +65,10 @@
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
-													<div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+													   <div class="btn_div">
+														    <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
-														
-														
 												<?php 	}
 												}
 											}
@@ -100,6 +98,17 @@
                                 </ul>
                               </div>
                               <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								<ul>
+								  <li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
                              </td>
                             <td class="pad schedule_box ">
 							 <?php
@@ -109,14 +118,14 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-											    <button type="button" class="remove_btn" id="s_remove">&times;</button>
+											   <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>	
 											   </div>
 												
 										<?php 	}
 										}
 									}
 							  ?>
-							  <span class="add_icon add_more_input">
+							  <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
@@ -128,7 +137,7 @@
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<button type="button" class="remove_btn" id="s_remove">&times;</button>
+													<button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php }
 											}
@@ -142,7 +151,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -159,7 +168,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
 													<div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -193,6 +202,17 @@
                                 </ul>
                               </div>
                               <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								<ul>
+								   <li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
                              </td>
                              <td class="pad schedule_box ">
 							 <?php
@@ -202,14 +222,14 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-											    <button type="button" class="remove_btn" id="s_remove">&times;</button>
+											    <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>	
 											   </div>
 												
 										<?php 	}
 										}
 									}
 							  ?>
-							  <span class="add_icon add_more_input">
+							  <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
@@ -221,7 +241,7 @@
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<button type="button" class="remove_btn" id="s_remove">&times;</button>
+													<button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php }
 											}
@@ -235,7 +255,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -252,7 +272,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
 													<div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														   <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -286,6 +306,17 @@
                                 </ul>
                               </div>
                               <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								<ul>
+								 <li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
                              </td>
                              <td class="pad schedule_box ">
 							 <?php
@@ -295,14 +326,14 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-                                              <button type="button" class="remove_btn" id="s_remove">&times;</button>											  
+                                              <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>												  
 											  </div>
 												
 										<?php 	}
 										}
 									}
 							  ?>
-							  <span class="add_icon add_more_input">
+							 <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
@@ -314,7 +345,7 @@
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<button type="button" class="remove_btn" id="s_remove">&times;</button>
+													<button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php }
 											}
@@ -328,7 +359,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -344,10 +375,10 @@
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
-													<div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+													    <div class="btn_div">
+														  <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
-													 </div>
+													</div>
 														
 														
 												<?php 	}
@@ -379,6 +410,17 @@
                                 </ul>
                               </div>
                               <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								<ul>
+								  <li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
                              </td>
                             <td class="pad schedule_box ">
 							 <?php
@@ -388,14 +430,14 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-											    <button type="button" class="remove_btn" id="s_remove">&times;</button>
+											    <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>	
 											   </div>
 												
 										<?php 	}
 										}
 									}
 							  ?>
-							  <span class="add_icon add_more_input">
+							 <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
@@ -407,7 +449,7 @@
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<button type="button" class="remove_btn" id="s_remove">&times;</button>
+													<button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php }
 											}
@@ -421,7 +463,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -438,7 +480,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
 													<div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -472,6 +514,17 @@
                                 </ul>
                               </div>
                               <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								<ul>
+								 <li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
                              </td>
                            <td class="pad schedule_box ">
 							 <?php
@@ -481,14 +534,14 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-											    <button type="button" class="remove_btn" id="s_remove">&times;</button>
+											    <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>	
 											   </div>
 												
 										<?php 	}
 										}
 									}
 							  ?>
-							  <span class="add_icon add_more_input">
+							   <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
@@ -500,7 +553,7 @@
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<button type="button" class="remove_btn" id="s_remove">&times;</button>
+													<button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php }
 											}
@@ -514,7 +567,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -531,7 +584,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
 													<div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -565,6 +618,17 @@
                                 </ul>
                               </div>
                               <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								<ul>
+								<li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
                              </td>
                              <td class="pad schedule_box ">
 							 <?php
@@ -574,14 +638,14 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-											   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+											   <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>	
 											  </div>
 												
 										<?php 	}
 										}
 									}
 							  ?>
-							  <span class="add_icon add_more_input">
+							   <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
@@ -593,7 +657,7 @@
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<button type="button" class="remove_btn" id="s_remove">&times;</button>
+													<button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php }
 											}
@@ -607,7 +671,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -624,7 +688,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
 													<div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														 <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -658,6 +722,17 @@
                                 </ul>
                               </div>
                               <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								<ul>
+								  <li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
                              </td>
                            </tr>
 						 <?php } } ?>

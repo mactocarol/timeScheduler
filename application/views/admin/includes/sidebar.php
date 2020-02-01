@@ -65,7 +65,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-print"></i>
-          <span id="prinnt">Print Schedule</span></a>
+          <span class="prinnt">Print Schedule</span></a>
       </li>
       
       <!-- Divider -->
@@ -370,6 +370,8 @@
 				    $("#showTimeoffmodal").html(response);
 					var datepicker = $('#datepicker').val();
 					$('.firstdate').val(datepicker);
+					var dayvalue = $('#dayvalue').val();
+					$('.dayvaluew').val(dayvalue);
 					$('#addtimemod').modal('show');
 				
 			}
@@ -421,4 +423,7 @@
 		});
     });
 	
+	
+	//print
+ 
     </script>

@@ -93,7 +93,7 @@
 			  <input type="text" name="end_time" class="form-control end_time time_picker time_range_inpt"  autocomplete="off" placeholder="05:00 pm" disabled="">
 			 <input type="hidden" id="business_id" name="business_id" value="<?php echo $business_id; ?>">
 			 <input type="hidden" name="firstdate" class="firstdate">
-			 <input type="hidden" id="dayvaluew" name="dayvaluew">
+			 <input type="hidden" class="dayvaluew" name="dayvaluew">
 			<!-- localStorage.getItem("startDate") -->
 			
 			</div>

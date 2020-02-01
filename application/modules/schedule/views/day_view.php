@@ -5,8 +5,7 @@
                              <td class="pad backcolor s_td_name">
                                <div class="name">
                                  <h3><?php echo $value['first_name']." ".$value['last_name']; ?> </h3>
-								 
-                                 <span>0 Hours</span>
+								 <span>0 Hours</span>
                                </div>
                              </td>
 							
@@ -18,7 +17,7 @@
 											foreach($val as $v){ ?>
 											  <div class="Vacation addtime_off_bx" style="background-color: <?php echo $v['color_code']; ?>">
 												 <p><?php echo $v['timeoff_type']; ?><span><?php if($v['start_time'] && $v['end_time']){echo $v['start_time'].'-'.$v['end_time']; } else{ echo 'Full day';} ?></span></p>
-											   <button type="button" class="remove_btn" id="s_remove">&times;</button>
+											    <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>
 											   </div>
 											    
 												
@@ -27,9 +26,10 @@
 									}
 							  ?>
 
-							  <span class="add_icon add_more_input">
+							  <span class="add_icon add_more_input" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">
                                 <i class="fas fa-plus"></i>
                               </span>
+							 
                              <div class="append_td_data">
                                 
 								  <?php
@@ -40,7 +40,7 @@
 												<div class="form_group shift_grp" id="s_row">
 												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
 													<div class="btn_div">
-													  <button type="button" class="remove_btn" id="s_remove" >&times;</button>
+													 <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
 													</div>
 								                  </div>
 												<?php }
@@ -56,7 +56,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['comment']; ?>
 													<div class="btn_div">
-														  <button type="button" class="remove_btn" id="s_remove">&times;</button>
+														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
 														
@@ -73,8 +73,7 @@
 													<div class="form_group shift_grp" id="cmt_row">
 													<?php echo $v['break']; ?>
 													    <div class="btn_div">
-														   <button type="button" class="remove_btn" id="s_remove">&times;</button>
-														    
+														 <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														    
 														</div>
 													</div>
@@ -94,22 +93,7 @@
                                 <ul>
 								
                                   <li>Paste</li>
-								  <!--<script> 
-										
-
-										$("#ccc").bind({
-											copy : function(){
-												//alert('copy behaviour detected!');
-											},
-											paste : function(){
-												//alert('paste behaviour detected!');
-											},
-											cut : function(){
-												//alert('cut behaviour detected!');
-											}
-										});									
-								 </script> -->
-                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Shift</li>
+								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
@@ -125,19 +109,30 @@
 								   <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Email</a></li>
                                 </ul>
                               </div>
-							  <!-- shecule menus -->
-							  <!--<div class="cccv">
-                                <ul>
-                                  <li>Cut</li>
-                                  <li>Copy</li>
-                                  <li>Paste</li>
-                                  <li>Edit</li>
-                                  <li>Delete</li>
-                                </ul>
-                              </div>
-                              <!-- shecule menus -->
+							  <!-- Verticle menus second -->
+							   <div class="verticle_menu_scnd">
+								 <ul>
+								  <li>Cut</li>
+								  <li>Copy</li>
+								  <li>Paste</li>
+								  <li>Delete</li>
+								  <li>Edit</li>
+								</ul>
+							  </div>
+							  <!-- Verticle menus second -->
+							  
                              </td>
 						</tr>
+						 <tr class="daytable">
+							<td>
+							  <div class="s_hour">Scheduled hours</div>
+							  <div class="emp">Employees</div>
+							</td>
+							<td  style="text-align:center;">
+							  <div class="s_hour">0 Hrs</div>
+							  <div class="emp">0 People</div>
+							</td>
+						</tr>	
 						 <?php } }?>
                     
                     
