@@ -123,7 +123,10 @@
 							  
                              </td>
 						</tr>
-						 <tr class="daytable">
+							
+						 <?php } }?>
+                    
+                         <tr class="daytable">
 							<td>
 							  <div class="s_hour">Scheduled hours</div>
 							  <div class="emp">Employees</div>
@@ -132,7 +135,4 @@
 							  <div class="s_hour">0 Hrs</div>
 							  <div class="emp">0 People</div>
 							</td>
-						</tr>	
-						 <?php } }?>
-                    
-                    
+						</tr>
