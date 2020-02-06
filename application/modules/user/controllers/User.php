@@ -245,7 +245,7 @@ class User extends MY_Controller
                  echo json_encode(array('valid' => $isAvailable, ));
             }
         }
-        
+        //login
         public function login_check()
         {            
             $data=new stdClass();

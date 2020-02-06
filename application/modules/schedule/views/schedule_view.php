@@ -21,7 +21,7 @@
                    <h2><?php echo $business_name; ?></h2>
 				   
                    <label class="saving_schedule" title="All changes are automatically saved.">All Changes saved</label>
-                   <span><a href="#">Refresh</a></span>
+                   <span><a style="cursor: pointer; color: #4469d7;" onclick="window.location.href=this">Refresh</a></span>
                  </div>
                </div>
                <div class="col-xl-6 col-md-12 mb-4">
@@ -95,8 +95,8 @@
 						  </tr>
                          </thead>
                          <tbody id="mainbodyc">
-						 <?php if(!empty($staffName)){ 
-						 $hourCount = 0;
+						<?php 
+ 						 $hourCount = 0;
 						 $peopleCount= 0;
 						 
 						 $hourCount1 = 0;
@@ -116,10 +116,9 @@
 						 
 						 $hourCount6 = 0;
 						 $peopleCount6 = 0;
-						 
+						 if(!empty($staffName)){ 
 						
-						
-			                foreach ($staffName as $key => $value) { ?>
+						   foreach ($staffName as $key => $value) { ?>
                            <tr>
                              <td class="pad backcolor s_td_name">
                                <div class="name">
@@ -136,14 +135,13 @@
 										if($key == $value['id']){
 											foreach($val as $v){ 
 											if($v['end_time']){
-											 $arrayf = explode(":", $v['end_time']); 
-											 $end_times = $arrayf[0];
-											 
-											 $arrayf1 = explode(":", $v['start_time']); 
-											 $start_times = $arrayf1[0];
-											 $fcount += $end_times - $start_times; ?>
-											 
-									 <?php } 
+												$startdatetime = strtotime($v['start_time']);
+												$enddatetime = strtotime($v['end_time']);
+												$difference = $enddatetime - $startdatetime;
+												$hoursDiff = $difference / 3600;
+												$fcount += round($hoursDiff,0);
+											}
+											
 									   } 
 									 } 
 								  }
@@ -189,20 +187,18 @@
 													</div>
 								                </div>
 												
-												<?php 
-												if($v['end_time']){
-													 $array = explode(":", $v['end_time']); 
-													 $end_times = $array[0];
-													 
-													 $array1 = explode(":", $v['start_time']); 
-													 $start_times = $array1[0];
-													 $hourCount = $hourCount + ($end_times - $start_times);
-													 if(!in_array($value['id'],$staffArray)){
+													<?php 
+													if($v['end_time']){
+													$startdatetime = strtotime($v['start_time']);
+												    $enddatetime = strtotime($v['end_time']);
+												    $difference = $enddatetime - $startdatetime;
+												    $hoursDiff = $hourCount+$difference / 3600;
+												    $hourCount = round($hoursDiff,0);
+												    }
+													if(!in_array($value['id'],$staffArray)){
 														 $staffArray[] = $value['id'];
 														$peopleCount++;
-													 }
-													 
-												  }
+													}
 												}
 												
 											}
@@ -314,17 +310,17 @@
 													</div>
 								                  </div>
 												<?php 
-												if($v['end_time']){
-													$array2 = explode(":", $v['end_time']); 
-													$end_times = $array2[0];
-													 
-													 $array3 = explode(":", $v['start_time']); 
-													 $start_times = $array3[0];
-													 $hourCount1 = $hourCount1 + ($end_times - $start_times);
-													  if(!in_array($value['id'],$staffArray)){
+												
+													if($v['end_time']){
+													$startdatetime1 = strtotime($v['start_time']);
+												    $enddatetime1 = strtotime($v['end_time']);
+												    $difference1 = $enddatetime1 - $startdatetime1;
+												    $hoursDiff1 = $hourCount1+$difference1 / 3600;
+												    $hourCount1 = round($hoursDiff1,0);
+												    }
+													if(!in_array($value['id'],$staffArray)){
 														 $staffArray[] = $value['id'];
 														$peopleCount1++;
-													 }
 													}
 												}												
 											}
@@ -433,17 +429,16 @@
 														 <button type="button" class="remove_btn" onclick="shift_remove(this.value)"  value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
 												<?php 
-												if($v['end_time']){
-													$array4 = explode(":", $v['end_time']); 
-													$end_times = $array4[0];
-													 
-													 $array5 = explode(":", $v['start_time']); 
-													 $start_times = $array5[0];
-													 $hourCount2 = $hourCount2 + ($end_times - $start_times);
-													  if(!in_array($value['id'],$staffArray)){
+												  if($v['end_time']){
+													$startdatetime2 = strtotime($v['start_time']);
+												    $enddatetime2 = strtotime($v['end_time']);
+												    $difference2 = $enddatetime2 - $startdatetime2;
+												    $hoursDiff2 = $hourCount2+$difference2 / 3600;
+												    $hourCount2 = round($hoursDiff2,0);
+												    }
+													if(!in_array($value['id'],$staffArray)){
 														 $staffArray[] = $value['id'];
 														$peopleCount2++;
-													 }
 													}
 												}
 											}
@@ -550,16 +545,15 @@
 								                   </div>
 												<?php
 												if($v['end_time']){
-													$array6 = explode(":", $v['end_time']); 
-													$end_times = $array6[0];
-													 
-													 $array7 = explode(":", $v['start_time']); 
-													 $start_times = $array7[0];
-													 $hourCount3 = $hourCount3 + ($end_times - $start_times);
-													 if(!in_array($value['id'],$staffArray)){
+													$startdatetime3 = strtotime($v['start_time']);
+												    $enddatetime3 = strtotime($v['end_time']);
+												    $difference3 = $enddatetime3 - $startdatetime3;
+												    $hoursDiff3 = $hourCount3+$difference3 / 3600;
+												    $hourCount3 = round($hoursDiff3,0);
+												    }
+													if(!in_array($value['id'],$staffArray)){
 														 $staffArray[] = $value['id'];
 														$peopleCount3++;
-													 }
 													}
 												}
 											}
@@ -666,16 +660,15 @@
 								                   </div>
 												<?php 
 												if($v['end_time']){
-													$array8 = explode(":", $v['end_time']); 
-													$end_times = $array8[0];
-													 
-													 $array9 = explode(":", $v['start_time']); 
-													 $start_times = $array9[0];
-													 $hourCount4 = $hourCount4 + ($end_times - $start_times);
-													 if(!in_array($value['id'],$staffArray)){
+													$startdatetime4 = strtotime($v['start_time']);
+												    $enddatetime4 = strtotime($v['end_time']);
+												    $difference4 = $enddatetime4 - $startdatetime4;
+												    $hoursDiff4 = $hourCount4+$difference4 / 3600;
+												    $hourCount4 = round($hoursDiff4,0);
+												    }
+													if(!in_array($value['id'],$staffArray)){
 														 $staffArray[] = $value['id'];
 														$peopleCount4++;
-													 }
 													}
 												
 												}
@@ -783,16 +776,15 @@
 								                   </div>
 												<?php 
 												if($v['end_time']){
-													$array10 = explode(":", $v['end_time']); 
-													$end_times = $array10[0];
-													 
-													 $array11 = explode(":", $v['start_time']); 
-													 $start_times = $array11[0];
-													 $hourCount5 = $hourCount5 + ($end_times - $start_times);
+													$startdatetime5 = strtotime($v['start_time']);
+												    $enddatetime5 = strtotime($v['end_time']);
+												    $difference5 = $enddatetime5 - $startdatetime5;
+												    $hoursDiff5 = $hourCount5+$difference5 / 3600;
+												    $hourCount5 = round($hoursDiff5,0);
+												    }
 													if(!in_array($value['id'],$staffArray)){
-														 $staffArray[] = $value['id'];
+														$staffArray[] = $value['id'];
 														$peopleCount5++;
-													 }
 													}
 												}
 											}
@@ -900,16 +892,15 @@
 								                   </div>
 												<?php 
 												if($v['end_time']){
-													$array12 = explode(":", $v['end_time']); 
-													$end_times = $array12[0];
-													 
-													 $array13 = explode(":", $v['start_time']); 
-													 $start_times = $array13[0];
-													 $hourCount6 = $hourCount6 + ($end_times - $start_times);
-													 if(!in_array($value['id'],$staffArray)){
-														 $staffArray[] = $value['id'];
+													$startdatetime6 = strtotime($v['start_time']);
+												    $enddatetime6 = strtotime($v['end_time']);
+												    $difference6 = $enddatetime6 - $startdatetime6;
+												    $hoursDiff6 = $hourCount6+$difference6 / 3600;
+												    $hourCount6 = round($hoursDiff6,0);
+												    }
+													if(!in_array($value['id'],$staffArray)){
+														$staffArray[] = $value['id'];
 														$peopleCount6++;
-													 }
 													}
 												}
 											}

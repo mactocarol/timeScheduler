@@ -344,6 +344,7 @@ function printData()
 $('.prinnt').on('click',function(){
 	//alert('dsfsd');
 	$('.verticle_menu').html('');
+	$('.verticle_menu_scnd').html('');
 	/* document.getElementById("verticle_menus").style.display = "none";
 	document.getElementById("verticle_menus1").style.display = "none";
 	document.getElementById("verticle_menus2").style.display = "none";

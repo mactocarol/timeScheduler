@@ -1,7 +1,10 @@
                  
-						 <?php if(!empty($staffName)){ 
-						 $hourCount = 0;
+						 <?php 
+						  $hourCount = 0;
 						 $peopleCount= 0;
+
+						 if(!empty($staffName)){ 
+						
 			             foreach ($staffName as $key => $value) { ?>
                         <tr class="daytable">
                              <td class="pad backcolor s_td_name">
@@ -14,14 +17,14 @@
 										if($key == $value['id']){
 											foreach($val as $v){ 
 											if($v['end_time']){
-											 $arrayf = explode(":", $v['end_time']); 
-											 $end_times = $arrayf[0];
+												$startdatetime = strtotime($v['start_time']);
+												$enddatetime = strtotime($v['end_time']);
+												$difference = $enddatetime - $startdatetime;
+												$hoursDiff = $difference / 3600;
+												$fcount += round($hoursDiff,0);
+											} ?>
 											 
-											 $arrayf1 = explode(":", $v['start_time']); 
-											 $start_times = $arrayf1[0];
-											 $fcount += $end_times - $start_times; ?>
-											 
-									 <?php } 
+									 <?php 
 									   } 
 									 } 
 								  }
