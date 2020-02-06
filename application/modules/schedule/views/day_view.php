@@ -1,11 +1,33 @@
                  
 						 <?php if(!empty($staffName)){ 
-			                     foreach ($staffName as $key => $value) { ?>
+						 $hourCount = 0;
+						 $peopleCount= 0;
+			             foreach ($staffName as $key => $value) { ?>
                         <tr class="daytable">
                              <td class="pad backcolor s_td_name">
                                <div class="name">
                                  <h3><?php echo $value['first_name']." ".$value['last_name']; ?> </h3>
-								 <span>0 Hours</span>
+								<?php
+								 	$fcount = 0;
+										$shiftsf = isset($finalArray[$alldates[0]]) ? $finalArray[$alldates[0]] : [];
+									      foreach($shiftsf as $key=>$val){
+										if($key == $value['id']){
+											foreach($val as $v){ 
+											if($v['end_time']){
+											 $arrayf = explode(":", $v['end_time']); 
+											 $end_times = $arrayf[0];
+											 
+											 $arrayf1 = explode(":", $v['start_time']); 
+											 $start_times = $arrayf1[0];
+											 $fcount += $end_times - $start_times; ?>
+											 
+									 <?php } 
+									   } 
+									 } 
+								  }
+								
+								?>
+								  <span><?php echo $fcount; ?> Hours</span>
                                </div>
                              </td>
 							
@@ -21,7 +43,9 @@
 											   </div>
 											    
 												
-										<?php 	}
+										<?php 
+										
+										   }
 										}
 									}
 							  ?>
@@ -34,16 +58,31 @@
                                 
 								  <?php
 										$shifts = isset($finalArray[$alldates[0]]) ? $finalArray[$alldates[0]] : []; 
+										$staffArray = [];
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group shift_grp" id="s_row">
-												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<div class="btn_div">
-													 <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+												<input type="text" id="shiftCut" onFocus="setAttr(this.value,'<?=$value['id']?>',1,0,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
+													   	<div class="btn_div">
+													 <button type="button" class="remove_btn" onclick="shift_remove(this.value)" value="<?php echo $v['id']; ?>">&times;</button>
 													</div>
 								                  </div>
-												<?php }
+												<?php
+											    if($v['end_time']){										
+													 $array = explode(":", $v['end_time']); 
+													 $end_times = $array[0];
+													 
+													 $array1 = explode(":", $v['start_time']); 
+													  $start_times = $array1[0];
+														$hourCount = $hourCount + ($end_times - $start_times);
+														if(!in_array($value['id'],$staffArray)){
+															 $staffArray[] = $value['id'];
+															$peopleCount++;
+														 }
+													}
+
+												}
 											}
 										}
 								  ?>	
@@ -54,7 +93,7 @@
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
+													<input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,0,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
 													<div class="btn_div">
 														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -70,8 +109,8 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
+													<div class="form_group shift_grp" id="b_row">
+													<input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,0,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
 													    <div class="btn_div">
 														 <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														    
@@ -87,12 +126,11 @@
 								  </div>
                               
                               <!-- Append data -->
-							  <?php if(isset($finalArrayTimeoff[$alldates[0]]) ? $finalArrayTimeoff[$alldates[0]] : []) ?>
-                              <!-- shecule menus -->
+							  <!-- shecule menus -->
                                <div class="verticle_menu">
                                 <ul>
 								
-                                  <li>Paste</li>
+                                  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Paste</li>
 								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Add Time off</a></li>
@@ -109,14 +147,14 @@
 								   <li><a href="#" id="addemailcal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Email</a></li>
                                 </ul>
                               </div>
-							  <!-- Verticle menus second -->
+							 <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
-								 <ul>
-								  <li>Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								<ul>
+								  <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								  <!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
@@ -131,8 +169,8 @@
 							  <div class="s_hour">Scheduled hours</div>
 							  <div class="emp">Employees</div>
 							</td>
-							<td  style="text-align:center;">
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+						    <td>
+							  <div class="s_hour"><?php echo $hourCount; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount; ?> People</div>
 							</td>
 						</tr>

@@ -446,6 +446,29 @@ class Schedule extends MY_Controller
 			}
 			 
         }
+		public function addcommentcals(){
+			//$admin_id = $this->session->userdata('id'); 
+            $staff_id = $this->input->post('staff_id');
+			$dayvalue = $this->input->post('dayvalue');
+			 $insert=array(    
+					'user_id'=>$this->input->post('staff_id'),		 
+					'business_id'=>$this->input->post('business_id'),			 
+					'comment'=>$this->input->post('comment'),
+					'comment_date'=>$this->input->post('commentdate'),
+					'is_deleted'=>1
+				);
+           
+			$new_id = $this->schedule_model->InsertRecord('comments',$insert);
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
+			 
+        }
 		
 		
 		// add shift cal
@@ -456,26 +479,28 @@ class Schedule extends MY_Controller
 			$dayvalue = $this->input->post('dayvalue');
 			if (strpos($time, '-') !== false) {
 				 $array = explode("-", $time); 
-				 $start_times = $array[0].':00';			
+				 $start_times = $array[0].':00';
+				 $end_times = $array[1].':00';		
 				  //$start_time = date("h:i a", strtotime($start_times));
-				 if($start_times >= 12){
-				  $start_time = date("h:i p", strtotime($start_times));
+				 /*  if($start_times >= 12){
+				  $start_time = date("h:i a.", strtotime($start_times));
 				 }
 				 else{
 					$start_time = date("h:i a", strtotime($start_times));
-				 }
-				 $end_times = $array[1].':00';  
+				 } 
+				  
 				 if($end_times >= 12){
-				   $end_time = date("h:i p", strtotime($end_times));
+				   $end_time = date("h:i a.", strtotime($end_times));
 				 }
 				 else{
 					$end_time = date("h:i a", strtotime($end_times));
-				 }
-				
+				 } */
+				  $start_time = date("h:i a", strtotime($start_times));
+				$end_time = date("h:i a", strtotime($end_times));
 				}else {
 				 $start_time = $time;
 				 $end_time = '';
-			}
+			    }
 			 
 				 $insert=array(    
 					'admin_id'=>$admin_id,			 
@@ -499,6 +524,35 @@ class Schedule extends MY_Controller
 			}
         }
 		
+		
+		// add shift cal
+		public function addshiftcals(){
+			$admin_id = $this->session->userdata('id'); 
+            $staff_id = $this->input->post('staff_id');
+		    $dayvalue = $this->input->post('dayvalue');
+			
+			 
+				 $insert=array(    
+					'admin_id'=>$admin_id,			 
+					'user_id'=>$this->input->post('staff_id'),		 
+					'business_id'=>$this->input->post('business_id'),			 
+					'shift_date'=>$this->input->post('shiftdate'),
+					'start_time'=>$this->input->post('start_time'),
+					'end_time'=>$this->input->post('end_time'),
+					'is_deleted'=>1
+				);
+           
+			$new_id = $this->schedule_model->InsertRecord('shift',$insert);
+			
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
+        }
 		// add shift
 		public function addshift(){
 			$admin_id = $this->session->userdata('id'); 
@@ -1115,26 +1169,58 @@ class Schedule extends MY_Controller
 		//shift delete
 		public function shiftDelete(){
 			$id= $this->input->post('shift_id'); 
+			$dayvalue= $this->input->post('dayvalue'); 
 			$new_id = $this->schedule_model->delete_record('shift',array("id"=>$id)); 
-			
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
          }
 		 //time off delete
 		 public function timeoffDelete(){
 			$id= $this->input->post('timeoff_id'); 
+			$dayvalue= $this->input->post('dayvalue'); 
 			$new_id = $this->schedule_model->delete_record('timeoff',array("id"=>$id)); 
-			
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
          }
 		 //comment delete
 		 public function commentDelete(){
+			 $dayvalue= $this->input->post('dayvalue'); 
 			$id= $this->input->post('comment_id'); 
 			$new_id = $this->schedule_model->delete_record('comments',array("id"=>$id)); 
-			
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
          }
 		 //break delete
 		 public function breakDelete(){
+			 $dayvalue= $this->input->post('dayvalue'); 
 			$id= $this->input->post('break_id'); 
 			$new_id = $this->schedule_model->delete_record('break',array("id"=>$id)); 
-			
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			}
          }
 		
 		

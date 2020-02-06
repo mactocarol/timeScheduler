@@ -868,7 +868,7 @@ td.pad{
     font-size: 12px;
     width: 100%;
     border: none;
-    padding: 9px 5px;
+    padding: 9px 0px;
     background: #efefef;
     color: #000;
 }

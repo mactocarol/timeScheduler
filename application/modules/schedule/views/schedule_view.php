@@ -96,13 +96,60 @@
                          </thead>
                          <tbody id="mainbodyc">
 						 <?php if(!empty($staffName)){ 
-			                     foreach ($staffName as $key => $value) { ?>
+						 $hourCount = 0;
+						 $peopleCount= 0;
+						 
+						 $hourCount1 = 0;
+						 $peopleCount1 = 0;
+						 
+						 $hourCount2 = 0;
+						 $peopleCount2 = 0;
+						 
+						 $hourCount3 = 0;
+						 $peopleCount3 = 0;
+						 
+						 $hourCount4 = 0;
+						 $peopleCount4 = 0;
+						 
+						 $hourCount5 = 0;
+						 $peopleCount5 = 0;
+						 
+						 $hourCount6 = 0;
+						 $peopleCount6 = 0;
+						 
+						
+						
+			                foreach ($staffName as $key => $value) { ?>
                            <tr>
                              <td class="pad backcolor s_td_name">
                                <div class="name">
                                  <h3><?php echo $value['first_name']." ".$value['last_name']; ?> </h3>
-								 
-                                 <span>0 Hours</span>
+								 <?php
+								 //$shiftsf = array();
+									$fcount = 0;								 
+									 for ($i = 0 ; $i <= 6; $i++){
+										
+										$shiftsf = isset($finalArray[$alldates[$i]]) ? $finalArray[$alldates[$i]] : [];
+									
+									// print_r($shiftsf);
+									 foreach($shiftsf as $key=>$val){
+										if($key == $value['id']){
+											foreach($val as $v){ 
+											if($v['end_time']){
+											 $arrayf = explode(":", $v['end_time']); 
+											 $end_times = $arrayf[0];
+											 
+											 $arrayf1 = explode(":", $v['start_time']); 
+											 $start_times = $arrayf1[0];
+											 $fcount += $end_times - $start_times; ?>
+											 
+									 <?php } 
+									   } 
+									 } 
+								  }
+								}
+								?>
+								  <span><?php echo $fcount; ?> Hours</span>
                                </div>
                              </td>
 							
@@ -127,22 +174,40 @@
                                 <i class="fas fa-plus"></i>
                               </span>
                              <div class="append_td_data">
-                                
-								  <?php
+                                  <?php
+								       
 										$shifts = isset($finalArray[$alldates[0]]) ? $finalArray[$alldates[0]] : []; 
+										 $staffArray=[];
 										foreach($shifts as $key=>$val){
+											
 											if($key == $value['id']){
-												foreach($val as $v){ ?>
+												foreach($val as $v){?>
 												<div class="form_group shift_grp" id="s_row">
-												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
+												    <input type="text" id="shiftCut" name="shifs" class="shftcls" onFocus="setAttr(this.value,'<?=$value['id']?>',1,0,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
 													<div class="btn_div">
-													  <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+													  <button type="button" class="remove_btn" onclick="shift_remove(this.value)" value="<?php echo $v['id']; ?>">&times;</button>
 													</div>
-								                  </div>
-												<?php }
+								                </div>
+												
+												<?php 
+												if($v['end_time']){
+													 $array = explode(":", $v['end_time']); 
+													 $end_times = $array[0];
+													 
+													 $array1 = explode(":", $v['start_time']); 
+													 $start_times = $array1[0];
+													 $hourCount = $hourCount + ($end_times - $start_times);
+													 if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount++;
+													 }
+													 
+												  }
+												}
+												
 											}
 										}
-								  ?>	
+								    ?>	
 								
 								  <?php
 									 $comments = isset($finalArrayComment[$alldates[0]]) ? $finalArrayComment[$alldates[0]] : []; 
@@ -150,8 +215,8 @@
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
-													<div class="btn_div">
+													 <input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,0,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
+													    <div class="btn_div">
 														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													</div>
@@ -166,8 +231,9 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
+													<div class="form_group shift_grp" id="b_row">
+													 <input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,0,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
+													
 													    <div class="btn_div">
 														   <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -178,32 +244,15 @@
 												}
 											}
 									  ?>
-								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
-								  </div>
+								 </div>
                               
                               <!-- Append data -->
 							  <?php if(isset($finalArrayTimeoff[$alldates[0]]) ? $finalArrayTimeoff[$alldates[0]] : []) ?>
                               <!-- shecule menus -->
                                <div class="verticle_menu" id="verticle_menus">
                                 <ul>
-								
-                                  <li>Paste</li>
-								  <!--<script> 
-										
-
-										$("#ccc").bind({
-											copy : function(){
-												//alert('copy behaviour detected!');
-											},
-											paste : function(){
-												//alert('paste behaviour detected!');
-											},
-											cut : function(){
-												//alert('cut behaviour detected!');
-											}
-										});									
-								 </script> -->
-                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Shift</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Paste</li>
+								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
@@ -223,11 +272,11 @@
 							  <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
 								<ul>
-								  <li id="cut">Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								  <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[0]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								  <!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
@@ -243,8 +292,7 @@
 												
 											    <button type="button" class="remove_btn" id="timeoff_remove" value="<?php echo $v['id']; ?>">&times;</button>	
 											   </div>
-												
-										<?php 	}
+										<?php }
 										}
 									}
 							  ?>
@@ -255,18 +303,33 @@
                                 
                                   <?php
 										$shifts = isset($finalArray[$alldates[1]]) ? $finalArray[$alldates[1]] : []; 
+										 $staffArray=[];
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group shift_grp" id="s_row">
-												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
+												<input type="text" id="shiftCut" onFocus="setAttr(this.value,'<?=$value['id']?>',1,1,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
 													<div class="btn_div">
-													   <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+													   <button type="button" class="remove_btn" onclick="shift_remove(this.value)"  value="<?php echo $v['id']; ?>">&times;</button>
 													</div>
 								                  </div>
-												<?php }
+												<?php 
+												if($v['end_time']){
+													$array2 = explode(":", $v['end_time']); 
+													$end_times = $array2[0];
+													 
+													 $array3 = explode(":", $v['start_time']); 
+													 $start_times = $array3[0];
+													 $hourCount1 = $hourCount1 + ($end_times - $start_times);
+													  if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount1++;
+													 }
+													}
+												}												
 											}
 										}
+										
 								  ?>	
 								
 								  <?php
@@ -275,8 +338,8 @@
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
-													<div class="btn_div">
+													<input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,1,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
+													 <div class="btn_div">
 														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
@@ -291,12 +354,12 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
+													<div class="form_group shift_grp" id="b_row">
+													<input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,1,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
 													<div class="btn_div">
 														   <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
-													 </div>
+													</div>
 														
 														
 												<?php 	}
@@ -310,7 +373,7 @@
                               <!-- shecule menus -->
                                <div class="verticle_menu" id="verticle_menus1">
                                 <ul>
-                                  <li>Paste</li>
+                                  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">Paste</li>
                                   <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>" >Add Time off</a></li>
@@ -330,11 +393,11 @@
                               <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
 								<ul>
-								  <li>Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								  <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[1]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								 <!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
@@ -360,15 +423,29 @@
                              <div class="append_td_data">
                                 
 								  <?php
-										$shifts = isset($finalArray[$alldates[2]]) ? $finalArray[$alldates[2]] : []; 
+										$shifts = isset($finalArray[$alldates[2]]) ? $finalArray[$alldates[2]] : [];
+										$staffArray = [];										
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php echo $v['start_time'].'-'.$v['end_time'].'<br>'; ?>
-													 <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+												<input type="text" id="shiftCut" onFocus="setAttr(this.value,'<?=$value['id']?>',1,2,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
+														 <button type="button" class="remove_btn" onclick="shift_remove(this.value)"  value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
-												<?php }
+												<?php 
+												if($v['end_time']){
+													$array4 = explode(":", $v['end_time']); 
+													$end_times = $array4[0];
+													 
+													 $array5 = explode(":", $v['start_time']); 
+													 $start_times = $array5[0];
+													 $hourCount2 = $hourCount2 + ($end_times - $start_times);
+													  if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount2++;
+													 }
+													}
+												}
 											}
 										}
 								  ?>	
@@ -378,7 +455,7 @@
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
+													<input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,2,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
 													<div class="btn_div">
 														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -394,8 +471,8 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
+													<div class="form_group shift_grp" id="b_row">
+													<input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,2,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
 													<div class="btn_div">
 														  <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -406,15 +483,13 @@
 												}
 											}
 									  ?>
-								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
-								  
-                              </div>
+							</div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu" id="verticle_menus2">
                                <ul>
-                                  <li>Paste</li>
-                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">Add Shift</li>
+                                  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">Paste</li>
+								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
@@ -434,11 +509,11 @@
 							  <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
 								<ul>
-								  <li>Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								  <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[2]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								 <!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
@@ -465,26 +540,38 @@
                                 
 								  <?php
 										$shifts = isset($finalArray[$alldates[3]]) ? $finalArray[$alldates[3]] : []; 
+										$staffArray = [];
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													<button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+												<input type="text" id="shiftCut" onFocus="setAttr(this.value,'<?=$value['id']?>',1,3,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
+													<button type="button" class="remove_btn" onclick="shift_remove(this.value)"  value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
-												<?php }
+												<?php
+												if($v['end_time']){
+													$array6 = explode(":", $v['end_time']); 
+													$end_times = $array6[0];
+													 
+													 $array7 = explode(":", $v['start_time']); 
+													 $start_times = $array7[0];
+													 $hourCount3 = $hourCount3 + ($end_times - $start_times);
+													 if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount3++;
+													 }
+													}
+												}
 											}
 										}
-										
-
-								  ?>
+								?>
 									<?php
 									 $comments = isset($finalArrayComment[$alldates[3]]) ? $finalArrayComment[$alldates[3]] : []; 
 											foreach($comments as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
+													<input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,3,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
 													<div class="btn_div">
 														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -500,8 +587,8 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
+													<div class="form_group shift_grp" id="b_row">
+													<input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,3,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
 													<div class="btn_div">
 														   <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 													</div>
@@ -512,15 +599,13 @@
 												}
 											}
 									  ?>								  
-								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
-								  
-                              </div>
+							  </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu" id="verticle_menus3">
                                 <ul>
-                                  <li>Paste</li>
-                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">Add Shift</li>
+                                  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">Paste</li>
+								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
@@ -539,12 +624,12 @@
                               <!-- shecule menus -->
 							  <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
-								<ul>
-								 <li>Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								 <ul>
+								  <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[3]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								  <!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
@@ -571,14 +656,29 @@
                                 
 								  <?php
 										$shifts = isset($finalArray[$alldates[4]]) ? $finalArray[$alldates[4]] : []; 
+										$staffArray = [];
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													 <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+												<input type="text" id="shiftCut" onFocus="setAttr(this.value,'<?=$value['id']?>',1,4,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
+													 <button type="button" class="remove_btn" onclick="shift_remove(this.value)"  value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
-												<?php }
+												<?php 
+												if($v['end_time']){
+													$array8 = explode(":", $v['end_time']); 
+													$end_times = $array8[0];
+													 
+													 $array9 = explode(":", $v['start_time']); 
+													 $start_times = $array9[0];
+													 $hourCount4 = $hourCount4 + ($end_times - $start_times);
+													 if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount4++;
+													 }
+													}
+												
+												}
 											}
 										}
 								  ?>
@@ -588,7 +688,7 @@
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
+													<input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,4,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
 													<div class="btn_div">
 														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -604,9 +704,9 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
-													   <div class="btn_div">
+													<div class="form_group shift_grp" id="b_row">
+													<input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,4,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
+													  <div class="btn_div">
 														    <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
 													 </div>
@@ -616,15 +716,13 @@
 												}
 											}
 									  ?>								  
-								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
-								  
-                              </div>
+							  </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu" id="verticle_menus4">
                                <ul>
-                                  <li>Paste</li>
-                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">Add Shift</li>
+                                  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">Paste</li>
+								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
@@ -644,11 +742,11 @@
 							  <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
 								<ul>
-								  <li>Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								  <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[4]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								<!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
@@ -675,14 +773,28 @@
                                 
 								  <?php
 										$shifts = isset($finalArray[$alldates[5]]) ? $finalArray[$alldates[5]] : []; 
+										$staffArray = [];
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													 <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+												<input type="text" id="shiftCut" onFocus="setAttr(this.value,'<?=$value['id']?>',1,5,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
+													 <button type="button" class="remove_btn" onclick="shift_remove(this.value)"  value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
-												<?php }
+												<?php 
+												if($v['end_time']){
+													$array10 = explode(":", $v['end_time']); 
+													$end_times = $array10[0];
+													 
+													 $array11 = explode(":", $v['start_time']); 
+													 $start_times = $array11[0];
+													 $hourCount5 = $hourCount5 + ($end_times - $start_times);
+													if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount5++;
+													 }
+													}
+												}
 											}
 										}
 								  ?>
@@ -692,7 +804,7 @@
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
+													<input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,5,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
 													<div class="btn_div">
 														  <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -708,8 +820,8 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
+													<div class="form_group shift_grp" id="b_row">
+													<input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,5,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
 													<div class="btn_div">
 														    <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -720,15 +832,14 @@
 												}
 											}
 									  ?>								  
-								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
-								  
-                              </div>
+								
+								</div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu" id="verticle_menus5">
                                 <ul>
-                                  <li>Paste</li>
-                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">Add Shift</li>
+                                  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">Paste</li>
+								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
@@ -748,11 +859,11 @@
 							  <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
 								<ul>
-								<li>Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								  <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[5]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								 <!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
@@ -779,14 +890,28 @@
                                 
 								  <?php
 										$shifts = isset($finalArray[$alldates[6]]) ? $finalArray[$alldates[6]] : []; 
+										$staffArray = [];
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
 												<div class="form_group" id="s_row">
-												<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'].'<br>';} else{echo $v['start_time'];} ?>
-													 <button type="button" class="remove_btn" id="shift_remove" value="<?php echo $v['id']; ?>">&times;</button>
+												<input type="text" id="shiftCut" onFocus="setAttr(this.value,'<?=$value['id']?>',1,6,<?=$v['id']?>)" value="<?php if($v['end_time']){echo $v['start_time'].'-'.$v['end_time'];} else{echo $v['start_time'];} ?>">
+													 <button type="button" class="remove_btn" onclick="shift_remove(this.value)"  value="<?php echo $v['id']; ?>">&times;</button>
 								                   </div>
-												<?php }
+												<?php 
+												if($v['end_time']){
+													$array12 = explode(":", $v['end_time']); 
+													$end_times = $array12[0];
+													 
+													 $array13 = explode(":", $v['start_time']); 
+													 $start_times = $array13[0];
+													 $hourCount6 = $hourCount6 + ($end_times - $start_times);
+													 if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount6++;
+													 }
+													}
+												}
 											}
 										}
 								  ?>
@@ -796,7 +921,8 @@
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
 													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['comment']; ?>
+													<input type="text" id="commentCut" onFocus="setAttr(this.value,'<?=$value['id']?>',2,6,<?=$v['id']?>)" value="<?php echo $v['comment']; ?>">	
+													
 													<div class="btn_div">
 														 <button type="button" class="remove_btn" id="comment_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -812,8 +938,9 @@
 											foreach($breaks as $key=>$val){
 												if($key == $value['id']){
 													foreach($val as $v){ ?>
-													<div class="form_group shift_grp" id="cmt_row">
-													<?php echo $v['break']; ?>
+													<div class="form_group shift_grp" id="b_row">
+													<input type="text" id="breakCut" onFocus="setAttr(this.value,'<?=$value['id']?>',3,6,<?=$v['id']?>)" value="<?php echo $v['break']; ?>">
+													
 													<div class="btn_div">
 														   <button type="button" class="remove_btn" id="break_remove" value="<?php echo $v['id']; ?>">&times;</button>
 														</div>
@@ -824,15 +951,13 @@
 												}
 											}
 									  ?>								  
-								  <!--<input type="text" name="name" placeholder="E.g. 9-5" value="">-->
-								  
-                              </div>
+							 </div>
                               <!-- Append data -->
                               <!-- shecule menus -->
                                <div class="verticle_menu" id="verticle_menus6">
                                <ul>
-                                  <li>Paste</li>
-                                  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Add Shift</li>
+                                  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Paste</li>
+								  <li class="add_shift_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Add Shift</li>
                                   <li class="add_cmt_btn"  data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Add Comment</li>
                                   <li><a href="#" id="addtimecal" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>" >Add Time off</a></li>
                                   <li class="ver_menu"><a href="#">Add Break</a>
@@ -852,59 +977,58 @@
 							  <!-- Verticle menus second -->
 							   <div class="verticle_menu_scnd">
 								<ul>
-								  <li>Cut</li>
-								  <li>Copy</li>
-								  <li>Paste</li>
-								  <li>Delete</li>
-								  <li>Edit</li>
+								   <li onclick="cutItems();">Cut</li>
+								  <li onclick="copyItems();">Copy</li>
+								  <li id="paste" data-staffid="<?= $value['id']; ?>" data-dates="<?= $alldates[6]; ?>">Paste</li>
+								  <li onclick="deleteItems();">Delete</li>
+								<!--<li>Edit</li>--->
 								</ul>
 							  </div>
 							  <!-- Verticle menus second -->
                              </td>
                            </tr>
-						 <?php } } ?>
+						 <?php } }?>
 							 <tr class="schdule_hour_row">
 							<td>
 							  <div class="s_hour">Scheduled hours</div>
 							  <div class="emp">Employees</div>
 							</td>
 							<td>
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+							  <div class="s_hour"><?php echo $hourCount; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount; ?> People</div>
 							</td>
 							<td>
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+							   <div class="s_hour"><?php echo $hourCount1; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount1; ?> People</div>
 							</td>
 							<td>
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+							   <div class="s_hour"><?php echo $hourCount2; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount2; ?> People</div>
 							</td>
 							<td>
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+							   <div class="s_hour"><?php echo $hourCount3; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount3; ?> People</div>
 							</td>
 							<td>
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+							   <div class="s_hour"><?php echo $hourCount4; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount4; ?> People</div>
 							</td>
 							<td>
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+							   <div class="s_hour"><?php echo $hourCount5; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount5; ?> People</div>
 							</td>
 							<td>
-							  <div class="s_hour">0 Hrs</div>
-							  <div class="emp">0 People</div>
+							   <div class="s_hour"><?php echo $hourCount6; ?> Hrs</div>
+							  <div class="emp"><?php echo $peopleCount6; ?> People</div>
 							</td>
 							 </tr>
-						   <tr class="schdule_hour_row">
+						     <tr class="schdule_hour_row">
 							  <td>
 							   <a class="staff_lnk" href="#" id="addstaff">
 							   add staff</a>
 							  </td>
 							  <td colspan="7">
-							   
-							  </td>
+							   </td>
 						   </tr>
                          </tbody>
                        </table>
@@ -914,8 +1038,7 @@
                  </div>
                  <!-- week tab content -->
                  <!-- Day tab content -->
-                
-         </div>
+            </div>
 		  <!-- Timeoff -->
             <div class="tab_content" id="tab_2">
                <div class="row">
@@ -990,8 +1113,8 @@
                </div>
              </div>
 			  <!-- Timeoff -->
-          </div>
         </div>
+    </div>
 <!-- clear busineess modal -->
     <div class="modal" id="clear_weekMod">
         <div class="modal-dialog">
@@ -1023,6 +1146,7 @@
    <!--  <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
 <!-- add staff by ajax -->
  <script>
+
  $('#message').hide();	
  $('#daydates').hide();	
  
@@ -1136,9 +1260,9 @@
 </script>
 <!-- add timeoff by ajax -->
  <script>
- $(document).on('click','#cut', function(e){
+/*  $(document).on('click','#cut', function(e){
 		e.preventDefault();
- });
+ }); */
 	$(document).on('submit','#timeoffform', function(e){
 		e.preventDefault();
 	   /*  $('#daydates').hide();
@@ -1226,25 +1350,35 @@
  <!--add by ajax on calendar view shift,comment -->
  <script>
  //shift 
+
     $(document).on('click','#shift_submit', function(e){
-		/* $('#daydates').hide();
-		$('#weekdates').show(); */
-       e.preventDefault();
+		//alert('hi')
+		e.preventDefault();
 		var staff_id = localStorage.getItem("staffids");
 		var shiftdate = localStorage.getItem("daysid");
 		var business_id = $('#business_id').val();
 		var start_time = $('#shifttime').val();
+		var arr = start_time.split("-");
+		var time = arr[0];
+		var time1 = arr[1];
+		
+		var diff = time - time1;
+        var finalTime = Math.abs(diff);
 		var datepicker = $('#datepicker').val();
 		var dayvalue = $('#dayvalue').val();
-		//var weekvalue = $('#weekvalue').val();
-		//alert(dayvalue);
-		
+		/* var hours = $('#hours').val();
+		if(hours)
+		{
+			finalTime = hours+finalTime;
+		} */
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addshiftcal",
 			type:'post',
 			data:{business_id: business_id,staff_id: staff_id,start_time: start_time,firstdate: datepicker,shiftdate:shiftdate,dayvalue: dayvalue},
 			success: function(response){
+				//alert(response);
 				$("#mainbodyc").html(response);
+				//$('#hours').html(finalTime);
 				caljs();
 			}
 		});
@@ -1349,41 +1483,276 @@
     });
 	
 	
-	//delete for all
-	$(document).on('click','#shift_remove', function(e){
-		//alert('hi');
+
+	
+	
+
+function setAttr(val,staffid,type,index,dbId){
+	/* $('#cut_'+id+'_'+index).attr('data-type',type);
+	$('#cut_'+id+'_'+index).attr('data-val',val);
+	$('#cut_'+id+'_'+index).attr('data-dbId',dbId); */
+	
+	localStorage.setItem('itemType',type);
+	localStorage.setItem('itemVal',val);
+	localStorage.setItem('itemDBId',dbId);
+	localStorage.setItem('itemIndex',index);
+	localStorage.setItem('itemStaffId',staffid);
+	    
+}
+
+function cutItems(){
+	var type = localStorage.getItem('itemType');
+	var val = localStorage.getItem('itemVal');
+	var dbId = localStorage.getItem('itemDBId');
+	var index = localStorage.getItem('itemIndex');
+	var staffid = localStorage.getItem('itemStaffId');
+	var dayvalue = $('#dayvalue').val();
+	var datepicker = $('#datepicker').val();
+	var business_id = $('#business_id').val();
+	   if(type == 1)
+		{
+			$.ajax({
+			    url: "<?php echo site_url();?>schedule/shiftDelete",
+				type:'post',
+				data:{shift_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+				success: function(response){
+					//alert(response);
+					//$('#s_row').hide();
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+		   });
+		}
+		
+		
+		if(type == 2)
+		{
+			$.ajax({
+			    url: "<?php echo site_url();?>schedule/commentDelete",
+				type:'post',
+				data:{comment_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+				success: function(response){
+					//$('#cmt_row').hide();
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+		   });
+		}
+		
+		if(type == 3)
+		{
+			$.ajax({
+			    url: "<?php echo site_url();?>schedule/breakDelete",
+				type:'post',
+				data:{break_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+				success: function(response){
+					//$('#b_row').hide();
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+		   });
+		}
+}
+
+
+
+function copyItems(){
+	var type = localStorage.getItem('itemType');
+	var val = localStorage.getItem('itemVal');
+	var dbId = localStorage.getItem('itemDBId');
+	var index = localStorage.getItem('itemIndex');
+	var staffid = localStorage.getItem('itemStaffId');
+	
+}
+
+
+function deleteItems(){
+	
+	var type = localStorage.getItem('itemType');
+	var dbId = localStorage.getItem('itemDBId');
+	var dayvalue = $('#dayvalue').val();
+	var datepicker = $('#datepicker').val();
+	var business_id = $('#business_id').val();
+	//alert(dbId);
+	   if(type == 1)
+		{
+			$.ajax({
+			    url: "<?php echo site_url();?>schedule/shiftDelete",
+				type:'post',
+				data:{shift_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+				success: function(response){
+					//$('#s_row').hide();
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+		   });
+		}
+		
+		
+		if(type == 2)
+		{
+			$.ajax({
+			    url: "<?php echo site_url();?>schedule/commentDelete",
+				type:'post',
+				data:{comment_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+				success: function(response){
+					//$('#cmt_row').hide();
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+		   });
+		}
+		
+		if(type == 3)
+		{
+			$.ajax({
+			    url: "<?php echo site_url();?>schedule/breakDelete",
+				type:'post',
+				data:{break_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+				success: function(response){
+					//$('#b_row').hide();
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+		   });
+		}
+}
+
+
+     $(document).on('click','#paste', function(e){
 		e.preventDefault();
-		var shift_id = $('#shift_remove').val();
+		
+		var type = localStorage.getItem('itemType');
+		var val = localStorage.getItem('itemVal');
+		//var dbId = localStorage.getItem('itemDBId');
+		//var index = localStorage.getItem('itemIndex');
+		//var staffid = localStorage.getItem('itemStaffId');
+		//alert(val);
+	    var arrdate = val.split("-");
+		var startdate = arrdate[0];
+		var enddate = arrdate[1];
+		
+		var date = $(this).data('dates');
+		var staffids = $(this).data('staffid');
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		var dayvalue = $('#dayvalue').val();
+		
+		
+		
+		if(type == 1){
+			
+		    $.ajax({
+				 url: "<?php echo site_url();?>schedule/addshiftcals",
+				type:'post',
+				data:{business_id: business_id,staff_id: staffids,start_time: startdate,end_time: enddate,firstdate: datepicker,shiftdate:date,dayvalue: dayvalue},
+				success: function(response){
+					//console.log(response);
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+			});
+		}
+		
+		
+		if(type == 2){
+		 	$.ajax({
+				 url: "<?php echo site_url();?>schedule/addcommentcals",
+				type:'post',
+				data:{business_id: business_id,staff_id: staffids,comment: val,firstdate: datepicker,commentdate: date,dayvalue: dayvalue},
+				success: function(response){
+					//alert(response); 
+					$("#mainbodyc").html(response);
+					caljs();
+				}
+			});
+		}
+		
+		if(type == 3){
+		 	$.ajax({
+				 url: "<?php echo site_url();?>schedule/addbreakcal",
+				type:'post',
+				data:{business_id: business_id,staff_id: staffids,addbreak: val,firstdate: datepicker,breakdate: date,dayvalue: dayvalue},
+			      success: function(response){
+					//alert(response); 
+					$("#mainbodyc").html(response);
+					
+					caljs();
+				}
+			});
+		}
+		
+	});
+
+
+
+	///delete for all
+	/* $(document).on('click','#shift_remove', function(e){
+		
+		e.preventDefault();
+		var shift_idr = $('#shift_remove').val();
+		var dayvalue = $('#dayvalue').val();
+		var datepicker = $('#datepicker').val();
+		var business_id = $('#business_id').val();
 		//alert(shift_id);
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/shiftDelete",
 			type:'post',
-			data:{shift_id: shift_id},
+			data:{shift_id: shift_idr,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
+				$("#mainbodyc").html(response);
+				caljs();
 			}
 		});
-    });
+    }); */
+	function shift_remove(vals){
+		//alert(vals);
+		
+		var shift_idr = vals;
+		var dayvalue = $('#dayvalue').val();
+		var datepicker = $('#datepicker').val();
+		var business_id = $('#business_id').val();
+		//alert(shift_idr);
+		$.ajax({
+			 url: "<?php echo site_url();?>schedule/shiftDelete",
+			type:'post',
+			data:{shift_id: shift_idr,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+			success: function(response){
+				$("#mainbodyc").html(response);
+				caljs();
+			}
+		});
+    }; 
 	
 	$(document).on('click','#timeoff_remove', function(e){
 		e.preventDefault();
 		var timeoff_id = $('#timeoff_remove').val();
+		var dayvalue = $('#dayvalue').val();
+		var datepicker = $('#datepicker').val();
+		var business_id = $('#business_id').val();
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/timeoffDelete",
 			type:'post',
-			data:{timeoff_id: timeoff_id},
+			data:{timeoff_id: timeoff_id,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
+				$("#mainbodyc").html(response);
+				caljs();
 			}
 		});
     });
 	$(document).on('click','#comment_remove', function(e){
 		e.preventDefault();
 		var comment_id = $('#comment_remove').val();
-		
+		var dayvalue = $('#dayvalue').val();
+		var datepicker = $('#datepicker').val();
+		var business_id = $('#business_id').val();
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/commentDelete",
 			type:'post',
-			data:{comment_id: comment_id},
+			data:{comment_id: comment_id,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
+				$("#mainbodyc").html(response);
+				caljs();
 				
 			}
 		});
@@ -1391,16 +1760,22 @@
 	$(document).on('click','#break_remove', function(e){
 		e.preventDefault();
 		var break_id = $('#break_remove').val();
+		var dayvalue = $('#dayvalue').val();
+		var datepicker = $('#datepicker').val();
+		var business_id = $('#business_id').val();
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/breakDelete",
 			type:'post',
-			data:{break_id: break_id},
+			data:{break_id: break_id,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
+				$("#mainbodyc").html(response);
+				caljs();
 			}
 		});
     });
 	
-	//delete for all done closed
+	//delete for all done closed	
+	
 	
 	//calendar js
 	function caljs(){
@@ -1472,37 +1847,36 @@
 			$(this).parents(".verticle_menu").prev('.append_td_data').append(html);
 			vertical_menu_second();
 		});
+		// vertical menus show
+		vertical_menu_second();
 		
 		var ad = 1;
-	$(".add_more_input").on("click", function(){
-		var staffid = $(this).data('staffid');
-	        var dates = $(this).data('dates');
-		ad++;
-		var html = '<div class="form_group more_input" id="input_row'+ad+'">\
-		<input type="text" name="shifttime" id="shifttime" placeholder="E.g. 9-5"/>\
-		<button type="button" class="submit_shift" id="shift_submit">&check;</button>\
-		</div>';
-		localStorage.setItem("staffids", staffid);
-	    localStorage.setItem("daysid", dates);
-		$(this).next('.append_td_data').append(html);
-		
-	});
-		
+		$(".add_more_input").on("click", function(){
+			var staffid = $(this).data('staffid');
+				var dates = $(this).data('dates');
+			ad++;
+			var html = '<div class="form_group more_input" id="input_row'+ad+'">\
+			<input type="text" name="shifttime" id="shifttime" placeholder="E.g. 9-5"/>\
+			<button type="button" class="submit_shift" id="shift_submit">&check;</button>\
+			</div>';
+			localStorage.setItem("staffids", staffid);
+			localStorage.setItem("daysid", dates);
+			$(this).next('.append_td_data').append(html);
+			
+		});
 	}
 
 
 //show vertical menu on right click
 	function vertical_menu_second(){
-	$(".append_td_data .form_group").bind("contextmenu",function(e){
-		$(".verticle_menu_scnd").hide();
-		$(".verticle_menu").hide();
-		$(this).parents(".schedule_box").children(".verticle_menu_scnd").toggle();
-		return false;
-	});
+		$(".append_td_data .form_group").bind("contextmenu",function(e){
+			$(".verticle_menu_scnd").hide();
+			$(".verticle_menu").hide();
+			$(this).parents(".schedule_box").children(".verticle_menu_scnd").toggle();
+			return false;
+		});
 	}
-
-
-
- 
 </script>
+
+
 
