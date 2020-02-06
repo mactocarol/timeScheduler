@@ -195,6 +195,7 @@
                                 
 								  <?php
 										$shifts = isset($finalArray[$alldates[1]]) ? $finalArray[$alldates[1]] : []; 
+										$staffArray = [];
 										foreach($shifts as $key=>$val){
 											if($key == $value['id']){
 												foreach($val as $v){ ?>
