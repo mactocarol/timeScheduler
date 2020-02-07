@@ -87,9 +87,9 @@
                   
                   
                   <hr>
-                  <div class="text-center">
-                    <a class="small for-pass" href="<?php echo site_url('user/forgotPassword');?>">Forgot Password?</a>
-                  </div>
+                  <!--<div class="text-center">
+                    <a class="small for-pass" href="<?php //echo site_url('user/forgotPassword');?>">Forgot Password?</a>
+                  </div>-->
                 </div>
               </div>
             </div>

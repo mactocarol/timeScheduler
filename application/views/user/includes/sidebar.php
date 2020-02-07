@@ -26,7 +26,7 @@
     <ul class="navbar-nav side_bar_header sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo site_url('user/dashboard'); ?>">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon">
           <i class="fas fa-user-clock"></i>
         </div>
@@ -34,14 +34,7 @@
       </a>
 
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('user/dashboard'); ?>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+      
       <hr class="sidebar-divider my-0">
      <!-- <li class="nav-item" data-toggle="modal" data-target="#addshift">-->
 	  <li class="nav-item" id="addshift">
@@ -55,12 +48,7 @@
           <i class="far fa-clock"></i>
           <span>Add Time-off</span></a>
       </li>
-      <hr class="sidebar-divider my-0">
-      <li class="nav-item" id="emailschedule">
-        <a class="nav-link" href="#">
-          <i class="far fa-envelope"></i>
-          <span>Email Schedule</span></a>
-      </li>
+      
       <hr class="sidebar-divider my-0">
       <li class="nav-item">
         <a class="nav-link" href="#">
@@ -68,15 +56,7 @@
           <span class="prinnt">Print Schedule</span></a>
       </li>
       
-      <!-- Divider -->
-     <hr class="sidebar-divider my-0">
-      <!-- Nav Item - Charts -->
-      <li class="nav-item" id="addstaff">
-        <a class="nav-link" href="#">
-          <i class="fas fa-users"></i>
-          <span>Add Staff Member</span></a>
-      </li>
-      <!-- Divider -->
+      
      <hr class="sidebar-divider">
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
@@ -278,7 +258,7 @@
 		<div id="showStaffmodal"></div>
 		<div id="showTimeoffmodal"></div>
 		<div id="showEmailmodal"></div>
-		<input type="hidden" id="business_id" name="business_id" value="<?php echo $this->uri->segment(4); ?>">
+		<input type="hidden" id="business_id" name="business_id" value="<?php echo $business_id; ?>">
 		
 	<script>
 	$(document).on('click','#addshift', function(e){
@@ -287,7 +267,7 @@
 		var datepicker = $('#datepicker').val();
 		e.preventDefault();
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/shiftModal",
+			 url: "<?php echo site_url();?>staff_schedule/shiftModal",
 			type:'post',
 			data:{business_id: business_id},
 			success: function(response){
@@ -311,7 +291,7 @@
 		var business_id = $('#business_id').val();
 		
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/staffModal",
+			 url: "<?php echo site_url();?>staff_schedule/staffModal",
 			type:'post',
 			data:{business_id: business_id},
 			success: function(response){
@@ -334,7 +314,7 @@
 		var business_id = $('#business_id').val();
 		var datepicker = $('#datepicker').val();
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/timeoffModal",
+			 url: "<?php echo site_url();?>staff_schedule/timeoffModal",
 			type:'post',
 			data:{business_id: business_id},
 			success: function(response){
@@ -363,7 +343,7 @@
 		//var dates = $('.date').val();
 		//alert(dates);
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/timeoffModal",
+			 url: "<?php echo site_url();?>staff_schedule/timeoffModal",
 			type:'post',
 			data:{business_id: business_id,staffid: staffid,dates: dates},
 			success: function(response){
@@ -386,7 +366,7 @@
 		var business_id = $('#business_id').val();
 		var datepicker = $('#datepicker').val();
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/emailModal",
+			 url: "<?php echo site_url();?>staff_schedule/emailModal",
 			type:'post',
 			data:{business_id: business_id},
 			success: function(response){
@@ -410,7 +390,7 @@
 		//var dates = $('.date').val();
 		//alert(dates);
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/emailModal",
+			 url: "<?php echo site_url();?>staff_schedule/emailModal",
 			type:'post',
 			data:{business_id: business_id,staffid: staffid,dates: dates},
 			success: function(response){

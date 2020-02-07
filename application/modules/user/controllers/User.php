@@ -17,8 +17,7 @@ class User extends MY_Controller
             if($this->session->userdata('logged_in')){
                 redirect('user/dashboard');
             }
-			
-            
+		
             $data=new stdClass();
             if($this->session->flashdata('item')) {
                 $items = $this->session->flashdata('item');
@@ -269,20 +268,20 @@ class User extends MY_Controller
 					$result = $this->user_model->SelectSingleRecord('admin',$Selectdata,$udata,$orderby=array());
 				 }
 				else if($user_type == 3){
-				$Selectdataa = array('id','email','first_name','last_name');
-                $udata = array("email"=>$email,"password"=>md5($password),"is_deleted"=>'1');                
-                $result = $this->user_model->SelectSingleRecord('user',$Selectdataa,$udata,$orderby=array());
-                //echo "<pre>";
-				 //print_r($result); die;
-				 }
-                if($result)
-                {
-                  
+					$Selectdataa = array('id','email','first_name','last_name','user_type');
+					$udata = array("email"=>$email,"password"=>md5($password),"is_deleted"=>'1');                
+					$result = $this->user_model->SelectSingleRecord('user',$Selectdataa,$udata,$orderby=array());
+					//echo "<pre>";
+					 //print_r($result); die;
+					}
+					if($result)
+					{
+					  
                         $sess_array = array(
                         'id' => $result->id,
                         'email' => $result->email,
                         'first_name' => $result->first_name,
-                        'user_type' => $result->user_type,
+                        'user_type' => $result->user_type,	
                         'logged_in' => TRUE
                         //'accesss_level' => TRUE
                         );
@@ -295,16 +294,20 @@ class User extends MY_Controller
                         $data->message='Login Successful';
                         //print_r($this->session->userdata('email')); die;
                         if($this->input->post('return_url')){ redirect(($this->input->post('return_url'))); }
+						if($user_type == 1){
                         redirect('user/dashboard'); 
-                    
-                }
-                else
-                {
-                    $data->error=1;
-                    $data->success=0;
-                    $data->message='Invalid Email or Password.';
-                    
-                }
+						}
+						else if($user_type == 3){
+							redirect('calendar');
+						}
+                     }
+					else
+					{
+						$data->error=1;
+						$data->success=0;
+						$data->message='Invalid Email or Password.';
+						
+					}
             }
             $data->msg = 1;
             $this->session->set_flashdata('item',$data);            
@@ -316,38 +319,12 @@ class User extends MY_Controller
             if(!$this->session->userdata('logged_in')){
                 redirect('user');
             } 
-            /* $data=new stdClass();
-            if($this->session->flashdata('item')) {
-                $items = $this->session->flashdata('item');
-                //print_r($items); die;                
-                if($items->success){
-                    $data->error=0;
-                    $data->success=1;
-                    $data->message=$items->message;
-                }else{ */
-             //       $data->error=1;
-             //       $data->success=0;
-             //       $data->message=$items->message;
-            //    }
-                
-          //  }
-          //  $udata = array("id"=>$this->session->userdata('user_id'));                
-           // $data->result = $this->user_model->SelectSingleRecord('users','*',$udata,$orderby=array());            
-            
-            //$data->title = "Dashboard | ".$this->site_info()['site_title'];
-            //$data->field = 'Dashboard';
-            //$data->page = 'dashboard';
-           
-            //$this->load->view('dashboard_view',$data);
-			
-			
-			//echo $this->session->userdata('id'); die;
-			 
-			//$data['business_id']= $this->input->post('business_id'); 
-		   //only for edit on calendar staffid
-		   //$data['name']=  $this->input->post('name'); 
-		   //$data['email']=  $this->input->post('email');
-		   //$data['phone_no']=  $this->input->post('phone_no');
+			$user_type = $this->session->userdata('user_type'); 
+			//print_r($_SESSION); die;
+			if($user_type == 3){
+				redirect('calendar');
+			}
+         
 			
 			$udata=array('admin_id'=>$this->session->userdata('id')); 
             $data['businessList']=$this->user_model->SelectRecord('business','*',$udata=array(),'id asc');
@@ -356,6 +333,10 @@ class User extends MY_Controller
             $this->load->view('dashboard_view',$data); 
             $this->load->view('admin/includes/footer');
         }
+		
+		
+		
+	
                 
         public function bussinessUpdate()
         {            

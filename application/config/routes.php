@@ -55,6 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['signup'] = 'user/register';
 $route['logout'] = 'user/logout';
+$route['calendar'] = 'staff_schedule/staff_schedule/openSchedule';
+
 
 $route['login'] = 'user/login_check';
 //$route['dashboard'] = 'user/dashboard_view';

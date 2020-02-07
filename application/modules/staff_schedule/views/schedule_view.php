@@ -1011,14 +1011,7 @@
 							  <div class="emp"><?php echo $peopleCount6; ?> People</div>
 							</td>
 							 </tr>
-						     <tr class="schdule_hour_row">
-							  <td>
-							   <a class="staff_lnk" href="#" id="addstaff">
-							   add staff</a>
-							  </td>
-							  <td colspan="7">
-							   </td>
-						   </tr>
+						    
                          </tbody>
                        </table>
                      </div>
@@ -1128,7 +1121,7 @@
         </div>
       </div>
     <!-- clear busineess modal -->
-<input type="hidden" id="business_id" value="<?php echo $this->uri->segment(4); ?>">
+<input type="hidden" id="business_id" value="<?php echo $business_id; ?>">
 <input type="hidden" id="dayvalue">
 
 
@@ -1142,7 +1135,7 @@ $(document).on('click','#delweek', function(e){
 	var datepicker = $('#datepicker').val();
 	var business_id = $('#business_id').val();
 	$.ajax({
-		 url: "<?php echo site_url();?>schedule/weekDelete",
+		 url: "<?php echo site_url();?>staff_schedule/weekDelete",
 		type:'post',
 		data:{dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 		success: function(response){
@@ -1161,67 +1154,12 @@ $(document).on('click','#delweek', function(e){
  $('#message').hide();	
  $('#daydates').hide();	
  
-	$(document).on('click','#addstaffbutton', function(){
-		//alert('hi');
-		var fname = $('#fname').val();
-		//alert(fname);
-		var lname = $('#lname').val();
-		var email = $('#email').val();
-		var phone_no = $('#phone_no').val();
-		var business_id = $('#business_id').val();
-		
-		if(fname == ""){
-			$('#addstaff').prop('disabled', true);
-			return false;
-			
-		}
-		if(lname == ""){
-			$('#addstaff').prop('disabled', true);
-			return false;
-			
-		}
-		
-		if(email == ""){
-			$('#addstaff').prop('disabled', true);
-			return false;
-		}
-	
-		$.ajax({
-			 url: "<?php echo site_url();?>schedule/addstaff",
-			type:'post',
-			data:{fname: fname,lname: lname,email: email, phone_no: phone_no,business_id: business_id},
-			success: function(response){
-				//console.log(response);
-				$('#message').show();
-				$('#message .msg').html("Staff Added Successfully");
-				
-			}
-		});
-    });	
 	
 	
 	
 	
-	//add multiple staff button
-	$(document).on('click','#addmultistaff', function(){
-		
-	      $.ajax({
-			url: "<?php echo site_url();?>schedule/addMultistaff",
-			type:'post',
-			data:$('#multistaffform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
-			success: function(response){
-				//alert(response);
-				
-				//$('#multiple_staff_modal').modal('hide');
-				//$('#addstaffmod').modal('hide');
-				//$("#moddiv").html(response);
-				//$('#message').show();
-				//$('#message .msg').html("Staffs Added Successfully");
-				//$('#email_preview_modal').modal('show');
-				
-			}
-		}); 
-    });
+	
+	
 </script>
 <!-- add shift by ajax -->
  <script>
@@ -1246,7 +1184,7 @@ $(document).on('click','#delweek', function(e){
 		}
 	
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/addshift",
+			 url: "<?php echo site_url();?>staff_schedule/addshift",
 			type:'post',
 			data:$('#shiftform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
 			success: function(response){
@@ -1280,7 +1218,7 @@ $(document).on('click','#delweek', function(e){
 		$('#weekdates').show();  */
 		
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/addtimeoff",
+			 url: "<?php echo site_url();?>staff_schedule/addtimeoff",
 			type:'post',
 			data:$('#timeoffform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
 			success: function(response){
@@ -1316,7 +1254,7 @@ $(document).on('click','#delweek', function(e){
 	
 		
 		$.ajax({
-			url: "<?php echo site_url();?>schedule/addemail",
+			url: "<?php echo site_url();?>staff_schedule/addemail",
 			type:'post',
 			data:$('#emailform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
 			success: function(response){
@@ -1342,7 +1280,7 @@ $(document).on('click','#delweek', function(e){
 		
 		e.preventDefault();
 	      $.ajax({
-			url: "<?php echo site_url();?>schedule/emailPreview",
+			url: "<?php echo site_url();?>staff_schedule/emailPreview",
 			type:'post',
 			data:$('#emailform').serialize(),//{date: date,start_time: start_time,end_time: end_time,business_idd: business_idd,staff_id: staff_id},
 			success: function(response){
@@ -1380,7 +1318,7 @@ $(document).on('click','#delweek', function(e){
 		
 		
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/addshiftcal",
+			 url: "<?php echo site_url();?>staff_schedule/addshiftcal",
 			type:'post',
 			data:{business_id: business_id,staff_id: staff_id,start_time: start_time,firstdate: datepicker,shiftdate:shiftdate,dayvalue: dayvalue},
 			success: function(response){
@@ -1405,7 +1343,7 @@ $(document).on('click','#delweek', function(e){
 		var datepicker = $('#datepicker').val();
 		var dayvalue = $('#dayvalue').val();
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/addcommentcal",
+			 url: "<?php echo site_url();?>staff_schedule/addcommentcal",
 			type:'post',
 			data:{business_id: business_id,staff_id: staff_id,comment: comment,firstdate: datepicker,commentdate: commentdate,dayvalue: dayvalue},
 			success: function(response){
@@ -1430,7 +1368,7 @@ $(document).on('click','#delweek', function(e){
 		var datepicker = $('#datepicker').val();
 		var dayvalue = $('#dayvalue').val();
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/addbreakcal",
+			 url: "<?php echo site_url();?>staff_schedule/addbreakcal",
 			type:'post',
 			data:{business_id: business_id,staff_id: staff_id,addbreak: addbreak,firstdate: datepicker,breakdate: breakdate,dayvalue: dayvalue},
 			success: function(response){
@@ -1453,7 +1391,7 @@ $(document).on('click','#delweek', function(e){
 		var datepicker = $('#datepicker').val();
 		
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/showCalendar",
+			 url: "<?php echo site_url();?>staff_schedule/showCalendar",
 			type:'post',
 			data:{business_id: business_id,firstdate: datepicker},
 			success: function(response){
@@ -1477,7 +1415,7 @@ $(document).on('click','#delweek', function(e){
 		var datepicker = $('#datepicker').val();
 		//alert(datepicker);
 		 $.ajax({
-			 url: "<?php echo site_url();?>schedule/dayCalendar",
+			 url: "<?php echo site_url();?>staff_schedule/dayCalendar",
 			type:'post',
 			data:{business_id: business_id,firstdate: datepicker},
 			success: function(response){
@@ -1521,7 +1459,7 @@ function cutItems(){
 	   if(type == 1)
 		{
 			$.ajax({
-			    url: "<?php echo site_url();?>schedule/shiftDelete",
+			    url: "<?php echo site_url();?>staff_schedule/shiftDelete",
 				type:'post',
 				data:{shift_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 				success: function(response){
@@ -1537,7 +1475,7 @@ function cutItems(){
 		if(type == 2)
 		{
 			$.ajax({
-			    url: "<?php echo site_url();?>schedule/commentDelete",
+			    url: "<?php echo site_url();?>staff_schedule/commentDelete",
 				type:'post',
 				data:{comment_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 				success: function(response){
@@ -1551,7 +1489,7 @@ function cutItems(){
 		if(type == 3)
 		{
 			$.ajax({
-			    url: "<?php echo site_url();?>schedule/breakDelete",
+			    url: "<?php echo site_url();?>staff_schedule/breakDelete",
 				type:'post',
 				data:{break_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 				success: function(response){
@@ -1586,7 +1524,7 @@ function deleteItems(){
 	   if(type == 1)
 		{
 			$.ajax({
-			    url: "<?php echo site_url();?>schedule/shiftDelete",
+			    url: "<?php echo site_url();?>staff_schedule/shiftDelete",
 				type:'post',
 				data:{shift_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 				success: function(response){
@@ -1601,7 +1539,7 @@ function deleteItems(){
 		if(type == 2)
 		{
 			$.ajax({
-			    url: "<?php echo site_url();?>schedule/commentDelete",
+			    url: "<?php echo site_url();?>staff_schedule/commentDelete",
 				type:'post',
 				data:{comment_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 				success: function(response){
@@ -1615,7 +1553,7 @@ function deleteItems(){
 		if(type == 3)
 		{
 			$.ajax({
-			    url: "<?php echo site_url();?>schedule/breakDelete",
+			    url: "<?php echo site_url();?>staff_schedule/breakDelete",
 				type:'post',
 				data:{break_id: dbId,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 				success: function(response){
@@ -1652,7 +1590,7 @@ function deleteItems(){
 		if(type == 1){
 			
 		    $.ajax({
-				 url: "<?php echo site_url();?>schedule/addshiftcals",
+				 url: "<?php echo site_url();?>staff_schedule/addshiftcals",
 				type:'post',
 				data:{business_id: business_id,staff_id: staffids,start_time: startdate,end_time: enddate,firstdate: datepicker,shiftdate:date,dayvalue: dayvalue},
 				success: function(response){
@@ -1666,7 +1604,7 @@ function deleteItems(){
 		
 		if(type == 2){
 		 	$.ajax({
-				 url: "<?php echo site_url();?>schedule/addcommentcals",
+				 url: "<?php echo site_url();?>staff_schedule/addcommentcals",
 				type:'post',
 				data:{business_id: business_id,staff_id: staffids,comment: val,firstdate: datepicker,commentdate: date,dayvalue: dayvalue},
 				success: function(response){
@@ -1679,7 +1617,7 @@ function deleteItems(){
 		
 		if(type == 3){
 		 	$.ajax({
-				 url: "<?php echo site_url();?>schedule/addbreakcal",
+				 url: "<?php echo site_url();?>staff_schedule/addbreakcal",
 				type:'post',
 				data:{business_id: business_id,staff_id: staffids,addbreak: val,firstdate: datepicker,breakdate: date,dayvalue: dayvalue},
 			      success: function(response){
@@ -1705,7 +1643,7 @@ function deleteItems(){
 		var business_id = $('#business_id').val();
 		//alert(shift_id);
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/shiftDelete",
+			 url: "<?php echo site_url();?>staff_schedule/shiftDelete",
 			type:'post',
 			data:{shift_id: shift_idr,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
@@ -1723,7 +1661,7 @@ function deleteItems(){
 		var business_id = $('#business_id').val();
 		//alert(shift_idr);
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/shiftDelete",
+			 url: "<?php echo site_url();?>staff_schedule/shiftDelete",
 			type:'post',
 			data:{shift_id: shift_idr,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
@@ -1740,7 +1678,7 @@ function deleteItems(){
 		var datepicker = $('#datepicker').val();
 		var business_id = $('#business_id').val();
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/timeoffDelete",
+			 url: "<?php echo site_url();?>staff_schedule/timeoffDelete",
 			type:'post',
 			data:{timeoff_id: timeoff_id,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
@@ -1756,7 +1694,7 @@ function deleteItems(){
 		var datepicker = $('#datepicker').val();
 		var business_id = $('#business_id').val();
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/commentDelete",
+			 url: "<?php echo site_url();?>staff_schedule/commentDelete",
 			type:'post',
 			data:{comment_id: comment_id,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){
@@ -1773,7 +1711,7 @@ function deleteItems(){
 		var datepicker = $('#datepicker').val();
 		var business_id = $('#business_id').val();
 		$.ajax({
-			 url: "<?php echo site_url();?>schedule/breakDelete",
+			 url: "<?php echo site_url();?>staff_schedule/breakDelete",
 			type:'post',
 			data:{break_id: break_id,dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
 			success: function(response){

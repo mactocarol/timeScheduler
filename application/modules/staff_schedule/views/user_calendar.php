@@ -1,3 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Time Schedule</title>
+  <!-- Custom fonts for this template-->
+  <link href="<?php echo base_url('assets');?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="<?php echo base_url('assets');?>/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<?php echo base_url('assets');?>/js/jquery_ui/jquery-ui.css" rel="stylesheet">
+  <link href="<?php echo base_url('assets');?>/js/jquery_ui/jquery-ui-timepicker-addon.css" rel="stylesheet">
+  <link href="<?php echo base_url('assets');?>/css/style.css" rel="stylesheet">
+  <link href="<?php echo base_url('assets');?>/css/responsive.css" rel="stylesheet">
+   <script src="<?php echo base_url();?>/assets/vendor/jquery/jquery.min.js"></script>
+</head>
+<body id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav side_bar_header sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon">
+          <i class="fas fa-user-clock"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Express Schedule</div>
+      </a>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+    
+	  <li class="nav-item" id="addshift">
+        <a class="nav-link" href="#">
+          <i class="fas fa-user-clock"></i>
+          <span>Add Shift</span></a>
+      </li>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item" id="addtime">
+        <a class="nav-link" href="#">
+          <i class="far fa-clock"></i>
+          <span>Add Time-off</span></a>
+      </li>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item" id="emailschedule">
+        <a class="nav-link" href="#">
+          <i class="far fa-envelope"></i>
+          <span>Email Schedule</span></a>
+      </li>
+      <hr class="sidebar-divider my-0">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-print"></i>
+          <span class="prinnt">Print Schedule</span></a>
+      </li>
+      
+    
+     <hr class="sidebar-divider">
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- start of Main Content -->
+
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- navbar -->
+
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <!-- <div class="input-group search_bar">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary change" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div> -->
+          </form>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <!-- Nav Item - Alerts 
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts 
+                <span class="badge badge-danger badge-counter">3+</span>
+              </a>
+              <!-- Dropdown - Alerts
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 12, 2019</div>
+                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-donate text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 7, 2019</div>
+                    $290.29 has been deposited into your account!
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 2, 2019</div>
+                    Spending Alert: We've noticed unusually high spending for your account.
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>-->
+
+            <!-- Nav Item - Messages -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <!-- <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                
+                <span class="badge badge-danger badge-counter">7</span>
+              </a> -->
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  Message Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="font-weight-bold">
+                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                    <div class="small text-gray-500">Emily Fowler · 58m</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                    <div class="small text-gray-500">Jae Chun · 1d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
+                    <div class="status-indicator bg-warning"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $this->session->userdata('first_name'); ?></span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+               <!-- <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a>
+                <div class="dropdown-divider"></div>-->
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- navbar -->
+			
+	<div id="showShiftmodal"></div>
+		<div id="showStaffmodal"></div>
+		<div id="showTimeoffmodal"></div>
+		<div id="showEmailmodal"></div>
+		<input type="hidden" id="business_id" name="business_id" value="<?php echo $this->uri->segment(4); ?>">
+		
+	<script>
+	$(document).on('click','#addshift', function(e){
+		//alert('hiii');
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		e.preventDefault();
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/shiftModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				
+				
+					//document.getElementById('mainbody').innerHTML=response;
+					$("#showShiftmodal").html(response);
+					$('.firstdate').val(datepicker);
+					$('#addshiftmod').modal('show');
+				
+			}
+		});
+    });
+	
+	
+	
+	$(document).on('click','#addstaff', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/staffModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				
+				
+					//document.getElementById('mainbody').innerHTML=response;
+					$("#showStaffmodal").html(response);
+					
+					$('#addstaffmod').modal('show');
+				
+			}
+		});
+    });
+	
+	// timeoff modal 
+	$(document).on('click','#addtime', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/timeoffModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				
+				
+					//document.getElementById('mainbody').innerHTML=response;
+					$("#showTimeoffmodal").html(response);
+					var datepicker = $('#datepicker').val();
+					$('.firstdate').val(datepicker);
+					$('#addtimemod').modal('show');
+				
+			}
+		});
+    });
+	
+	
+	// edit timeoff modal 
+	$(document).on('click','#addtimecal', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var staffid = $(this).data('staffid');
+		var dates = $(this).data('dates');
+		
+		//var dates = $('.date').val();
+		//alert(dates);
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/timeoffModal",
+			type:'post',
+			data:{business_id: business_id,staffid: staffid,dates: dates},
+			success: function(response){
+				    $("#showTimeoffmodal").html(response);
+					var datepicker = $('#datepicker').val();
+					$('.firstdate').val(datepicker);
+					var dayvalue = $('#dayvalue').val();
+					$('.dayvaluew').val(dayvalue);
+					$('#addtimemod').modal('show');
+				
+			}
+		});
+    });
+	
+	
+	// email schedule modal 
+	$(document).on('click','#emailschedule', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var datepicker = $('#datepicker').val();
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/emailModal",
+			type:'post',
+			data:{business_id: business_id},
+			success: function(response){
+				//alert(response);
+				$("#showEmailmodal").html(response);
+				var datepicker = $('#datepicker').val();
+				$('.firstdate').val(datepicker);
+				$('#addemailmod').modal('show');
+			}
+		});
+    });
+	
+	// edit email schedule modal 
+	$(document).on('click','#addemailcal', function(e){
+		//alert('hiii');
+		e.preventDefault();
+		var business_id = $('#business_id').val();
+		var staffid = $(this).data('staffid');
+		var dates = $(this).data('dates');
+		
+		//var dates = $('.date').val();
+		//alert(dates);
+		 $.ajax({
+			 url: "<?php echo site_url();?>schedule/emailModal",
+			type:'post',
+			data:{business_id: business_id,staffid: staffid,dates: dates},
+			success: function(response){
+				    $("#showEmailmodal").html(response);
+					var datepicker = $('#datepicker').val();
+					$('.firstdate').val(datepicker);
+					$('#addemailmod').modal('show');
+				
+			}
+		});
+    });
+	
+	
+	//print
+ 
+    </script>
 
         <div class="container-fluid" >
 			<!-- alert message -->
@@ -18,7 +432,7 @@
                <div class="row">
                  <div class="col-xl-6 col-md-12 mb-4">
                  <div class="left_side">
-                   <h2><?php echo $business_name; ?></h2>
+                   <h2></h2>
 				   
                    <label class="saving_schedule" title="All changes are automatically saved.">All Changes saved</label>
                    <span><a style="cursor: pointer; color: #4469d7;" onclick="window.location.href=this">Refresh</a></span>
@@ -1012,13 +1426,8 @@
 							</td>
 							 </tr>
 						     <tr class="schdule_hour_row">
-							  <td>
-							   <a class="staff_lnk" href="#" id="addstaff">
-							   add staff</a>
-							  </td>
-							  <td colspan="7">
-							   </td>
-						   </tr>
+							
+						 </tr>
                          </tbody>
                        </table>
                      </div>
@@ -1887,5 +2296,368 @@ function deleteItems(){
 	}
 </script>
 
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+     <!-- modal openschedule -->
+
+    
+		  
+	 <!-- The Modal -->
+	  <div class="modal" id="infoDetail">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header custom_modal">
+			  <h4 class="modal-title">Edit Business Info</h4>
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+			 <form>
+			  <div class="form-group">
+				  <label for="name">Name</label>
+				  <input type="text" class="form-control" placeholder="New Business" id="">
+			  </div>
+			  <div class="form-group">
+				<label for="email">Email Address</label>
+				<input type="email" class="form-control" placeholder="example@gmail.com" id="email">
+			  </div>
+			  <div class="form-group">
+				<label for="number">Phone Number</label>
+				<input type="text" class="form-control" placeholder="123456789" id="email">
+			  </div>
+			 </form>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+			  <a href="#" class="btn btn-success btn-icon-split">
+				<span class="icon text-white-50">
+				  <i class="fas fa-check"></i>
+				</span>
+				<span class="text">Save</span>
+			  </a>
+			  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+			</div>
+
+		  </div>
+		</div>
+	  </div>	  
+	  <!-- Logout Modal-->
+	  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+			  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			  </button>
+			</div>
+			<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+			<div class="modal-footer">
+			  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+			  <a class="btn btn-primary" href="<?php echo site_url('logout');?>">Logout</a>
+			</div>
+		  </div>
+		</div>
+	  </div>
+ 
+	  
+	  <!-- Edit satff modal Start -->
+      <div class="modal staff_edit_modal" id="staff_edit_modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header custom_modal">
+              <h4 class="modal-title">Edit Staff Member</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body create_frm">
+             <form class="my_common_form">
+              <div class="form-group">
+                  <label for="name">First Name</label>
+                  <input type="text" class="form-control" placeholder="John" id="">
+              </div>
+              <div class="form-group">
+                  <label for="name">Last Name</label>
+                  <input type="text" class="form-control" placeholder="Smith" id="">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" placeholder="example123@gmail.com" id="">
+              </div>
+              <div class="form-group">
+                <label for="number">Phone Number</label>
+                <input type="text" class="form-control" placeholder="+91-98765-43210" id="">
+              </div>
+             </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <a href="#" class="site_button delete_staff">Delete Staff</a>
+              <a href="#" class="btn btn-secondary btn-icon-split">
+                <span class="icon text-white-50">
+                  <i class="fas fa-arrow-right"></i>
+                </span>
+                <span class="text">Save Profile</span>
+              </a>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     <!-- Edit satff modal End -->
+
+	
+<!-- Bootstrap core JavaScript-->
+  <script src="<?php echo base_url();?>/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="<?php echo base_url();?>/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="<?php echo base_url();?>/assets/js/sb-admin-2.min.js"></script>
+  <!-- Page level plugins -->
+  <!--<script src="<?php echo base_url();?>/assets/vendor/chart.js/Chart.min.js"></script>-->
+  <!-- Page level custom scripts -->
+  <!--<script src="<?php echo base_url();?>/assets/js/demo/chart-area-demo.js"></script>
+  <script src="<?php echo base_url();?>/assets/js/demo/chart-pie-demo.js"></script>
+  <script src="<?php echo base_url();?>/assets/js/demo/chart-bar-demo.js"></script>-->
+  <script src="<?php echo base_url();?>/assets/js/jquery_ui/jquery-ui.min.js"></script>
+  <script src="<?php echo base_url();?>/assets/js/jquery_ui/jquery-ui-timepicker-addon.js"></script>
+  <script src="<?php echo base_url();?>/assets/js/custom_script.js"></script>
+<!-- Bootstrap core JavaScript-->
+
+<script>
+  $( function() {
+
+    if(localStorage.getItem("startDate")){
+        var today = localStorage.getItem("startDate");
+    }else{
+        var today = new Date();  
+    }
+    
+    $( "#datepicker" ).datepicker({
+      //dateFormat: 'yy M, d',
+      changeMonth: true,
+      changeYear: true,
+      minDate: 0
+    });
+    
+    
+    today = new Date(today); 
+    var calendarDate = (today.getMonth()+1)+'/'+(today.getDate())+'/'+(today.getFullYear());
+    $("#datepicker").datepicker( "setDate" , calendarDate );
+
+    setCalendarDate(today);
+
+    // get previous 7 days
+    $('.previous').click(function(){
+		$('#daydates').hide();
+		$('#weekdates').show();
+        var firstdate = (localStorage.getItem("firstDate"));        
+        firstdate = new Date(firstdate);
+        firstdate.setDate(firstdate.getDate()-7); 
+        /* if(firstdate < new Date()){
+          alert('Previous Dates are disabled');
+          return false;
+        } */
+		var business_id = $('#business_id').val();
+		var firstdate = (firstdate.getMonth()+1)+'/'+(firstdate.getDate())+'/'+(firstdate.getFullYear());		
+   
+	
+		$.ajax({
+			 url: "<?php echo site_url();?>schedule/showCalendar",
+			type:'post',
+			data:{firstdate: firstdate,business_id: business_id},
+			success: function(response){
+				//console.log(response);
+				
+				if(response==1){
+					 $("#mainbodyc").text("");
+					caljs();					 
+				}
+				else
+				{
+					$("#mainbodyc").html(response);
+					caljs();
+				} 
+				
+			}
+		});
+		
+        $("#datepicker").datepicker( "setDate" , firstdate );
+        setCalendarDate(firstdate);
+    });
+
+    // get next 7 days
+    $('.next').click(function(){
+		$('#daydates').hide();
+		$('#weekdates').show();
+        var lastdate = (localStorage.getItem("lastDate"));        
+        lastdate = new Date(lastdate);
+        lastdate.setDate(lastdate.getDate()+1);
+		
+		var firstdate = (lastdate.getMonth()+1)+'/'+(lastdate.getDate())+'/'+(lastdate.getFullYear());				
+		//alert(lastdate);
+		var business_id = $('#business_id').val();
+		$.ajax({
+			 url: "<?php echo site_url();?>schedule/showCalendar",
+			type:'post',
+			data:{firstdate: firstdate,business_id: business_id},
+			success: function(response){
+				//console.log(response);
+				
+				if(response==1){
+					//document.getElementById('mainbody').text("");	
+					
+                     $("#mainbodyc").text("");	
+                     caljs();					 
+				}
+				else
+				{
+					$("#mainbodyc").html(response);
+					caljs();
+					
+				} 
+			}
+		});
+        $("#datepicker").datepicker( "setDate" , lastdate );
+        setCalendarDate(lastdate);
+    });
+
+  } );
+</script> 
+
+<script>
+  // get selected date from calendar and  set it to week
+  function setNewDate(){
+	  $('#daydates').hide();
+		$('#weekdates').show();
+      setCalendarDate($('#datepicker').val());
+	  var datepicker = $('#datepicker').val();
+      var business_id = $('#business_id').val();
+	  
+	  $.ajax({
+			 url: "<?php echo site_url();?>schedule/showCalendar",
+			type:'post',
+			data:{firstdate: datepicker,business_id: business_id},
+			success: function(response){
+				//console.log(response);
+				
+				if(response==1){
+					//document.getElementById('mainbody').text("");	
+					
+                     $("#mainbodyc").text("");
+                       caljs();					 
+				}
+				else
+				{
+					$("#mainbodyc").html(response);
+					caljs();
+				} 
+				
+			}
+		});
+	}
+
+  // to show week date
+  function setCalendarDate(today){      
+      today = new Date(today);            
+
+      localStorage.setItem("startDate", today);
+
+      var start = localStorage.getItem("startDate");
+      
+      var d1 = new Date(start);
+      var d2 = new Date(start);
+      var d3 = new Date(start);
+      var d4 = new Date(start);
+      var d5 = new Date(start);
+      var d6 = new Date(start);
+      var d7 = new Date(start);      
+      
+      d1.setDate(((today.getDate() + 0))); 
+      d2.setDate(((today.getDate() + 1))); 
+      d3.setDate(((today.getDate() + 2))); 
+      d4.setDate(((today.getDate() + 3))); 
+      d5.setDate(((today.getDate() + 4))); 
+      d6.setDate(((today.getDate() + 5))); 
+      d7.setDate(((today.getDate() + 6))); 
+
+      localStorage.setItem("lastDate",d7);
+      localStorage.setItem("firstDate",d1);
+
+      d1 = new Date(d1);
+      
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
+  
+      $('.d1').html(d1.getDate()+'-'+(monthNames[d1.getMonth()])+'-'+d1.getFullYear());
+      $('.d2').html(d2.getDate()+'-'+(monthNames[d2.getMonth()])+'-'+d2.getFullYear());
+      $('.d3').html(d3.getDate()+'-'+(monthNames[d3.getMonth()])+'-'+d3.getFullYear());
+      $('.d4').html(d4.getDate()+'-'+(monthNames[d4.getMonth()])+'-'+d4.getFullYear());
+      $('.d5').html(d5.getDate()+'-'+(monthNames[d5.getMonth()])+'-'+d5.getFullYear());
+      $('.d6').html(d6.getDate()+'-'+(monthNames[d6.getMonth()])+'-'+d6.getFullYear());
+      $('.d7').html(d7.getDate()+'-'+(monthNames[d7.getMonth()])+'-'+d7.getFullYear());
+    }
+
+
+function printData()
+{
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+   
+   
+}
+
+$('.prinnt').on('click',function(){
+	//alert('dsfsd');
+	$('.verticle_menu').html('');
+	$('.verticle_menu_scnd').html('');
+	/* document.getElementById("verticle_menus").style.display = "none";
+	document.getElementById("verticle_menus1").style.display = "none";
+	document.getElementById("verticle_menus2").style.display = "none";
+	document.getElementById("verticle_menus3").style.display = "none";
+	document.getElementById("verticle_menus4").style.display = "none";
+	document.getElementById("verticle_menus5").style.display = "none";
+	document.getElementById("verticle_menus6").style.display = "none"; */
+   printData();
+
+  
+}); 
+</script>
+<!-- calender end-->
+</body>
+
+</html>
 
 
