@@ -1222,7 +1222,34 @@ class Schedule extends MY_Controller
 				echo $this->showCalendar();
 			}
          }
-		
+		 //break delete
+		 public function weekDelete(){
+			$dayvalue= $this->input->post('dayvalue'); 
+			$firstdate= $this->input->post('firstdate'); 
+			$lastdate= date('m/d/Y', strtotime('+6 day', strtotime($firstdate)));
+			$business_id= $this->input->post('business_id'); 
+			
+			$wheres = 'business_id = '.$business_id;			
+			$wheres .= ' AND shift_date >= "'.$firstdate.'" AND shift_date <= "'.$lastdate.'"';
+			
+			$wherec = 'business_id = '.$business_id;			
+			$wherec .= ' AND comment_date >= "'.$firstdate.'" AND comment_date <= "'.$lastdate.'"';
+			
+			$whereb = 'business_id = '.$business_id;			
+			$whereb .= ' AND addbraek_date >= "'.$firstdate.'" AND addbraek_date <= "'.$lastdate.'"';
+			
+			$this->schedule_model->delete_record('shift',$wheres); 
+			$this->schedule_model->delete_record('comments',$wherec); 
+			$this->schedule_model->delete_record('break',$whereb); 
+			if($dayvalue == 2){
+				echo $this->dayCalendar();
+			  
+			} 
+			else
+			{
+				echo $this->showCalendar();
+			} 
+         }
 		
         
                 		        	

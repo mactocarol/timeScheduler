@@ -96,6 +96,7 @@
                          </thead>
                          <tbody id="mainbodyc">
 						<?php 
+						
  						 $hourCount = 0;
 						 $peopleCount= 0;
 						 
@@ -125,26 +126,23 @@
                                  <h3><?php echo $value['first_name']." ".$value['last_name']; ?> </h3>
 								 <?php
 								 //$shiftsf = array();
-									$fcount = 0;								 
-									 for ($i = 0 ; $i <= 6; $i++){
-										
-										$shiftsf = isset($finalArray[$alldates[$i]]) ? $finalArray[$alldates[$i]] : [];
+								$fcount = 0;								 
+								for ($i = 0 ; $i <= 6; $i++){
+									$shiftsf = isset($finalArray[$alldates[$i]]) ? $finalArray[$alldates[$i]] : [];
 									
-									// print_r($shiftsf);
-									 foreach($shiftsf as $key=>$val){
+									foreach($shiftsf as $key=>$val){
 										if($key == $value['id']){
 											foreach($val as $v){ 
-											if($v['end_time']){
-												$startdatetime = strtotime($v['start_time']);
-												$enddatetime = strtotime($v['end_time']);
-												$difference = $enddatetime - $startdatetime;
-												$hoursDiff = $difference / 3600;
-												$fcount += round($hoursDiff,0);
-											}
-											
-									   } 
-									 } 
-								  }
+												if($v['end_time']){
+													$startdatetime = strtotime($v['start_time']);
+													$enddatetime = strtotime($v['end_time']);
+													$difference = $enddatetime - $startdatetime;
+													$hoursDiff = $difference / 3600;
+													$fcount += round($hoursDiff,0);
+												}
+										    } 
+									    } 
+								    }
 								}
 								?>
 								  <span><?php echo $fcount; ?> Hours</span>
@@ -1121,7 +1119,7 @@
                 <p>Are you sure?</p>
                 <div class="button_groups">
 				<input type="hidden" id="businessids">
-                  <button type="button" class="site_button" id="delbus">Clear</button>
+                  <button type="button" class="site_button" id="delweek">Clear</button>
                   <button type="button" class="site_button" data-dismiss="modal">cancel</button>
                 </div>
              </form>
@@ -1137,7 +1135,29 @@
    <!--  <script src="<?php echo base_url('front/js');?>/bootstrapValidator.min.js"></script>
 <!-- add staff by ajax -->
  <script>
+$(document).on('click','#delweek', function(e){
+	e.preventDefault();
+	
+	var dayvalue = $('#dayvalue').val();
+	var datepicker = $('#datepicker').val();
+	var business_id = $('#business_id').val();
+	$.ajax({
+		 url: "<?php echo site_url();?>schedule/weekDelete",
+		type:'post',
+		data:{dayvalue: dayvalue,firstdate: datepicker,business_id: business_id},
+		success: function(response){
+			//alert(response);
+			$("#mainbodyc").html(response);
+			$('#clear_weekMod').modal('hide');
+			caljs();
+		}
+	});
+});
 
+
+
+	
+	
  $('#message').hide();	
  $('#daydates').hide();	
  
@@ -1357,11 +1377,8 @@
         var finalTime = Math.abs(diff);
 		var datepicker = $('#datepicker').val();
 		var dayvalue = $('#dayvalue').val();
-		/* var hours = $('#hours').val();
-		if(hours)
-		{
-			finalTime = hours+finalTime;
-		} */
+		
+		
 		$.ajax({
 			 url: "<?php echo site_url();?>schedule/addshiftcal",
 			type:'post',
@@ -1371,7 +1388,8 @@
 				$("#mainbodyc").html(response);
 				//$('#hours').html(finalTime);
 				caljs();
-			}
+			},
+			
 		});
     });
 	
