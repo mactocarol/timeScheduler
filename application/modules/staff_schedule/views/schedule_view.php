@@ -51,9 +51,7 @@
                     <!-- left side -->
                     <!-- Right side -->
                     <div class="controler_right">
-                      <div class="email_text ctrl_item">
-                        <a href="#" class="text_link" id="emailschedule">Email</a>
-                      </div>
+                      
                     <!--  <div class="download_text ctrl_item">
                         <a href="#" class="text_link">Download Schedule</a>
                       </div>-->
