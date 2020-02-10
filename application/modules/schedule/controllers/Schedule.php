@@ -480,8 +480,18 @@ class Schedule extends MY_Controller
 			if (strpos($time, '-') !== false) {
 				 $array = explode("-", $time); 
 				 $start_times = $array[0].':00';
-				 $end_times = $array[1].':00';		
-				  //$start_time = date("h:i a", strtotime($start_times));
+				 $end_times = $array[1].':00';	
+                 $start_time  = date("h:i a", strtotime($start_times));	
+                 if($start_times > $end_times) { 
+                 //if($start_times >= 12) { 				 
+                     $end_time1  = date("h:i", strtotime($end_times));
+                     $end_time  = $end_time1.'pm';				
+				 }
+				
+				else{
+					$end_time  = date("h:i a", strtotime($end_times));
+				} 			 
+				//$start_time = date("h:i a", strtotime($start_times));
 				 /*  if($start_times >= 12){
 				  $start_time = date("h:i a.", strtotime($start_times));
 				 }
@@ -495,8 +505,9 @@ class Schedule extends MY_Controller
 				 else{
 					$end_time = date("h:i a", strtotime($end_times));
 				 } */
-				  $start_time = date("h:i a", strtotime($start_times));
-				$end_time = date("h:i a", strtotime($end_times));
+				
+			/* 	$start_time = date("h:i a", strtotime($start_times));
+				$end_time = date("h:i a", strtotime($end_times)); */
 				}else {
 				 $start_time = $time;
 				 $end_time = '';

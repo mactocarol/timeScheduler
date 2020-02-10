@@ -19,9 +19,16 @@
 											if($v['end_time']){
 												$startdatetime = strtotime($v['start_time']);
 												$enddatetime = strtotime($v['end_time']);
-												$difference = $enddatetime - $startdatetime;
-												$hoursDiff = $difference / 3600;
-												$fcount += round($hoursDiff,0);
+												if($enddatetime > $startdatetime){
+														$difference = $enddatetime - $startdatetime;
+														$hoursDiff = $difference / 3600;
+														$fcount += round($hoursDiff,0);
+													}
+													else{
+														$difference = $startdatetime - $enddatetime;
+														$hoursDiff = $difference / 3600;
+														$fcount += round($hoursDiff,0);
+													}
 											} ?>
 											 
 									 <?php 
@@ -72,17 +79,16 @@
 													</div>
 								                  </div>
 												<?php
-											    if($v['end_time']){										
-													 $array = explode(":", $v['end_time']); 
-													 $end_times = $array[0];
-													 
-													 $array1 = explode(":", $v['start_time']); 
-													  $start_times = $array1[0];
-														$hourCount = $hourCount + ($end_times - $start_times);
-														if(!in_array($value['id'],$staffArray)){
-															 $staffArray[] = $value['id'];
-															$peopleCount++;
-														 }
+											   if($v['end_time']){
+													$startdatetime = strtotime($v['start_time']);
+												    $enddatetime = strtotime($v['end_time']);
+												    $difference = $enddatetime - $startdatetime;
+												    $hoursDiff = $hourCount+$difference / 3600;
+												    $hourCount = round($hoursDiff,0);
+												    }
+													if(!in_array($value['id'],$staffArray)){
+														 $staffArray[] = $value['id'];
+														$peopleCount++;
 													}
 
 												}
@@ -173,7 +179,7 @@
 							  <div class="emp">Employees</div>
 							</td>
 						    <td>
-							  <div class="s_hour"><?php echo $hourCount; ?> Hrs</div>
-							  <div class="emp"><?php echo $peopleCount; ?> People</div>
+							  <div class="s_hour"><?php echo (abs($hourCount)); ?> Hrs</div>
+							  <div class="emp"><?php echo (abs($peopleCount)); ?> People</div>
 							</td>
 						</tr>

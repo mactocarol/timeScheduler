@@ -51,7 +51,9 @@
                     <!-- left side -->
                     <!-- Right side -->
                     <div class="controler_right">
-                      
+                      <div class="email_text ctrl_item">
+                        <a href="#" class="text_link" id="emailschedule">Email</a>
+                      </div>
                     <!--  <div class="download_text ctrl_item">
                         <a href="#" class="text_link">Download Schedule</a>
                       </div>-->
@@ -134,9 +136,16 @@
 												if($v['end_time']){
 													$startdatetime = strtotime($v['start_time']);
 													$enddatetime = strtotime($v['end_time']);
-													$difference = $enddatetime - $startdatetime;
-													$hoursDiff = $difference / 3600;
-													$fcount += round($hoursDiff,0);
+													if($enddatetime > $startdatetime){
+														$difference = $enddatetime - $startdatetime;
+														$hoursDiff = $difference / 3600;
+														$fcount += round($hoursDiff,0);
+													}
+													else{
+														$difference = $startdatetime - $enddatetime;
+														$hoursDiff = $difference / 3600;
+														$fcount += round($hoursDiff,0);
+													}
 												}
 										    } 
 									    } 
@@ -980,32 +989,33 @@
 							  <div class="s_hour">Scheduled hours</div>
 							  <div class="emp">Employees</div>
 							</td>
-							<td>
-							  <div class="s_hour"><?php echo $hourCount; ?> Hrs</div>
+							</td>
+								<td>
+							  <div class="s_hour"><?php echo (abs($hourCount)); ?> Hrs</div>
 							  <div class="emp"><?php echo $peopleCount; ?> People</div>
 							</td>
 							<td>
-							   <div class="s_hour"><?php echo $hourCount1; ?> Hrs</div>
+							   <div class="s_hour"><?php echo (abs($hourCount1)); ?> Hrs</div>
 							  <div class="emp"><?php echo $peopleCount1; ?> People</div>
 							</td>
 							<td>
-							   <div class="s_hour"><?php echo $hourCount2; ?> Hrs</div>
+							   <div class="s_hour"><?php echo (abs($hourCount2)); ?> Hrs</div>
 							  <div class="emp"><?php echo $peopleCount2; ?> People</div>
 							</td>
 							<td>
-							   <div class="s_hour"><?php echo $hourCount3; ?> Hrs</div>
+							   <div class="s_hour"><?php echo (abs($hourCount3)); ?> Hrs</div>
 							  <div class="emp"><?php echo $peopleCount3; ?> People</div>
 							</td>
 							<td>
-							   <div class="s_hour"><?php echo $hourCount4; ?> Hrs</div>
+							   <div class="s_hour"><?php echo (abs($hourCount4)); ?> Hrs</div>
 							  <div class="emp"><?php echo $peopleCount4; ?> People</div>
 							</td>
 							<td>
-							   <div class="s_hour"><?php echo $hourCount5; ?> Hrs</div>
+							   <div class="s_hour"><?php echo (abs($hourCount5)); ?> Hrs</div>
 							  <div class="emp"><?php echo $peopleCount5; ?> People</div>
 							</td>
 							<td>
-							   <div class="s_hour"><?php echo $hourCount6; ?> Hrs</div>
+							   <div class="s_hour"><?php echo (abs($hourCount6)); ?> Hrs</div>
 							  <div class="emp"><?php echo $peopleCount6; ?> People</div>
 							</td>
 							 </tr>
