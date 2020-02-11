@@ -452,15 +452,17 @@ class Staff_schedule extends MY_Controller
 				 } */
 				//$start_time = date("h:i a", strtotime($start_times));
 				//$end_time = date("h:i a", strtotime($end_times));
-				$start_time  = date("h:i a", strtotime($start_times));	
-                 if($start_times > $end_times) { 
-                 //if($start_times >= 12) { 				 
-                     $end_time1  = date("h:i", strtotime($end_times));
-                     $end_time  = $end_time1.'pm';				
-				 }
-				
-				else{
+				 if(($array[1]) > ($array[0])) {
+					
+					$start_time  = date("h:i a", strtotime($start_times));	
 					$end_time  = date("h:i a", strtotime($end_times));
+				}
+                else { 
+                 //if($start_times >= 12) { 
+				
+                     $start_time  = date("h:i a", strtotime($start_times));					 
+                     $end_time1  = date("h:i", strtotime($end_times));
+                     $end_time  = $end_time1.' pm';				
 				} 
 				}else {
 				 $start_time = $time;

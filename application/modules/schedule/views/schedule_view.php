@@ -198,8 +198,12 @@
 												    $enddatetime = strtotime($v['end_time']);
 												    $difference = $enddatetime - $startdatetime;
 												    $hoursDiff = $hourCount+$difference / 3600;
-												    $hourCount = round($hoursDiff,0);
-												    }
+													$hourCount = round($hoursDiff,0);
+													 }
+													
+
+
+
 													if(!in_array($value['id'],$staffArray)){
 														 $staffArray[] = $value['id'];
 														$peopleCount++;

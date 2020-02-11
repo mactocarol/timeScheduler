@@ -479,18 +479,22 @@ class Schedule extends MY_Controller
 			$dayvalue = $this->input->post('dayvalue');
 			if (strpos($time, '-') !== false) {
 				 $array = explode("-", $time); 
-				 $start_times = $array[0].':00';
-				 $end_times = $array[1].':00';	
-                 $start_time  = date("h:i a", strtotime($start_times));	
-                 if($start_times > $end_times) { 
-                 //if($start_times >= 12) { 				 
-                     $end_time1  = date("h:i", strtotime($end_times));
-                     $end_time  = $end_time1.'pm';				
-				 }
-				
-				else{
+				$start_times = $array[0].':00';
+				$end_times = $array[1].':00';	
+                if(($array[1]) > ($array[0])) {
+					
+					$start_time  = date("h:i a", strtotime($start_times));	
 					$end_time  = date("h:i a", strtotime($end_times));
-				} 			 
+				}
+                else { 
+                 //if($start_times >= 12) { 
+				
+                     $start_time  = date("h:i a", strtotime($start_times));					 
+                     $end_time1  = date("h:i", strtotime($end_times));
+                     $end_time  = $end_time1.' pm';				
+				}
+				
+				 			 
 				//$start_time = date("h:i a", strtotime($start_times));
 				 /*  if($start_times >= 12){
 				  $start_time = date("h:i a.", strtotime($start_times));
