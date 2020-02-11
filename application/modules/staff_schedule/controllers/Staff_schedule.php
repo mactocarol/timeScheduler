@@ -382,6 +382,7 @@ class Staff_schedule extends MY_Controller
 			//$id = $this->session->userdata('id'); 
             $staff_id = $this->input->post('staff_id');
 			$dayvalue = $this->input->post('dayvalue');
+			if(!empty($this->input->post('comment'))){
 			 $insert=array(    
 					'user_id'=>$this->input->post('staff_id'),		 
 					'business_id'=>$this->input->post('business_id'),			 
@@ -389,7 +390,7 @@ class Staff_schedule extends MY_Controller
 					'comment_date'=>$this->input->post('commentdate'),
 					'is_deleted'=>1
 				);
-           
+            }
 			$new_id = $this->staff_schedule_model->InsertRecord('comments',$insert);
 			if($dayvalue == 2){
 				echo $this->dayCalendar();
@@ -432,6 +433,7 @@ class Staff_schedule extends MY_Controller
             $staff_id = $this->input->post('staff_id');
 		    $time = $this->input->post('start_time');
 			$dayvalue = $this->input->post('dayvalue');
+			if(!empty($time)){ 
 			if (strpos($time, '-') !== false) {
 				 $array = explode("-", $time); 
 				 $start_times = $array[0].':00';
@@ -468,7 +470,7 @@ class Staff_schedule extends MY_Controller
 				 $start_time = $time;
 				 $end_time = '';
 			    }
-			 
+			}
 				 $insert=array(    
 					//'id'=>$id,			 
 					'user_id'=>$this->input->post('staff_id'),		 
