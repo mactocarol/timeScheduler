@@ -861,7 +861,7 @@ class Schedule extends MY_Controller
                     $data11=$this->schedule_model->SelectRecord('user','*',$udata11,$orderby=array());
 					$to = $data11[0]['email'];
 					$sub = "Staff own schedule";
-					//phpmailer($to,$sub,$html.$html2.'</table></div>');
+					phpmailer($to,$sub,$html.$html2.'</table></div>');
 				}
 				
                 	  			
@@ -894,7 +894,7 @@ class Schedule extends MY_Controller
 				$to = $data12[0]['email'];
 				$to = $this->input->post('email');
 				$sub = "Staff full schedule";
-				//phpmailer($to,$sub,$html);
+				phpmailer($to,$sub,$html);
 					
 				}
 			}	 
