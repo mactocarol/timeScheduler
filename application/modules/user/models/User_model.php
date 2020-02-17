@@ -81,4 +81,18 @@ class User_model extends MY_Model
         $query = $this->db->get('users');
         if( $query->num_rows() > 0 ){ return True; } else { return False; }
     }
+	
+	 function getdatapsw($table,$where)
+    {
+    	    $this->db->select('*');
+    	     if(!empty($where))
+    	     {
+    	     	$this->db->where($where);
+    	     }
+             $query=$this->db->get($table)->row_array();
+              // echo $this->db->last_query(); die;
+             return $query;
+
+       
+    }
 }

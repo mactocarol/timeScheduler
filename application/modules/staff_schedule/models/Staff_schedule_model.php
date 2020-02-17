@@ -12,5 +12,18 @@ class Staff_schedule_model extends MY_Model
       // echo $this->db->last_query(); //to check query is right or not;
 		//die;
      }
+	  function getdatapsw($table,$where)
+    {
+    	    $this->db->select('*');
+    	     if(!empty($where))
+    	     {
+    	     	$this->db->where($where);
+    	     }
+             $query=$this->db->get($table)->row_array();
+              // echo $this->db->last_query(); die;
+             return $query;
+
+       
+    }
         
 }

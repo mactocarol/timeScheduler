@@ -1219,7 +1219,59 @@ class Staff_schedule extends MY_Controller
 				echo $this->showCalendar();
 			} 
          }
-		
+		 public function changePassword()
+        {   
+            //$udata=array('admin_id'=>$this->session->userdata('id')); 
+            //$data['businessList']=$this->user_model->SelectRecord('business','*',$udata=array(),'id asc');
+			//print_r($data['businessList']); die;
+			$this->load->view('user/includes/sidebar');
+            $this->load->view('change_password'); 
+            $this->load->view('user/includes/footer');
+        }
+	    public function updatePasswords()
+		{
+			//echo "hi"; die;
+			//$data=new stdClass();
+			$this->form_validation->set_rules('current_password', 'current password', 'required');
+			$this->form_validation->set_rules('new_password', 'new password', 'required');
+			$this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[new_password]');
+			if ($this->form_validation->run() == FALSE)
+		   {
+			  $this->changePassword();
+			//	$this->load->view('vendor/changepassword');
+			//	$this->load->view('vendor/footer');
+			}
+			else
+			 {
+				$postData=$this->input->post();
+					 //  print_r($postData); die;
+				$udata = array("id"=>$this->session->userdata('id'));                
+				$res=$this->staff_schedule_model->getdatapsw('user',$udata);
+				//echo md5($postData['current_password']); 
+				
+				//echo  $res['password']; die;
+				   if(md5($postData['current_password']) == $res['password'])
+				   {
+					   
+					   //echo 'hi'; die;
+						 $new_password=  md5($postData['new_password']);
+						// print_r($new_password); die;
+						$data=$this->staff_schedule_model->UpdateRecord('user',array('password'=>$new_password),array("id"=>$this->session->userdata('id')));
+						 
+					//success           
+				   $this->session->set_flashdata('message','password change successfully');
+				   $this->changePassword();
+					 
+				   }else{
+
+					   
+					  $this->session->set_flashdata('message','current password is not matches');
+					 //redirect('vendor/changepassword');
+					 $this->changePassword();
+				   }
+		  
+			  }
+        }
         
                 		        	
 }

@@ -862,6 +862,7 @@ class Schedule extends MY_Controller
 					$to = $data11[0]['email'];
 					$sub = "Staff own schedule";
 					phpmailer($to,$sub,$html.$html2.'</table></div>');
+					
 				}
 				
                 	  			
@@ -895,7 +896,8 @@ class Schedule extends MY_Controller
 				$to = $this->input->post('email');
 				$sub = "Staff full schedule";
 				phpmailer($to,$sub,$html);
-					
+				
+				
 				}
 			}	 
 			//print_r($insert); die;

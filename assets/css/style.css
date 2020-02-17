@@ -1173,6 +1173,12 @@ td.pad{
 	text-align:center;
 }
 /*=== Email Preview css End ====*/
+/*=== Change pass css End ====*/
+.change_pass_center {
+    max-width: 600px;
+    margin: 0 auto;
+}
+/*=== Change pass css End ====*/
 @media print {
   .verticle_menu {
     display: none !important;

@@ -36,12 +36,12 @@
       <!-- Divider -->
       
       <hr class="sidebar-divider my-0">
-     <!-- <li class="nav-item" data-toggle="modal" data-target="#addshift">-->
+     <!-- <li class="nav-item" data-toggle="modal" data-target="#addshift">
 	  <li class="nav-item" id="addshift">
         <a class="nav-link" href="#">
           <i class="fas fa-user-clock"></i>
           <span>Add Shift</span></a>
-      </li>
+      </li>-->
       <hr class="sidebar-divider my-0">
       <li class="nav-item" id="addtime">
         <a class="nav-link" href="#">
@@ -242,6 +242,10 @@
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>-->
+				<!--<a class="dropdown-item" href="<?php echo base_url(); ?>staff_schedule/changePassword" >
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Change Password
+                </a>-->
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout

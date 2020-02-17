@@ -38,8 +38,69 @@ class User extends MY_Controller
             $this->load->view('login_view',$data);          
         }
 		
-		
-	
+		 public function changePassword()
+        {    $data=new stdClass();        
+            if(!$this->session->userdata('logged_in')){
+                redirect('user');
+            } 
+			$user_type = $this->session->userdata('user_type'); 
+			//print_r($_SESSION); die;
+			if($user_type == 3){
+				redirect('calendar');
+			}
+         
+			
+			//$udata=array('admin_id'=>$this->session->userdata('id')); 
+            //$data['businessList']=$this->user_model->SelectRecord('business','*',$udata=array(),'id asc');
+			//print_r($data['businessList']); die;
+			$this->load->view('admin/includes/header');
+            $this->load->view('change_password'); 
+            $this->load->view('admin/includes/footer');
+        }
+	    public function updatePasswords()
+		{
+			//echo "hi"; die;
+			//$data=new stdClass();
+			$this->form_validation->set_rules('current_password', 'current password', 'required');
+			$this->form_validation->set_rules('new_password', 'new password', 'required');
+			$this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[new_password]');
+			if ($this->form_validation->run() == FALSE)
+		   {
+			  $this->changePassword();
+			//	$this->load->view('vendor/changepassword');
+			//	$this->load->view('vendor/footer');
+			}
+			else
+			 {
+				$postData=$this->input->post();
+					 //  print_r($postData); die;
+				$udata = array("id"=>$this->session->userdata('id'));                
+				$res=$this->user_model->getdatapsw('admin',$udata);
+				//echo md5($postData['current_password']); 
+				
+				//echo  $res['password']; die;
+				   if(md5($postData['current_password']) == $res['password'])
+				   {
+					   
+					   //echo 'hi'; die;
+						 $new_password=  md5($postData['new_password']);
+						// print_r($new_password); die;
+						$data=$this->user_model->UpdateRecord('admin',array('password'=>$new_password),array("id"=>$this->session->userdata('id')));
+						 
+					//success           
+				   $this->session->set_flashdata('message','password change successfully');
+				   $this->changePassword();
+					 
+				   }else{
+
+					   
+					  $this->session->set_flashdata('message','current password is not matches');
+					 //redirect('vendor/changepassword');
+					 $this->changePassword();
+				   }
+		  
+			  }
+        }
         
         public function register(){
             $data=new stdClass();
